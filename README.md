@@ -1,3 +1,5 @@
 # 128-UPdi Ko!
 
-A final project on CMSC 128, a navigation website/application that supports UPV constituents on finding static university services and local establishments.
+Hello to the person who will be committing in this code. Check README.txt. Sorry.
+
+

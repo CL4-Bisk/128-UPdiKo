@@ -1,0 +1,14 @@
+[
+    { 
+        "group": "University Services",
+        "tags" : ["Scholarship", "Register", "Makita si Crush"]
+    },
+    { 
+        "group": "Food Services",
+        "tags" : ["Restaurant", "Cafeteria"]
+    },
+    { 
+        "group": "Entertainment Services",
+        "tags" : ["Bar", "Computer Shop"]
+    }
+]
