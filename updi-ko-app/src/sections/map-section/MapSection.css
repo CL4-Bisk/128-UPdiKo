@@ -1,0 +1,201 @@
+/* Access to global styles */
+@import url('./../../index.css');
+
+/* Page Styles */ 
+.MapSection {
+    position: relative;
+    height: 99vh;
+}
+
+.MapSection .search-bar-container {
+    position: relative;
+    z-index: 110;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-block: var(--mar-12);
+    padding-inline: 5%;
+}
+
+.MapSection .search-bar {
+    background-image: url('./../../images/search-icon.png');
+    background-repeat: no-repeat;
+    background-position: 16px center;
+    background-size: 16px;
+    width: 100%;
+    border-radius: 50px;
+    border: none;
+    padding-block: var(--pad-12);
+    padding-inline-start: var(--pad-48);
+    padding-inline-end: var(--pad-16);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.MapSection .search-bar-container .close-search-menu-btn {
+    position: absolute;
+    top: 50%;
+    left: 36px;
+    transform: translateY(-40%);
+    cursor: pointer;
+}
+
+.MapSection .search-bar-container .clear-input-btn {
+    position: absolute;
+    top: 50%;
+    right: 36px;
+    transform: translateY(-40%);
+    cursor: pointer;
+}
+
+.MapSection .search-bar-container .close-search-menu-btn img,  
+.MapSection .search-bar-container .clear-input-btn img {
+    height: 16px;
+    aspect-ratio: 1/1;
+}
+
+.MapSection .filters-container {
+    position: relative;
+    z-index: 100;
+    display: flex;
+    justify-content: right;
+    padding-inline: 5%;
+}
+
+.MapSection .filters {
+    background-image: url('./../../images/dropdown-icon.png');
+    background-repeat: no-repeat;
+    background-position: calc(100% - var(--pad-12)) center;
+    background-size: 16px;
+    appearance: none;
+    width: 16ch;
+    border-radius: 40px;
+    border: none;
+    padding-block: var(--pad-8);
+    padding-inline: var(--pad-12);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.MapSection .search-menu-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 101;
+    width: var(--screen-width);
+    height: var(--screen-height);
+    background-color: white;
+}
+
+.MapSection .search-menu-container .default-menu {
+    overflow: auto;
+    margin-top: var(--mar-72);
+    height: calc(var(--screen-height) - var(--mar-72));
+    padding-inline: 5%;
+    font-size: var(--fs-14);
+}
+
+.MapSection .search-menu-container .subtitle {
+    color: var(--color-dark);
+}
+
+
+.MapSection .search-menu-container .location {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    gap: var(--mar-12);
+    padding-block: var(--pad-8); 
+    border-bottom: solid 1px var(--color-light);
+}
+
+.MapSection .search-menu-container .location figure {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.MapSection .search-menu-container .location img {
+    height: 20px;
+    aspect-ratio: 1/1;
+    filter: opacity(0.6)  
+}
+
+.MapSection .search-menu-container .location .location-name {
+    font-weight: var(--fw-med);
+}
+
+.MapSection .search-menu-container .location .location-details {
+    font-size: var(--fs-12);
+    color: var(--color-very-dark)
+}
+
+
+.MapSection .map {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.MapSection .map img {
+    width: var(--screen-width);
+    height: var(--screen-height);
+    object-fit: cover;
+}
+
+.MapSection .controls {
+    position: absolute;
+    z-index: 100;
+    bottom: 80px;   
+    right: 5%;
+}
+
+.MapSection .current-location-btn {
+    height: 55px;
+    aspect-ratio: 1/1;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--color-very-dark);
+}
+
+.MapSection .current-location-img {
+    height: 20px;
+    aspect-ratio: 1/1;
+    filter: invert(1);
+}
+
+.MapSection footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 100;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+    background-color: var(--color-very-light);
+}
+
+.MapSection .nav-bar {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    padding-block: var(--pad-8);
+}
+
+.MapSection .navigations {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--fs-12);
+    color: var(--color-dark);
+    cursor: pointer;
+}
+
+.MapSection .navigations img {
+    width: 24px;
+    aspect-ratio: 1/1;
+    filter: opacity(0.5);
+    margin-bottom: var(--mar-4);
+}
+
+
+
+
