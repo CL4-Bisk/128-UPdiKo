@@ -13,6 +13,8 @@ import searchIcon from './../../images/search-icon.png';
 import servicesData from './../../json/tags.json';
 import { useRef } from 'react';
 
+import React from "react";
+import MapView from "./MapView";
 
 function MapSection({isActive, setAppSection, service, setAppService}) {   
     // Hooks for search bar and search bar operations.
@@ -61,6 +63,9 @@ function MapSection({isActive, setAppSection, service, setAppService}) {
 
     // JSON file from tags.json
     const services = servicesData;
+
+    // sample location
+    const userLocation = { lat: 10.641944, lng: 122.235556 };
 
     return (
         (isActive) ? (
@@ -151,7 +156,9 @@ function MapSection({isActive, setAppSection, service, setAppService}) {
                     Also, check the next comment for the controls for the map.
                */}
                 <section className="map">
-                    <img src= {mapImg}></img>
+                    <div style={{ width: "100%", height: "691.6px" }}>
+                        <MapView userLocation={userLocation} />
+                    </div>
                 </section>
 
                 { /* For now, the current-location-btn is here to readjust the map to the current user. */ }                 

@@ -132,6 +132,10 @@
     position: absolute;
     top: 0px;
     left: 0px;
+    width: var(--screen-width);
+    height: var(--screen-height);
+    object-fit: cover;
+    z-index: 0;
 }
 
 .MapSection .map img {
