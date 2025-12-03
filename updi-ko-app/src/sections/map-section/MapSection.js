@@ -66,6 +66,7 @@ function MapSection({isActive, setAppSection, service, setAppService}) {
 
     // sample location
     const userLocation = { lat: 10.641944, lng: 122.235556 };
+    // add more Location as Data 
 
     return (
         (isActive) ? (
