@@ -97,8 +97,8 @@ function StartSection({isActive, setAppSection, setAppService}) {
                             <img src={mapIcon}></img>
                             <p>Map</p>
                         </div>        
-                        <div className="navigations">
-                            <img src={accountIcon}></img>
+                        <div className="navigations" onClick={() => setAppSection("ACCOUNT")}>
+                            <img src={accountIcon} id='account'></img>
                             <p>Account</p>
                         </div>
                     </nav>

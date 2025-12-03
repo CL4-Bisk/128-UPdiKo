@@ -2,6 +2,7 @@ import './App.css'
 import { useState } from 'react';
 import MapSection from './sections/map-section/MapSection'
 import StartSection from './sections/start-section/StartSection';
+import AccountSection from './sections/account-section/AccountSection';
 
 function App() {
 
@@ -24,8 +25,7 @@ function App() {
      * setService function is just what you expect. It is a setter to change the service variable.
      * By default, the service set is All or "all services, no filters".
      */  
-    const [service, setService] = useState("All");
-    
+    const [service, setService] = useState("All");    
     /**
      * This is the returned JSX file. Add more JSX components for future sections.
      * 
@@ -52,6 +52,10 @@ function App() {
                 setAppSection = {setSection} 
                 service = {service}
                 setAppService = {setService}
+            />
+            <AccountSection 
+                isActive = { section === "ACCOUNT"} 
+                setAppSection = {setSection}
             />
         </div>
     );
