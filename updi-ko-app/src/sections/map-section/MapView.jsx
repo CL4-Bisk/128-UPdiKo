@@ -3,9 +3,9 @@ import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import "./MapView.css";
-import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
-import markerIcon from "leaflet/dist/images/marker-icon.png";
-import markerShadow from "leaflet/dist/images/marker-shadow.png";
+import markerIcon2x from "leaflet/dist/images/icons/marker-icon-2x.png";
+import markerIcon from "leaflet/dist/images/icons/marker-icon.png";
+import markerShadow from "leaflet/dist/images/icons/marker-shadow.png";
 
 // fixes icon
 delete L.Icon.Default.prototype._getIconUrl;
