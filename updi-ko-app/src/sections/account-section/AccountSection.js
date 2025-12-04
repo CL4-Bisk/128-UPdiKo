@@ -3,22 +3,32 @@ import dropdownIcon from './../../images/dropdown-icon.png';
 import homeIcon from './../../images/home-icon.png';
 import mapIcon from './../../images/pin-solid-icon.png';
 import accountIcon from './../../images/account-icon.png';
-import StartSection from '../start-section/StartSection.js';
+import accountData from './../../json/accountTags.json';
 import { logOut } from "../../firebase/firebase.js"; 
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 function AccountSection({ isActive, setAppSection }) {
 
-    const [dropdownVisible, setDropdownVisible] = useState(false);
+    const [setDropdownVisible] = useState(false);
 
     function toggleDropdown() {
         setDropdownVisible(prev => !prev);
     }
 
-    async function handleLogout() {
-        await logOut();
-        setAppSection("HOME");  // Push user back home
+    const dropdownsRef = useRef(null);
+    
+    function toggleDropdown(index) {
+        const dropdownsContainer = dropdownsRef.current;        // use current to get the actual element from dropdownsRef
+        const dropdown = dropdownsContainer.querySelectorAll('.service-dropdown .dropdown-option-list')[index];
+        dropdown.classList.toggle("hidden");
     }
+
+    // async function handleLogout() {
+    //     await logOut();
+    //     setAppSection("LOGIN");  // Push user back home
+    // }
+
+    const data = accountData;
 
     return (
         (isActive) ? (
@@ -32,36 +42,31 @@ function AccountSection({ isActive, setAppSection }) {
                     </div>
                 </main>
 
-                {/* ACCOUNT OPTIONS */}
-                <section className="selections">
-                    <div className="service-dropdown">
-
-                        {/* Dropdown header */}
-                        <div className="dropdown-selected-container" onClick={toggleDropdown}>
-                            <p>Account Options</p>
-                            <img src={dropdownIcon} />
-                        </div>
-
-                        {/* Dropdown items */}
-                        <div className={`dropdown-option-list ${dropdownVisible ? "" : "hidden"}`}>
-                            {/* <button className="dropdown-option" onClick={() => setAppSection("EDIT_PROFILE")}>
-                                Edit Profile
-                            </button>
-                            <button className="dropdown-option" onClick={() => setAppSection("CHANGE_PASSWORD")}>
-                                Change Password
-                            </button> */}
-                            <button className="dropdown-option" onClick={handleLogout}>
-                                Logout
-                            </button>
-                        </div>
-
-                    </div>
+                { /* Users see the dropdowns which contains the services they want to get */}
+                <section className="selections" ref={dropdownsRef}>
+                {
+                    data.map((service, index) => (
+                        <div key={index} className="service-dropdown">
+                            <div className="dropdown-selected-container"  onClick= {() => toggleDropdown(index)}>
+                                <p>{service.setting}</p>
+                                <img src={dropdownIcon}></img>
+                            </div>
+                            <div className="dropdown-option-list hidden">
+                                {
+                                    service.tags.map((tag, index) => (
+                                        <button key={index} className="dropdown-option" onClick = {() => setAppSection(tag.toUpperCase())}>{tag}</button>
+                                    ))
+                                }
+                            </div>    
+                        </div>    
+                    ))  
+                }
                 </section>
 
                 {/* NAV BAR */}
                 <footer>
                     <nav className="nav-bar">
-                        <div className="navigations active-section" onClick={() => setAppSection("HOME")}>
+                        <div className="navigations" onClick={() => setAppSection("HOME")}>
                             <img src={homeIcon}></img>
                             <p>Home</p>
                         </div>
@@ -69,30 +74,12 @@ function AccountSection({ isActive, setAppSection }) {
                             <img src={mapIcon}></img>
                             <p>Map</p>
                         </div>        
-                        <div className="navigations" onClick={() => setAppSection("ACCOUNT")}>
+                        <div className="navigations active-section" onClick={() => setAppSection("ACCOUNT")}>
                             <img src={accountIcon} id='account'></img>
                             <p>Account</p>
                         </div>
                     </nav>
                 </footer>
-
-                {/* <div className="Account">
-                    <StartSection 
-                        isActive = { section  === "LOGIN"} 
-                        setAppSection = {setSection}  
-                        setAppService = {setService}
-                    />
-                    <MapSection 
-                        isActive = { section === "SIGNUP"} 
-                        setAppSection = {setSection} 
-                        setAppService = {setService}
-                    />
-                    <AccountSection 
-                        isActive = { section === "ACCOUNT"} 
-                        setAppSection = {setSection}
-                    />
-                </div> */}
-
             </div>
         ) : <></>
     );

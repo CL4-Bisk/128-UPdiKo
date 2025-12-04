@@ -10,6 +10,7 @@ import mapIcon from './../../images/pin-solid-icon.png'
 import accountIcon from './../../images/account-icon.png'
 import servicesData from './../../json/tags.json';
 import { useRef } from 'react';
+import { onAuthStateChangedListener } from '../../firebase/firebase.js'
 
 function StartSection({isActive, setAppSection, setAppService}) {
     /**
@@ -33,6 +34,16 @@ function StartSection({isActive, setAppSection, setAppService}) {
      * (just like document.getElementByID() :0)
      * 
      */
+
+    onAuthStateChangedListener(async (user) => {
+        if (user) {
+            console.log(`User logged in -\nName: ${user.displayName}\nEmail: ${user.email}\nUID: ${user.uid}`);
+        } else {
+            console.log("wala user eh :)");
+        }
+    })
+
+
     const dropdownsRef = useRef(null);
 
     function toggleDropdown(index) {

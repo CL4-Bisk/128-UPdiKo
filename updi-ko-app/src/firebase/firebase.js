@@ -55,8 +55,15 @@ export async function logIn(email, password) {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     return userCredential.user;
   } catch (error) {
-    console.error("Error logging in:", error);
-    throw error;
+    if (error.code === "auth/invalid-credential") {
+      console.error("Incorrect password. Please try again.");
+      throw error;
+    } 
+    if (error.code === "auth/invalid-email") {
+      console.error("User not found. Please sign up.");
+      throw error;
+    }
+    return;
   }
 }
 
