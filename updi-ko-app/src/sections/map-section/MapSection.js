@@ -13,8 +13,9 @@ import searchIcon from './../../images/icons/search-icon.png';
 import servicesData from './../../json/tags.json';
 import { useRef } from 'react';
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MapView from "./MapView";
+import SearchBar from "./SearchBar";
 
 function MapSection({isActive, setAppSection, service, setAppService}) {   
     // Hooks for search bar and search bar operations.
@@ -65,6 +66,24 @@ function MapSection({isActive, setAppSection, service, setAppService}) {
     const services = servicesData;
 
     // sample location
+    // const userLocation = { lat: 10.641944, lng: 122.235556 };
+
+    const [userLocation, setUserLocation] = useState(null);
+    const [searchMarker, setSearchMarker] = useState(null);
+
+  useEffect(() => {
+    if (!navigator.geolocation) return;
+
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setUserLocation({
+          lat: pos.coords.latitude,
+          lng: pos.coords.longitude,
+        });
+      },
+      (err) => console.error(err)
+    );
+  }, []);
     const userLocation = { lat: 10.641944, lng: 122.235556 };
     // add more Location as Data 
 
@@ -74,10 +93,23 @@ function MapSection({isActive, setAppSection, service, setAppService}) {
                 
                 { /* This contains the search bar and filter dropdown at the top of the page*/}
                 <header>
-                    <div className="search-bar-container" ref={searchBarContainerRef}>
+                    {/* <div className="search-bar-container" ref={searchBarContainerRef}>
                         <figure className='close-search-menu-btn hidden' ref={backButtonRef} onClick={closeSearchMenu}><img src={backIcon}></img></figure>
                         <input className="search-bar" type="text" placeholder="Search" onFocus={openSearchMenu}></input>
                         <figure className='clear-input-btn hidden' ref={clearButtonRef} onClick={clearSearchBar}><img src={closeIcon}></img></figure>
+                    </div> */}
+
+                    <div
+                        style={{
+                        position: "absolute",
+                        top: "10px",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        width: "90%",
+                        zIndex: 1000,
+                        }}
+                    >
+                        <SearchBar onSelectLocation={(loc) => setSearchMarker(loc)} />
                     </div>
 
                     <div className="filters-container">
@@ -158,7 +190,7 @@ function MapSection({isActive, setAppSection, service, setAppService}) {
                */}
                 <section className="map">
                     <div style={{ width: "100%", height: "691.6px" }}>
-                        <MapView userLocation={userLocation} />
+                        <MapView userLocation={userLocation} searchMarker={searchMarker} />
                     </div>
                 </section>
 
