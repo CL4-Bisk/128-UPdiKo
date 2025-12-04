@@ -4,10 +4,10 @@
  * 
  */ 
 import './StartSection.css'
-import dropdownIcon from './../../images/dropdown-icon.png'
-import homeIcon from './../../images/home-icon.png'
-import mapIcon from './../../images/pin-solid-icon.png'
-import accountIcon from './../../images/account-icon.png'
+import dropdownIcon from './../../images/icons/dropdown-icon.png'
+import homeIcon from './../../images/icons/home-icon.png'
+import mapIcon from './../../images/icons/pin-solid-icon.png'
+import accountIcon from './../../images/icons/account-icon.png'
 import servicesData from './../../json/tags.json';
 import { useRef } from 'react';
 import { onAuthStateChangedListener } from '../../firebase/firebase.js'

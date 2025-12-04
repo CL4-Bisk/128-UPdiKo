@@ -1,0 +1,301 @@
+[
+  {
+    "id": 1,
+    "name": "E&T Laundry Shop",
+    "type": "Laundry",
+    "opening-hours": [
+      "Everyday: 8am - 5pm"
+    ],
+    "contact-info": [
+      "Phone: 9925372083",
+      "Phone: 9163289507"
+    ],
+    "address": "",
+    "social-media": [],
+    "reformat-coords": [
+      10.641202,
+      122.233722
+    ],
+    "images": []
+  },
+  {
+    "id": 2,
+    "name": "Green Ribbon",
+    "type": "Grocery",
+    "opening-hours": [
+      "Everyday: 8am - 6pm"
+    ],
+    "contact-info": [],
+    "address": "",
+    "social-media": [],
+    "reformat-coords": [
+      10.640541,
+      122.236712
+    ],
+    "images": []
+  },
+  {
+    "id": 3,
+    "name": "Nulada's Trading 12",
+    "type": "Grocery",
+    "opening-hours": [
+      "Everyday: 7am - 8pm"
+    ],
+    "contact-info": [],
+    "address": "",
+    "social-media": [],
+    "reformat-coords": [
+      10.641363,
+      122.237085
+    ],
+    "images": []
+  },
+  {
+    "id": 4,
+    "name": "Nochete",
+    "type": "Legal Services",
+    "opening-hours": [
+      "Weekdays: 8:30AM - 12PM",
+      "Weekdays: 1PM - 4PM"
+    ],
+    "contact-info": [],
+    "address": "",
+    "social-media": [],
+    "reformat-coords": [
+      10.641176,
+      122.235082
+    ],
+    "images": []
+  },
+  {
+    "id": 5,
+    "name": "Law office of atty. Mark Justic Mooc",
+    "type": "Legal Services",
+    "opening-hours": [
+      "Weekdays: 8:30am - 11:30am",
+      "Weekdays: 1pm - 4:30pm"
+    ],
+    "contact-info": [],
+    "address": "",
+    "social-media": [],
+    "reformat-coords": [
+      10.642468,
+      122.235997
+    ],
+    "images": []
+  },
+  {
+    "id": 6,
+    "name": "Kandingan sa Tacas Miagao",
+    "type": "Eatery",
+    "opening-hours": [
+      "Sun to Fri: 6am - 8pm"
+    ],
+    "contact-info": [
+      "Phone: 9991940327"
+    ],
+    "address": "",
+    "social-media": [],
+    "reformat-coords": [
+      10.642674,
+      122.234608
+    ],
+    "images": []
+  },
+  {
+    "id": 7,
+    "name": "AK sisig house Box 1",
+    "type": "Eatery",
+    "opening-hours": [
+      "Everyday: 6:30am - 9pm"
+    ],
+    "contact-info": [],
+    "address": "",
+    "social-media": [],
+    "reformat-coords": [
+      10.640435,
+      122.231978
+    ],
+    "images": []
+  },
+  {
+    "id": 8,
+    "name": "Mercury Drug Store",
+    "type": "Pharmacy",
+    "opening-hours": [
+      "Everyday: 7am - 8pm"
+    ],
+    "contact-info": [],
+    "address": "",
+    "social-media": [],
+    "reformat-coords": [
+      10.641182,
+      122.234390
+    ],
+    "images": []
+  },
+  {
+    "id": 9,
+    "name": "Farmacia Elna",
+    "type": "Pharmacy",
+    "opening-hours": [
+      "Everyday: 7:30am - 5:30pm",
+      "Sunday: 7am - 5pm"
+    ],
+    "contact-info": [],
+    "address": "",
+    "social-media": [],
+    "reformat-coords": [
+      10.640840,
+      122.236847
+    ],
+    "images": []
+  },
+  {
+    "id": 10,
+    "name": "Double Check - Barber shop",
+    "type": "Barber",
+    "opening-hours": [
+      "Everyday: 6am - 5pm"
+    ],
+    "contact-info": [],
+    "address": "",
+    "social-media": [],
+    "reformat-coords": [
+      10.641126,
+      122.237447
+    ],
+    "images": []
+  },
+  {
+    "id": 11,
+    "name": "KC's BarberShop",
+    "type": "Barber",
+    "opening-hours": [
+      "Everyday: 6:30am - 5pm"
+    ],
+    "contact-info": [],
+    "address": "",
+    "social-media": [],
+    "reformat-coords": [
+      10.640988,
+      122.237640
+    ],
+    "images": []
+  },
+  {
+    "id": 12,
+    "name": "Printlab by Stanphil",
+    "type": "Media and Printing",
+    "opening-hours": [
+      "Weekdays: 9am - 6pm"
+    ],
+    "contact-info": [],
+    "address": "2nd Flr., Nite Plaza Commercial Building",
+    "social-media": [],
+    "reformat-coords": [
+      10.641780,
+      122.234923
+    ],
+    "images": []
+  },
+  {
+    "id": 13,
+    "name": "Mitsubishi Digital",
+    "type": "Media and Printing",
+    "opening-hours": [
+      "Everyday: 8am - 5pm"
+    ],
+    "contact-info": [],
+    "address": "",
+    "social-media": [],
+    "reformat-coords": [
+      10.642180,
+      122.236290
+    ],
+    "images": []
+  },
+  {
+    "id": 14,
+    "name": "RD Pawnshop",
+    "type": "Pawnshop",
+    "opening-hours": [
+      "Everyday: 8am - 5pm",
+      "Sunday: 9am - 5pm"
+    ],
+    "contact-info": [],
+    "address": "",
+    "social-media": [],
+    "reformat-coords": [
+      10.641579,
+      122.236402
+    ],
+    "images": []
+  },
+  {
+    "id": 15,
+    "name": "Palawan Pawnshop",
+    "type": "Pawnshop",
+    "opening-hours": [
+      "Everyday: 8am - 5:30pm"
+    ],
+    "contact-info": [],
+    "address": "",
+    "social-media": [],
+    "reformat-coords": [
+      10.641117,
+      122.237603
+    ],
+    "images": []
+  },
+  {
+    "id": 16,
+    "name": "Las Hijas",
+    "type": "Study",
+    "opening-hours": [
+      "Everyday: 10am - 9pm"
+    ],
+    "contact-info": [
+      "Phone: 9277317956"
+    ],
+    "address": "",
+    "social-media": [],
+    "reformat-coords": [
+      10.641174,
+      122.235056
+    ],
+    "images": []
+  },
+  {
+    "id": 17,
+    "name": "Studio SG",
+    "type": "Study",
+    "opening-hours": [
+      "Sun to Thu: 11am - 11pm"
+    ],
+    "contact-info": [],
+    "address": "",
+    "social-media": [],
+    "reformat-coords": [
+      10.640684,
+      122.233392
+    ],
+    "images": []
+  },
+  {
+    "id": 18,
+    "name": "Flippers E-Sports Cafe",
+    "type": "Computer Shop",
+    "opening-hours": [
+      "Everyday: 24/7"
+    ],
+    "contact-info": [],
+    "address": "",
+    "social-media": [],
+    "reformat-coords": [
+      10.642304,
+      122.234654
+    ],
+    "images": []
+  }
+]

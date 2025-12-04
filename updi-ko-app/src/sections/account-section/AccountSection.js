@@ -1,10 +1,10 @@
 import './AccountSection.css';
-import dropdownIcon from './../../images/dropdown-icon.png';
-import homeIcon from './../../images/home-icon.png';
-import mapIcon from './../../images/pin-solid-icon.png';
-import accountIcon from './../../images/account-icon.png';
+import dropdownIcon from './../../images/icons/dropdown-icon.png'
+import homeIcon from './../../images/icons/home-icon.png'
+import mapIcon from './../../images/icons/pin-solid-icon.png'
+import accountIcon from './../../images/icons/account-icon.png'
 import accountData from './../../json/accountTags.json';
-import { logOut } from "../../firebase/firebase.js"; 
+import { logOut } from '../../firebase/firebase.js';
 import { useRef, useState } from "react";
 
 function AccountSection({ isActive, setAppSection }) {
@@ -23,10 +23,12 @@ function AccountSection({ isActive, setAppSection }) {
         dropdown.classList.toggle("hidden");
     }
 
-    // async function handleLogout() {
-    //     await logOut();
-    //     setAppSection("LOGIN");  // Push user back home
-    // }
+    async function handleTag(tag) {
+        if (tag === "logout") {
+            await logOut();
+            setAppSection("LOGIN");  // Push user back home
+        }
+    }
 
     const data = accountData;
 
@@ -54,7 +56,7 @@ function AccountSection({ isActive, setAppSection }) {
                             <div className="dropdown-option-list hidden">
                                 {
                                     service.tags.map((tag, index) => (
-                                        <button key={index} className="dropdown-option" onClick = {() => setAppSection(tag.toUpperCase())}>{tag}</button>
+                                        <button key={index} className="dropdown-option" onClick = { () => handleTag(tag.toLowerCase())}>{tag}</button>
                                     ))
                                 }
                             </div>    

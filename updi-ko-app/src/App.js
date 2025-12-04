@@ -63,7 +63,7 @@ function App() {
             </div>
             <div className='AccountUI'>
                 <LoginSection 
-                    isActive = { section === "LOGIN" || section === "LOGOUT"} 
+                    isActive = { section === "LOGIN"} 
                     setAppSection = {setSection}
                 />
                 <RegisterSection 
