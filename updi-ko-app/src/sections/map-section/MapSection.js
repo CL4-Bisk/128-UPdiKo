@@ -1,15 +1,15 @@
 import './MapSection.css'
 
-import mapImg from './../../images/map-template-example.png'
-import homeIcon from './../../images/home-icon.png'
-import mapIcon from './../../images/pin-solid-icon.png'
-import accountIcon from './../../images/account-icon.png'
-import menuIcon from './../../images/menu-icon.png'
-import compassIcon from './../../images/compass-icon.png'
-import recentIcon from './../../images/recent-icon.png'
-import closeIcon from './../../images/close-icon.png'
-import backIcon from './../../images/back-icon.png'
-import searchIcon from './../../images/search-icon.png';
+import mapImg from './../../images/icons/map-template-example.png'
+import homeIcon from './../../images/icons/home-icon.png'
+import mapIcon from './../../images/icons/pin-solid-icon.png'
+import accountIcon from './../../images/icons/account-icon.png'
+import menuIcon from './../../images/icons/menu-icon.png'
+import compassIcon from './../../images/icons/compass-icon.png'
+import recentIcon from './../../images/icons/recent-icon.png'
+import closeIcon from './../../images/icons/close-icon.png'
+import backIcon from './../../images/icons/back-icon.png'
+import searchIcon from './../../images/icons/search-icon.png';
 import servicesData from './../../json/tags.json';
 import { useRef } from 'react';
 
@@ -84,6 +84,8 @@ function MapSection({isActive, setAppSection, service, setAppService}) {
       (err) => console.error(err)
     );
   }, []);
+    const userLocation = { lat: 10.641944, lng: 122.235556 };
+    // add more Location as Data 
 
     return (
         (isActive) ? (
@@ -210,7 +212,7 @@ function MapSection({isActive, setAppSection, service, setAppService}) {
                             <img src={mapIcon}></img>
                             <p>Map</p>
                         </div>        
-                        <div className="navigations">
+                        <div className="navigations" onClick={() => setAppSection("ACCOUNT")}>
                             <img src={accountIcon}></img>
                             <p>Account</p>
                         </div>

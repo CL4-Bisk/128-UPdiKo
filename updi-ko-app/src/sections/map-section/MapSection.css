@@ -18,7 +18,7 @@
 }
 
 .MapSection .search-bar {
-    background-image: url('./../../images/search-icon.png');
+    background-image: url('./../../images/icons/search-icon.png');
     background-repeat: no-repeat;
     background-position: 16px center;
     background-size: 16px;
@@ -62,7 +62,7 @@
 }
 
 .MapSection .filters {
-    background-image: url('./../../images/dropdown-icon.png');
+    background-image: url('./../../images/icons/dropdown-icon.png');
     background-repeat: no-repeat;
     background-position: calc(100% - var(--pad-12)) center;
     background-size: 16px;
