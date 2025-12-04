@@ -180,7 +180,7 @@ function MapSection({isActive, setAppSection, service, setAppService}) {
                             <img src={mapIcon}></img>
                             <p>Map</p>
                         </div>        
-                        <div className="navigations">
+                        <div className="navigations" onClick={() => setAppSection("ACCOUNT")}>
                             <img src={accountIcon}></img>
                             <p>Account</p>
                         </div>
