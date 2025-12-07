@@ -157,7 +157,7 @@ function MapSection({isActive, setAppSection, service, setAppService}) {
                     Also, check the next comment for the controls for the map.
                */}
                 <section className="map">
-                    <div style={{ width: "100%", height: "691.6px" }}>
+                    <div style={{ width: "100%", height: "93%" }}>
                         <MapView userLocation={userLocation} />
                     </div>
                 </section>

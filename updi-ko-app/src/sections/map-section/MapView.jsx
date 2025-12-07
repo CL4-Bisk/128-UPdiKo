@@ -7,6 +7,8 @@ import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import { onAuthStateChangedListener, getPinnedLocationsFromDB } from "../../firebase/firebase.js";
+import Miagao from "../../json/miagao-facilities.json"
+import Campus from "../../json/campus-facilities.json"
 
 let currentUser = null;
 let userPinnedLocations = [];
@@ -41,12 +43,29 @@ onAuthStateChangedListener(async (user) => {
   }
 });
 
+function getMarkerInfo(loc, markerName, setSelectedMarkerInfo) {
+  let markerInfo;
+  if (loc === "Miagao") {
+    markerInfo = Miagao.find((m) => m.name === markerName);
+  } else if (loc === "Campus") {
+    markerInfo = Campus.find((m) => m.name === markerName);
+  }
+  // else {
+  //   markerInfo = USER.find((m) => m.name === marker);
+  // }
+
+  setSelectedMarkerInfo(markerInfo);
+  console.log(markerInfo);
+}
+
+
 // main map element
 const MapView = ({ userLocation }) => {
   const defaultCenter = [10.641944, 122.235556];
   const [center, setCenter] = useState(defaultCenter);
   const [loading, setLoading] = useState(true);
   const [pinnedLocations, setPinnedLocations] = useState([]); // NEW
+  const [selectedMarkerInfo, setSelectedMarkerInfo] = useState(null); // NEW state
 
   useEffect(() => {
     if (userLocation) {
@@ -85,24 +104,33 @@ const MapView = ({ userLocation }) => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={center}>
+        {/* <Marker position={center}>
           <Popup>You are here</Popup>
-        </Marker>
+        </Marker> */}
         {pinnedLocations.map((pin) => (
           <Marker key={pin.id} position={[pin.latitude, pin.longitude]}>
             <Popup>{pin.locationName}</Popup>
           </Marker>
         ))}
-        <Marker position={[10.640435, 122.231978]}>
-          <Popup>AK Sisig House Box</Popup>
-        </Marker>
-        <Marker position={[10.641780, 122.234923]}>
-          <Popup>Printlab by Stanphil</Popup>
-        </Marker>
-        <Marker position={[10.642304, 122.234654]}>
-          <Popup>Flippers E-Sports Cafe</Popup>
-        </Marker>
+        {Miagao.map((facility) => (
+          <Marker key={facility.id} position={facility.reformat_coords} eventHandlers={{ click: () => {getMarkerInfo("Miagao", facility.name, setSelectedMarkerInfo);} }}>
+            <Popup>{facility.name}</Popup>
+          </Marker>
+        ))}
+        {Campus.map((facility) => (
+          <Marker key={facility.id} position={facility.reformat_coords} eventHandlers={{ click: () => {getMarkerInfo("Campus", facility.name, setSelectedMarkerInfo);} }}>
+            <Popup>{facility.name}</Popup>
+          </Marker>
+        ))}
+        
       </MapContainer>
+      {selectedMarkerInfo && (
+        <div className="marker-info-panel">
+          <h2>{selectedMarkerInfo.name}</h2>
+          {selectedMarkerInfo.}
+          <button onClick={() => setSelectedMarkerInfo(null)}>Close</button>
+        </div>
+      )}
     </div>
   );
 };
