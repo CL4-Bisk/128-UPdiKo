@@ -2,6 +2,7 @@
     {
         "id": 1,
         "name": "Teaching And Learning Resource Center (TLRC)",
+        "type": "Fixed/Services",
         "address": "LG/F College Union Building, UPV Miagao, Iloilo, 5023",
         "reformat-coords": [
         10.641805,
@@ -15,15 +16,15 @@
         "Phone: (033) 315-8908"
         ],
         "services": {
-            "global":[
-                "Total Big-Time Access Card (TBAC) Services",
-                "Computer Use Services",
-                "Printing and Photocopying Services (Need TBAC)",
-                "Request for Use of Facilities and Learning Spaces",
-                "Document Job Solutions (Lamination, Ring Binding, and Scanning) Services (Need TBAC)",
-                "Peer Tutorial Program Services",
-                "Student Lounge"
-            ]
+        "global": [
+            "Total Big-Time Access Card (TBAC) Services",
+            "Computer Use Services",
+            "Printing and Photocopying Services (Need TBAC)",
+            "Request for Use of Facilities and Learning Spaces",
+            "Document Job Solutions (Lamination, Ring Binding, and Scanning) Services (Need TBAC)",
+            "Peer Tutorial Program Services",
+            "Student Lounge"
+        ]
         },
         "images": [],
         "additiona-info": {
@@ -32,9 +33,10 @@
         "link-based": []
         }
     },
-        {
+    {
         "id": 2,
         "name": "College Of Arts And Sciences - Office Of The College Secretary",
+        "type": "Fixed/Services",
         "address": "Tomas Fonacier Building, UPV Miagao, Iloilo, 5023",
         "reformat-coords": [
         10.640630,
@@ -91,6 +93,7 @@
     {
         "id": 3,
         "name": "Cash office (Accounting)",
+        "type": "Fixed/Services",
         "address": "1/F New Administration Building, UPV Miagao, Iloilo, 5023",
         "reformat-coords": [
         10.641805,
@@ -134,6 +137,7 @@
     {
         "id": 4,
         "name": "Office Of The University Registrar",
+        "type": "Fixed/Services",
         "address": "The University Registrar 1/F New Administration Building, UPV Miagao, Iloilo, 5023",
         "reformat-coords": [
         10.641890,
@@ -181,6 +185,7 @@
     {
         "id": 5,
         "name": "ATM",
+        "type": "Fixed/Services",
         "address": "1/F New Administration Building, UPV Miagao, Iloilo, 5023",
         "reformat-coords": [
         10.641905,
@@ -201,6 +206,7 @@
     {
         "id": 6,
         "name": "Common Dining Hall (CDH)",
+        "type": "Fixed/Services",
         "address": "UP Visayas, Miagao, 5023 Iloilo",
         "reformat-coords": [
         10.649238,
@@ -221,6 +227,7 @@
     {
         "id": 7,
         "name": "Health Services Unit",
+        "type": "Fixed/Services",
         "address": "Infirmary Building, UPV Miagao, Iloilo, 5023",
         "reformat-coords": [
         10.645903,
@@ -261,6 +268,7 @@
     {
         "id": 8,
         "name": "Balay Apitong",
+        "type": "Fixed/Services",
         "address": "Balay Apitong, UP Visayas, Miagao, Iloilo",
         "reformat-coords": [
         10.648773,
@@ -285,6 +293,7 @@
     {
         "id": 9,
         "name": "Balay Lampirong",
+        "type": "Fixed/Services",
         "address": "Balay Lampirong, UP Visayas, Miagao, Iloilo",
         "reformat-coords": [
         10.648625,
@@ -309,6 +318,7 @@
     {
         "id": 10,
         "name": "Balay Kanlaon",
+        "type": "Fixed/Services",
         "address": "Balay Kanlaon, UP Visayas, Miagao, Iloilo",
         "reformat-coords": [
         10.649863,
@@ -333,6 +343,7 @@
     {
         "id": 11,
         "name": "Balay Gumamela",
+        "type": "Fixed/Services",
         "address": "Balay Gumamela, UP Visayas, Miagao, Iloilo",
         "reformat-coords": [
         10.649226,
@@ -357,6 +368,7 @@
     {
         "id": 12,
         "name": "Balay Madyaas",
+        "type": "Fixed/Services",
         "address": "Balay Madyaas, UP Visayas , Miagao, Iloilo",
         "reformat-coords": [
         10.650071,
@@ -381,6 +393,7 @@
     {
         "id": 13,
         "name": "Balay Miagos",
+        "type": "Fixed/Services",
         "address": "Balay Miagos, UP Visayas, Miagao, Iloilo",
         "reformat-coords": [
         10.649753,
@@ -404,6 +417,7 @@
     {
         "id": 14,
         "name": "UPV International Dorm",
+        "type": "Fixed/Services",
         "address": "UPV International Dorm, UPV Miagao, Iloilo",
         "reformat-coords": [
         10.649508,
