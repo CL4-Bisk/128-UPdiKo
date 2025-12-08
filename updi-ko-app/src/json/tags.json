@@ -1,7 +1,15 @@
 [
     { 
         "group": "University Services",
-        "tags" : ["Scholarship", "Register", "Makita si Crush"]
+        "tags" : [
+            "Scholarship",
+            "Register",
+            "College Building",
+            "Dormitory",
+            "Library",
+            "Clinic",
+            "Student Lounge"
+        ]
     },
     { 
         "group": "Food Services",
@@ -10,5 +18,18 @@
     { 
         "group": "Entertainment Services",
         "tags" : ["Bar", "Computer Shop"]
+    },
+    { 
+        "group": "Other Services",
+        "tags" : [
+            "Convenience Store",
+            "Grocery",
+            "Printer",
+            "Laundry",
+            "Legal Services",
+            "Pharmacy",
+            "Barber Shop",
+            "Pawnshop"
+        ]
     }
 ]

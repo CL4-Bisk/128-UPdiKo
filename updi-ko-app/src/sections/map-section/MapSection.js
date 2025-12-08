@@ -81,7 +81,11 @@ function MapSection({isActive, setAppSection, service, setAppService}) {
                     </div>
 
                     <div className="filters-container">
-                        <select className="filters" defaultValue={service}>
+                        <select 
+                            className="filters" 
+                            value={service}
+                            onChange={(e) => setAppService(e.target.value)}
+                        >
                             <option value="All">All</option>
                             {
                                 services.map((service) => (
@@ -158,7 +162,7 @@ function MapSection({isActive, setAppSection, service, setAppService}) {
                */}
                 <section className="map">
                     <div style={{ width: "100%", height: "93%" }}>
-                        <MapView userLocation={userLocation} />
+                        <MapView userLocation={userLocation} selectedService={service}/>
                     </div>
                 </section>
 

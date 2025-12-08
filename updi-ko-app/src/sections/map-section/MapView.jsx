@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -24,9 +24,16 @@ L.Icon.Default.mergeOptions({
 // responds to location change
 function ChangeView({ center }) {
   const map = useMap();
+  const prevCenter = useRef(center);
+  
   useEffect(() => {
-    if (center) map.setView(center);
+    // Only update if center coordinates actually changed
+    if (center && (prevCenter.current[0] !== center[0] || prevCenter.current[1] !== center[1])) {
+      map.setView(center);
+      prevCenter.current = center;
+    }
   }, [center, map]);
+
   return null;
 }
 
@@ -60,7 +67,7 @@ function getMarkerInfo(loc, markerName, setSelectedMarkerInfo) {
 
 
 // main map element
-const MapView = ({ userLocation }) => {
+const MapView = ({ userLocation, selectedService }) => {
   const defaultCenter = [10.641944, 122.235556];
   const [center, setCenter] = useState(defaultCenter);
   const [loading, setLoading] = useState(true);
@@ -96,6 +103,13 @@ const MapView = ({ userLocation }) => {
     );
   }
 
+  const shouldShowMarker = (facility) => {
+    if (selectedService === "All") return true;
+    
+    // Check if facility has a tags array and if it includes the selected service
+    return facility.tags && facility.tags.includes(selectedService);
+  };
+
   return (
     <div className="map-container">
       <MapContainer center={center} zoom={15} style={{ width: "100%", height: "100%" }} zoomControl={false}>
@@ -112,12 +126,12 @@ const MapView = ({ userLocation }) => {
             <Popup>{pin.locationName}</Popup>
           </Marker>
         ))}
-        {Miagao.map((facility) => (
+        {Miagao.filter(shouldShowMarker).map((facility) => (
           <Marker key={facility.id} position={facility.reformat_coords} eventHandlers={{ click: () => {getMarkerInfo("Miagao", facility.name, setSelectedMarkerInfo);} }}>
             <Popup>{facility.name}</Popup>
           </Marker>
         ))}
-        {Campus.map((facility) => (
+        {Campus.filter(shouldShowMarker).map((facility) => (
           <Marker key={facility.id} position={facility.reformat_coords} eventHandlers={{ click: () => {getMarkerInfo("Campus", facility.name, setSelectedMarkerInfo);} }}>
             <Popup>{facility.name}</Popup>
           </Marker>
@@ -127,7 +141,32 @@ const MapView = ({ userLocation }) => {
       {selectedMarkerInfo && (
         <div className="marker-info-panel">
           <h2>{selectedMarkerInfo.name}</h2>
-          {selectedMarkerInfo.}
+          <p>{selectedMarkerInfo.type}</p>
+          <p>{selectedMarkerInfo.address}</p>
+          
+          {selectedMarkerInfo.opening_hours && selectedMarkerInfo.opening_hours.length > 0 && (
+            <div>
+              <br></br>
+              <h3>Opening Hours</h3>
+              <ul>
+                {selectedMarkerInfo.opening_hours.map((hour, index) => (
+                  <li key={index}>{hour}</li>
+                ))}
+              </ul>
+            </div>
+          )} 
+
+          {selectedMarkerInfo.contact_info && selectedMarkerInfo.contact_info.length > 0 && (
+            <div>
+              <br></br>
+              <h3>Contact Information</h3>
+              <ul>
+                {selectedMarkerInfo.contact_info.map((info, index) => (
+                  <li key={index}>{info}</li>
+                ))}
+              </ul>
+            </div>
+          )}         
           <button onClick={() => setSelectedMarkerInfo(null)}>Close</button>
         </div>
       )}

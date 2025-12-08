@@ -4,25 +4,26 @@
     "name": "E&T Laundry Shop",
     "type": "Miagao/Laundry",
     "address": "",
-    "reformat-coords": [
+    "reformat_coords": [
       10.641202,
       122.233722
     ],
-    "opening-hours": [
+    "opening_hours": [
       "Everyday: 8am - 5pm"
     ],
-    "contact-info": [
+    "contact_info": [
       "Phone: 9925372083",
       "Phone: 9163289507"
     ],
     "services": {
       "global": []
     },
+    "tags": ["Laundry"],
     "images": [],
-    "additiona-info": {
-      "text-based": [],
-      "image-based": [],
-      "link-based": []
+    "additional_info": {
+      "text_based": [],
+      "image_based": [],
+      "link_based": []
     }
   },
   {
@@ -30,22 +31,23 @@
     "name": "Green Ribbon",
     "type": "Miagao/Grocery",
     "address": "",
-    "reformat-coords": [
+    "reformat_coords": [
       10.640541,
       122.236712
     ],
-    "opening-hours": [
+    "opening_hours": [
       "Everyday: 8am - 6pm"
     ],
-    "contact-info": [],
+    "contact_info": [],
     "services": {
       "global": []
     },
+    "tags": ["Grocery"],
     "images": [],
-    "additiona-info": {
-      "text-based": [],
-      "image-based": [],
-      "link-based": []
+    "additional_info": {
+      "text_based": [],
+      "image_based": [],
+      "link_based": []
     }
   },
   {
@@ -53,22 +55,23 @@
     "name": "Nulada's Trading 12",
     "type": "Miagao/Grocery",
     "address": "",
-    "reformat-coords": [
+    "reformat_coords": [
       10.641363,
       122.237085
     ],
-    "opening-hours": [
+    "opening_hours": [
       "Everyday: 7am - 8pm"
     ],
-    "contact-info": [],
+    "contact_info": [],
     "services": {
       "global": []
     },
+    "tags": ["Grocery"],
     "images": [],
-    "additiona-info": {
-      "text-based": [],
-      "image-based": [],
-      "link-based": []
+    "additional_info": {
+      "text_based": [],
+      "image_based": [],
+      "link_based": []
     }
   },
   {
@@ -76,23 +79,24 @@
     "name": "Nochete",
     "type": "Miagao/Legal-Services",
     "address": "",
-    "reformat-coords": [
+    "reformat_coords": [
       10.641176,
       122.235082
     ],
-    "opening-hours": [
+    "opening_hours": [
       "Weekdays: 8:30AM - 12PM",
       "Weekdays: 1PM - 4PM"
     ],
-    "contact-info": [],
+    "contact_info": [],
     "services": {
       "global": []
     },
+    "tags": ["Legal Services"],
     "images": [],
-    "additiona-info": {
-      "text-based": [],
-      "image-based": [],
-      "link-based": []
+    "additional_info": {
+      "text_based": [],
+      "image_based": [],
+      "link_based": []
     }
   },
   {
@@ -100,23 +104,24 @@
     "name": "Law office of atty. Mark Justic Mooc",
     "type": "Miagao/Legal-Services",
     "address": "",
-    "reformat-coords": [
+    "reformat_coords": [
       10.642468,
       122.235997
     ],
-    "opening-hours": [
+    "opening_hours": [
       "Weekdays: 8:30am - 11:30am",
       "Weekdays: 1pm - 4:30pm"
     ],
-    "contact-info": [],
+    "contact_info": [],
     "services": {
       "global": []
     },
+    "tags": ["Legal Services"],
     "images": [],
-    "additiona-info": {
-      "text-based": [],
-      "image-based": [],
-      "link-based": []
+    "additional_info": {
+      "text_based": [],
+      "image_based": [],
+      "link_based": []
     }
   },
   {
@@ -124,24 +129,25 @@
     "name": "Kandingan sa Tacas Miagao",
     "type": "Miagao/Eatery",
     "address": "",
-    "reformat-coords": [
+    "reformat_coords": [
       10.642674,
       122.234608
     ],
-    "opening-hours": [
+    "opening_hours": [
       "Sun to Fri: 6am - 8pm"
     ],
-    "contact-info": [
+    "contact_info": [
       "Phone: 9991940327"
     ],
     "services": {
       "global": []
     },
+    "tags": ["Restaurant"],
     "images": [],
-    "additiona-info": {
-      "text-based": [],
-      "image-based": [],
-      "link-based": []
+    "additional_info": {
+      "text_based": [],
+      "image_based": [],
+      "link_based": []
     }
   },
   {
@@ -149,22 +155,23 @@
     "name": "AK sisig house Box 1",
     "type": "Miagao/Eatery",
     "address": "",
-    "reformat-coords": [
+    "reformat_coords": [
       10.640435,
       122.231978
     ],
-    "opening-hours": [
+    "opening_hours": [
       "Everyday: 6:30am - 9pm"
     ],
-    "contact-info": [],
+    "contact_info": [],
     "services": {
       "global": []
     },
+    "tags": ["Restaurant"],
     "images": [],
-    "additiona-info": {
-      "text-based": [],
-      "image-based": [],
-      "link-based": []
+    "additional_info": {
+      "text_based": [],
+      "image_based": [],
+      "link_based": []
     }
   },
   {
@@ -172,22 +179,23 @@
     "name": "Mercury Drug Store",
     "type": "Miagao/Pharmacy",
     "address": "",
-    "reformat-coords": [
+    "reformat_coords": [
       10.641182,
       122.234390
     ],
-    "opening-hours": [
+    "opening_hours": [
       "Everyday: 7am - 8pm"
     ],
-    "contact-info": [],
+    "contact_info": [],
     "services": {
       "global": []
     },
+    "tags": ["Pharmacy"],
     "images": [],
-    "additiona-info": {
-      "text-based": [],
-      "image-based": [],
-      "link-based": []
+    "additional_info": {
+      "text_based": [],
+      "image_based": [],
+      "link_based": []
     }
   },
   {
@@ -195,23 +203,24 @@
     "name": "Farmacia Elna",
     "type": "Miagao/Pharmacy",
     "address": "",
-    "reformat-coords": [
+    "reformat_coords": [
       10.640840,
       122.236847
     ],
-    "opening-hours": [
+    "opening_hours": [
       "Everyday: 7:30am - 5:30pm",
       "Sunday: 7am - 5pm"
     ],
-    "contact-info": [],
+    "contact_info": [],
     "services": {
       "global": []
     },
+    "tags": ["Pharmacy"],
     "images": [],
-    "additiona-info": {
-      "text-based": [],
-      "image-based": [],
-      "link-based": []
+    "additional_info": {
+      "text_based": [],
+      "image_based": [],
+      "link_based": []
     }
   },
   {
@@ -219,22 +228,23 @@
     "name": "Double Check - Barber shop",
     "type": "Miagao/Barber",
     "address": "",
-    "reformat-coords": [
+    "reformat_coords": [
       10.641126,
       122.237447
     ],
-    "opening-hours": [
+    "opening_hours": [
       "Everyday: 6am - 5pm"
     ],
-    "contact-info": [],
+    "contact_info": [],
     "services": {
       "global": []
     },
+    "tags": ["Barber Shop"],
     "images": [],
-    "additiona-info": {
-      "text-based": [],
-      "image-based": [],
-      "link-based": []
+    "additional_info": {
+      "text_based": [],
+      "image_based": [],
+      "link_based": []
     }
   },
   {
@@ -242,22 +252,23 @@
     "name": "KC's BarberShop",
     "type": "Miagao/Barber",
     "address": "",
-    "reformat-coords": [
+    "reformat_coords": [
       10.640988,
       122.237640
     ],
-    "opening-hours": [
+    "opening_hours": [
       "Everyday: 6:30am - 5pm"
     ],
-    "contact-info": [],
+    "contact_info": [],
     "services": {
       "global": []
     },
+    "tags": ["Barber Shop"],
     "images": [],
-    "additiona-info": {
-      "text-based": [],
-      "image-based": [],
-      "link-based": []
+    "additional_info": {
+      "text_based": [],
+      "image_based": [],
+      "link_based": []
     }
   },
   {
@@ -265,22 +276,23 @@
     "name": "Printlab by Stanphil",
     "type": "Miagao/Media-and-Printing",
     "address": "2nd Flr., Nite Plaza Commercial Building",
-    "reformat-coords": [
+    "reformat_coords": [
       10.641780,
       122.234923
     ],
-    "opening-hours": [
+    "opening_hours": [
       "Weekdays: 9am - 6pm"
     ],
-    "contact-info": [],
+    "contact_info": [],
     "services": {
       "global": []
     },
+    "tags": ["Printer"],
     "images": [],
-    "additiona-info": {
-      "text-based": [],
-      "image-based": [],
-      "link-based": []
+    "additional_info": {
+      "text_based": [],
+      "image_based": [],
+      "link_based": []
     }
   },
   {
@@ -288,22 +300,23 @@
     "name": "Mitsubishi Digital",
     "type": "Miagao/Media-and-Printing",
     "address": "",
-    "reformat-coords": [
+    "reformat_coords": [
       10.642180,
       122.236290
     ],
-    "opening-hours": [
+    "opening_hours": [
       "Everyday: 8am - 5pm"
     ],
-    "contact-info": [],
+    "contact_info": [],
     "services": {
       "global": []
     },
+    "tags": ["Printer"],
     "images": [],
-    "additiona-info": {
-      "text-based": [],
-      "image-based": [],
-      "link-based": []
+    "additional_info": {
+      "text_based": [],
+      "image_based": [],
+      "link_based": []
     }
   },
   {
@@ -311,23 +324,24 @@
     "name": "RD Pawnshop",
     "type": "Miagao/Pawnshop",
     "address": "",
-    "reformat-coords": [
+    "reformat_coords": [
       10.641579,
       122.236402
     ],
-    "opening-hours": [
+    "opening_hours": [
       "Everyday: 8am - 5pm",
       "Sunday: 9am - 5pm"
     ],
-    "contact-info": [],
+    "contact_info": [],
     "services": {
       "global": []
     },
+    "tags": ["Pawnshop"],
     "images": [],
-    "additiona-info": {
-      "text-based": [],
-      "image-based": [],
-      "link-based": []
+    "additional_info": {
+      "text_based": [],
+      "image_based": [],
+      "link_based": []
     }
   },
   {
@@ -335,22 +349,23 @@
     "name": "Palawan Pawnshop",
     "type": "Miagao/Pawnshop",
     "address": "",
-    "reformat-coords": [
+    "reformat_coords": [
       10.641117,
       122.237603
     ],
-    "opening-hours": [
+    "opening_hours": [
       "Everyday: 8am - 5:30pm"
     ],
-    "contact-info": [],
+    "contact_info": [],
     "services": {
       "global": []
     },
+    "tags": ["Pawnshop"],
     "images": [],
-    "additiona-info": {
-      "text-based": [],
-      "image-based": [],
-      "link-based": []
+    "additional_info": {
+      "text_based": [],
+      "image_based": [],
+      "link_based": []
     }
   },
   {
@@ -358,24 +373,25 @@
     "name": "Las Hijas",
     "type": "Miagao/Study",
     "address": "",
-    "reformat-coords": [
+    "reformat_coords": [
       10.641174,
       122.235056
     ],
-    "opening-hours": [
+    "opening_hours": [
       "Everyday: 10am - 9pm"
     ],
-    "contact-info": [
+    "contact_info": [
       "Phone: 9277317956"
     ],
     "services": {
       "global": []
     },
+    "tags": ["Student Lounge"],
     "images": [],
-    "additiona-info": {
-      "text-based": [],
-      "image-based": [],
-      "link-based": []
+    "additional_info": {
+      "text_based": [],
+      "image_based": [],
+      "link_based": []
     }
   },
   {
@@ -383,22 +399,23 @@
     "name": "Studio SG",
     "type": "Miagao/Study",
     "address": "",
-    "reformat-coords": [
+    "reformat_coords": [
       10.640684,
       122.233392
     ],
-    "opening-hours": [
+    "opening_hours": [
       "Sun to Thu: 11am - 11pm"
     ],
-    "contact-info": [],
+    "contact_info": [],
     "services": {
       "global": []
     },
+    "tags": ["Student Lounge"],
     "images": [],
-    "additiona-info": {
-      "text-based": [],
-      "image-based": [],
-      "link-based": []
+    "additional_info": {
+      "text_based": [],
+      "image_based": [],
+      "link_based": []
     }
   },
   {
@@ -406,22 +423,23 @@
     "name": "Flippers E-Sports Cafe",
     "type": "Miagao/Computer Shop",
     "address": "",
-    "reformat-coords": [
+    "reformat_coords": [
       10.642304,
       122.234654
     ],
-    "opening-hours": [
+    "opening_hours": [
       "Everyday: 24/7"
     ],
-    "contact-info": [],
+    "contact_info": [],
     "services": {
       "global": []
     },
+    "tags": ["Computer Shop"],
     "images": [],
-    "additiona-info": {
-      "text-based": [],
-      "image-based": [],
-      "link-based": []
+    "additional_info": {
+      "text_based": [],
+      "image_based": [],
+      "link_based": []
     }
   }
 ]
