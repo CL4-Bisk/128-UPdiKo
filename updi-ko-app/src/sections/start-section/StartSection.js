@@ -16,7 +16,7 @@ import campusServicesData from './../../json/campus-facilities.json';
 import communityServicesData from './../../json/miagao-facilities.json';
 
 import { use, useState } from 'react';
-import { onAuthStateChangedListener } from '../../firebase/firebase.js'
+import { onAuthStateChangedListener, getCurrentUser } from '../../firebase/firebase.js'
 
 function StartSection({isActive, setAppSection, setAppService}) {
     const [activeCategory, setCategory] = useState("All")          
@@ -108,7 +108,7 @@ function StartSection({isActive, setAppSection, setAppService}) {
                                 <img className='icon' src={mapIcon}></img>
                                 <p className='label'>Map</p>    
                             </li>
-                            <li className='navigation btn' onClick={ () => setAppSection("LOGIN") }>
+                            <li className='navigation btn' onClick={ () => getCurrentUser() ? setAppSection("ACCOUNT") : setAppSection("LOGIN") }>
                                 <img className='icon' src={accountIcon}></img>
                                 <p className='label'>Account</p>    
                             </li>

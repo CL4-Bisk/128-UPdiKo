@@ -46,7 +46,7 @@ onAuthStateChangedListener(async (user) => {
       userPinnedLocations.push([location.name, location.latitude, location.longitude]);
     });
 
-    console.log(pinnedLocations);
+    console.log(`Owned locations: [${pinnedLocations}]`);
   }
 });
 

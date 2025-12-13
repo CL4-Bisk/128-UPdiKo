@@ -92,7 +92,7 @@ function RegisterSection({ isActive, setAppSection }) {
                             <img className='icon' src={mapIcon} onClick={ () => setAppSection("MAP") }></img>
                             <p className='label'>Map</p>    
                         </li>
-                        <li className='navigation active btn' onClick={ () => setAppSection("LOGIN") }>
+                        <li className='navigation active btn' onClick={ () => setAppSection("ACCOUNT") }>
                             <img className='icon' src={accountIcon}></img>
                             <p className='label'>Account</p>    
                         </li>

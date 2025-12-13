@@ -152,3 +152,7 @@ export async function getUserDataFromDB(uid) {
     throw error;
   }
 }
+
+export function getCurrentUser() {
+  return auth.currentUser;
+}
