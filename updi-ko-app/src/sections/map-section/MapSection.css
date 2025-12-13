@@ -1,8 +1,143 @@
 /* Access to global styles */
 @import url('./../../index.css');
 
-/* Page Styles */ 
+
+/* MAIN GROUP: BACKGROUND */
 .MapSection {
+    position: relative;
+    z-index: 1;
+    width: var(--screen-width);
+    height: 100dvh;
+    margin: auto;
+    padding: var(--pad-24) var(--pad-48);
+    background-color: var(--color-background);
+}
+
+.MapSection::before {
+    content: "";
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%;  
+    opacity: 20%; 
+    z-index: -1;
+    background-image: url('./../../images/bg/mountain-1.jpg');
+    background-size: cover;
+}
+
+/* MAIN GROUP: HEADER */
+.MapSection header {
+    position: absolute;
+    width: calc(100% - 64px);
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    /* SUBGROUP: SEARCH BAR */
+    .search-bar {
+        display: flex;
+        position: relative;
+        width: 100%;
+        height: 48px;
+        padding: var(--pad-16) var(--pad-32);
+        border-radius: 50px;
+        background-color: var(--color-primary-80a);    
+        box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.40);
+        font-size: var(--fs-14);
+        letter-spacing: 1px;
+        text-indent: var(--mar-24);
+        color: white;
+    }
+    .icon {
+        width: 18px;
+        position: absolute;
+        top: 15px;
+        left: 24px;
+        opacity: 50%;
+        z-index: 1;
+    }
+    .search-bar::placeholder {
+        color: white;
+        letter-spacing: 1px;
+        opacity: 60%;
+    }
+}
+
+/* MAIN GROUP: CONTROL BUTTONS */
+.MapSection .controls {
+    position: absolute;
+    z-index: 100;
+    bottom: 80px;   
+    right: 5%;
+
+    /* SUBGROUP: TO CURRENT LOCATION BUTTON */
+    .current-location-btn {
+        height: 60px;   
+        aspect-ratio: 1/1;
+        border: none;
+        border-radius: 50%;
+        background-color: var(--color-primary);
+        z-index: 100;
+    }
+
+    .current-location-img {
+        height: 20px;
+        aspect-ratio: 1/1;  
+    }
+}
+
+/* MAIN GROUP: FOOTER */
+.MapSection footer {
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-footer);
+
+    /* SUBGROUP: NAVIGATION */
+    nav {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+    }
+    nav ul {
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;   
+        align-items: center;
+        padding: 0;
+        list-style: none;
+    }
+    nav .navigation {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        opacity: 20%;
+    }
+    nav .active {
+        opacity: 100% !important;
+    }
+    nav .icon {
+        width: 24px;
+        height: 24px;
+    }
+    nav .label {
+        font-size: var(--fs-12);
+        font-weight: var(--fw-med);
+        letter-spacing: 0.5px;
+        color: var(--color-accent-2);
+    }
+}
+
+/* Page Styles */ 
+/* .MapSection {
     position: relative;
     height: 99vh;
 }
@@ -203,4 +338,4 @@
 
 
 
-
+ */

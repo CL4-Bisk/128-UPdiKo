@@ -1,8 +1,22 @@
 import './RegisterSection.css';
 import { signUp, saveUserDataToDB, updateUserProfile } from "../../firebase/firebase.js"; 
 
+import mascot from './../../images/logo/barney.jpg'
+import homeIcon from './../../images/icon/home-icon.png'
+import mapIcon from './../../images/icon/map-pin-icon.png'
+import accountIcon from './../../images/icon/user-icon.png'
+import showPassIcon from './../../images/icon/view-pass-icon.png'
+import hidePassIcon from './../../images/icon/hide-pass-icon.png'
+
+import { useState } from "react" 
+
 function RegisterSection({ isActive, setAppSection }) {
-    console.log("RegisterSection.js");
+    const [isVisible, setVisible] = useState(false);
+
+    function togglePasswordVisibility() {    
+        setVisible(!isVisible);
+    }
+
     async function handleRegister() {
         const email = document.querySelector('.email').value;
         const password = document.querySelector('.password').value;
@@ -31,32 +45,60 @@ function RegisterSection({ isActive, setAppSection }) {
     return (
         (isActive) ? (
             <div className="RegisterSection">
+                <header> 
+                <figure className='logo'>
+                    <img src={mascot} alt='Logo Image'></img>
+                    <figcaption className="logo-name">
+                        User Signup
+                    </figcaption>
+                </figure>
+            </header>   
 
-                {/* HEADER */}
-                <main>
-                    <figure className="mascot"></figure>
-                    <div className="mascot-dialogue">
-                        ACCOUNT SETTINGS
-                    </div>
-                </main>
-
-                {/* ACCOUNT OPTIONS */}
-               <section>
-                    <div className="register-container">
-                        <input type="text" className='FName' placeholder="First Name"></input>
+            <section className='form-section'>
+                <div className="register-container">
+                     <input type="text" className='FName' placeholder="First Name"></input>
                         <input type="text" className='LName' placeholder="Last Name"></input>
                         <input type="text" className='email' placeholder="Email"></input>
-                        <input type="password" className='password' placeholder="Password"></input>
-                        <button className="login-button" onClick={() => handleRegister()}>Register</button>
-                        <section>
-                            Already have an account?
-                            <a className="register-button" onClick={() => goToLogin()}>Login</a>
-                        </section>
-                    </div>
-               </section>
+                        <div className='password-input-container'>                            
+                            <img 
+                                className='show-pass-btn btn' 
+                                src={ isVisible ? hidePassIcon : showPassIcon }
+                                onClick={ togglePasswordVisibility }
+                            />
+                            <input 
+                                type= { isVisible? "text": "password"} 
+                                placeholder="Password"
 
-            
-            </div>
+                            />        
+                        </div>                        
+                        <button className="register-button" onClick={() => handleRegister()}>Register</button>
+                </div>
+            </section>
+
+            <section className='register-description-section'>
+                Already have an account? <br></br><span className='to-register-ref' onClick={ () => setAppSection("LOGIN") }>Login to your account</span> 
+            </section>
+
+            {/* NAV BAR */}
+            <footer>
+                <nav>
+                    <ul>
+                        <li className='navigation btn' onClick={ () => setAppSection("HOME") }>
+                            <img className='icon' src={homeIcon}></img>
+                            <p className='label'>Service</p>    
+                        </li>
+                        <li className='navigation btn'>
+                            <img className='icon' src={mapIcon} onClick={ () => setAppSection("MAP") }></img>
+                            <p className='label'>Map</p>    
+                        </li>
+                        <li className='navigation active btn' onClick={ () => setAppSection("LOGIN") }>
+                            <img className='icon' src={accountIcon}></img>
+                            <p className='label'>Account</p>    
+                        </li>
+                    </ul>
+                </nav>
+            </footer>
+        </div>
         ) : <></>
     );
 }
