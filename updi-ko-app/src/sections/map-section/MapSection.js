@@ -13,12 +13,14 @@ import homeIcon from './../../images/icon/home-icon.png'
 import mapIcon from './../../images/icon/map-pin-icon.png'
 import accountIcon from './../../images/icon/user-icon.png';
 import compassIcon from './../../images/icon/compass-icon.png';
-import backIcon from './../../images/icon/back-icon.png'
+import backIcon from './../../images/icon/back-icon.png';
 
 
 import campusServicesData from './../../json/campus-facilities.json';
 import communityServicesData from './../../json/miagao-facilities.json';
 import { act, useState } from 'react';
+
+import { getCurrentUser } from '../../firebase/firebase.js';
 
 import React from "react";
 import MapView from "./MapView";
@@ -96,7 +98,7 @@ function MapSection({isActive, setAppSection, service, setAppService}) {
                                 <img className='icon' src={mapIcon}></img>
                                 <p className='label'>Map</p>    
                             </li>
-                            <li className='navigation btn' onClick={ () => setAppSection("LOGIN") }>
+                            <li className='navigation btn' onClick={ () => getCurrentUser() ? setAppSection("ACCOUNT") : setAppSection("LOGIN") }>
                                 <img className='icon' src={accountIcon}></img>
                                 <p className='label'>Account</p>    
                             </li>

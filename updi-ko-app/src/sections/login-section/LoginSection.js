@@ -73,7 +73,7 @@ function LoginSection({ isActive, setAppSection }) {
                 <footer>
                     <nav>
                         <ul>
-                            <li className='navigatio btn' onClick={ () => setAppSection("HOME") }>
+                            <li className='navigation btn' onClick={ () => setAppSection("HOME") }>
                                 <img className='icon' src={homeIcon}></img>
                                 <p className='label'>Service</p>    
                             </li>

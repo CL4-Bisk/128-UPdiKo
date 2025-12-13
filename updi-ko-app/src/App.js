@@ -5,6 +5,8 @@ import StartSection from './sections/start-section/StartSection';
 import AccountSection from './sections/account-section/AccountSection';
 import LoginSection from './sections/login-section/LoginSection';
 import RegisterSection from './sections/register-section/RegisterSection';
+import AccountInfoSection from './sections/account-info-section/AccountInfoSection';
+import AccountUpdateSection from './sections/account-update-section/AccountUpdateSection';
 
 function App() {
     const [section, setSection] = useState("HOME");
@@ -24,10 +26,10 @@ function App() {
                     service = {service}
                     setAppService = {setService}
                 />
-                {/* <AccountSection 
+                <AccountSection 
                     isActive = { section === "ACCOUNT"} 
                     setAppSection = {setSection}
-                / */}
+                />
             </div>
             <div className='AccountUI'>
                 <LoginSection 
@@ -36,6 +38,14 @@ function App() {
                 />
                 <RegisterSection 
                     isActive = { section === "REGISTER"} 
+                    setAppSection = {setSection}
+                />
+                <AccountInfoSection 
+                    isActive = { section === "SHOW ACCOUNT INFO"} 
+                    setAppSection = {setSection}
+                />
+                <AccountUpdateSection 
+                    isActive = { section === "UPDATE PROFILE"} 
                     setAppSection = {setSection}
                 />
             </div>
