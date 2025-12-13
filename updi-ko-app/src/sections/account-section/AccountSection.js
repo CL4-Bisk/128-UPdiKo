@@ -4,10 +4,13 @@ import homeIcon from './../../images/icon/home-icon.png'
 import mapIcon from './../../images/icon/map-pin-icon.png'
 import accountIcon from './../../images/icon/user-icon.png'
 import accountData from './../../json/accountTags.json';
-import { logOut } from '../../firebase/firebase.js';
+
+import { logOut, getUserDataFromDB } from '../../firebase/firebase.js';
+
 import { useRef, useState } from "react";
 
 function AccountSection({ isActive, setAppSection }) {
+    console.log(getUserDataFromDB)
 
     const [setDropdownVisible] = useState(false);
 

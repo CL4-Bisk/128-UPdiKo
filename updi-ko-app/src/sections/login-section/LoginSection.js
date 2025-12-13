@@ -18,8 +18,8 @@ function LoginSection({ isActive, setAppSection }) {
     }
 
     async function handleLogin() {
-        const email = document.querySelector('input[type="text"]').value.trim();
-        const password = document.querySelector('input[type="password"]').value.trim();
+        const email = document.querySelector('.email').value.trim();
+        const password = document.querySelector('.password').value.trim();
         try {
             await logIn(email, password);
             setAppSection("HOME");  // Push user back home
@@ -27,7 +27,6 @@ function LoginSection({ isActive, setAppSection }) {
             return;   
         }   
     }
-
 
     return (
         (isActive) ? (
@@ -47,7 +46,7 @@ function LoginSection({ isActive, setAppSection }) {
 
                 <section className='form-section'>
                     <div className="login-container">
-                        <input type="text" placeholder="Email"></input>
+                        <input type="text" placeholder="Email" className='email'></input>
                         <div className='password-input-container'>                            
                             <img 
                                 className='show-pass-btn btn' 

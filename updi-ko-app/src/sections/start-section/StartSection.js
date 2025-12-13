@@ -11,7 +11,6 @@ import mapIcon from './../../images/icon/map-pin-icon.png'
 import accountIcon from './../../images/icon/user-icon.png'
 import searchIcon from './../../images/icon/search-icon.png'
 
-// import dropdownIcon from './../../images/icons/dropdown-icon.png'
 import serviceTagsData from './../../json/tags.json';
 import campusServicesData from './../../json/campus-facilities.json';
 import communityServicesData from './../../json/miagao-facilities.json';
