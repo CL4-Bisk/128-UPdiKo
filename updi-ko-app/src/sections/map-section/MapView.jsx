@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import L from "leaflet";
+import L, { marker } from "leaflet";
 import "./MapView.css";
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
@@ -9,9 +9,6 @@ import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import { onAuthStateChangedListener, getPinnedLocationsFromDB } from "../../firebase/firebase.js";
 import Miagao from "../../json/miagao-facilities.json"
 import Campus from "../../json/campus-facilities.json"
-
-let currentUser = null;
-let userPinnedLocations = [];
 
 // fixes icon
 delete L.Icon.Default.prototype._getIconUrl;
@@ -37,35 +34,6 @@ function ChangeView({ center }) {
   return null;
 }
 
-onAuthStateChangedListener(async (user) => {
-  currentUser = user;
-  if (user) {
-    const pinnedLocations = await getPinnedLocationsFromDB(user.uid);
-
-    pinnedLocations.forEach((location) => {
-      userPinnedLocations.push([location.name, location.latitude, location.longitude]);
-    });
-
-    console.log(`Owned locations: [${pinnedLocations}]`);
-  }
-});
-
-function getMarkerInfo(loc, markerName, setSelectedMarkerInfo) {
-  let markerInfo;
-  if (loc === "Miagao") {
-    markerInfo = Miagao.find((m) => m.name === markerName);
-  } else if (loc === "Campus") {
-    markerInfo = Campus.find((m) => m.name === markerName);
-  }
-  // else {
-  //   markerInfo = USER.find((m) => m.name === marker);
-  // }
-
-  setSelectedMarkerInfo(markerInfo);
-  console.log(markerInfo);
-}
-
-
 // main map element
 const MapView = ({ userLocation, selectedService }) => {
   const defaultCenter = [10.641944, 122.235556];
@@ -86,12 +54,23 @@ const MapView = ({ userLocation, selectedService }) => {
     const unsubscribe = onAuthStateChangedListener(async (user) => {
       if (user) {
         const pins = await getPinnedLocationsFromDB(user.uid);
-        setPinnedLocations(pins);
+        setPinnedLocations(
+          pins.map((pin) => ({
+            id: pin.id,
+            name: pin.locationName,
+            latitude: pin.latitude,
+            longitude: pin.longitude,
+            type: "Pinned",
+            address: pin.address,
+            description: pin.description,
+            contact_info: pin.contact_info || [],
+            opening_hours: pin.opening_hours || [],
+          }))
+        );
       } else {
         setPinnedLocations([]);
       }
     });
-
     return () => unsubscribe();
   }, []);
 
@@ -122,17 +101,17 @@ const MapView = ({ userLocation, selectedService }) => {
           <Popup>You are here</Popup>
         </Marker> */}
         {pinnedLocations.map((pin) => (
-          <Marker key={pin.id} position={[pin.latitude, pin.longitude]}>
-            <Popup>{pin.locationName}</Popup>
+          <Marker key={pin.id} position={[pin.latitude, pin.longitude]} eventHandlers={{ click: () => setSelectedMarkerInfo(pin) }}>
+            <Popup>{pin.name}</Popup>
           </Marker>
         ))}
         {Miagao.filter(shouldShowMarker).map((facility) => (
-          <Marker key={facility.id} position={facility.reformat_coords} eventHandlers={{ click: () => {getMarkerInfo("Miagao", facility.name, setSelectedMarkerInfo);} }}>
+          <Marker key={facility.id} position={facility.reformat_coords} eventHandlers={{ click: () => setSelectedMarkerInfo({...facility, type: "Miagao"}) }}>
             <Popup>{facility.name}</Popup>
           </Marker>
         ))}
         {Campus.filter(shouldShowMarker).map((facility) => (
-          <Marker key={facility.id} position={facility.reformat_coords} eventHandlers={{ click: () => {getMarkerInfo("Campus", facility.name, setSelectedMarkerInfo);} }}>
+          <Marker key={facility.id} position={facility.reformat_coords} eventHandlers={{ click: () => setSelectedMarkerInfo({...facility, type: "Campus"}) }}>
             <Popup>{facility.name}</Popup>
           </Marker>
         ))}

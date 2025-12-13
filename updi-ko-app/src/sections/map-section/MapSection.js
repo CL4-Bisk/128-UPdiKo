@@ -18,9 +18,9 @@ import backIcon from './../../images/icon/back-icon.png';
 
 import campusServicesData from './../../json/campus-facilities.json';
 import communityServicesData from './../../json/miagao-facilities.json';
-import { act, useState } from 'react';
+import { act, useState, useEffect } from 'react';
 
-import { getCurrentUser } from '../../firebase/firebase.js';
+import { getCurrentUser, addPinnedLocationToDB } from '../../firebase/firebase.js';
 
 import React from "react";
 import MapView from "./MapView";
@@ -29,6 +29,50 @@ function MapSection({isActive, setAppSection, service, setAppService}) {
 
     const [searchQuery, setSearchQuery] = useState("");
     const [activeSearch, setSearchActive] = useState(false);
+
+    const [showCreatePin, setShowCreatePin] = useState(false);
+    const [pinName, setPinName] = useState("");
+    const [pinAddress, setPinAddress] = useState("");
+    const [pinDescription, setPinDescription] = useState("");
+    const [pinLatitude, setPinLatitude] = useState(null);
+    const [pinLongitude, setPinLongitude] = useState(null);
+    const [mapCenter, setMapCenter] = useState({ lat: 10.641944, lng: 122.235556 });
+
+    const handleOpenCreatePin = () => {
+        if (!getCurrentUser()) {
+        alert("Please log in to add pins.");
+        return;
+        }
+        setShowCreatePin(true);
+    };
+
+    const handleAddPinnedLocation = async () => {
+        const user = getCurrentUser();
+        if (!user) return;
+
+        try {
+            await addPinnedLocationToDB(
+                user.uid,
+                pinName || "Untitled Pin",
+                pinAddress || "N/A",
+                Number(pinLatitude),
+                Number(pinLongitude),
+                pinDescription
+            );
+
+
+            // Reset
+            setShowCreatePin(false);
+            setPinName("");
+            setPinAddress("");
+            setPinDescription("");
+
+            alert("Pin created!");
+        } catch (err) {
+            alert(err.message);
+        }
+    };
+
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value.toLowerCase().trim()); 
     }
@@ -77,7 +121,7 @@ function MapSection({isActive, setAppSection, service, setAppService}) {
 
                 <section className="map">
                     <div className = "map-container">
-                        <MapView userLocation={userLocation} selectedService={service}/>
+                        <MapView userLocation={userLocation} selectedService={service} onCenterChange={(lat, lng) => setMapCenter({ lat, lng })}/>
                     </div>
                 </section>
 
@@ -85,7 +129,62 @@ function MapSection({isActive, setAppSection, service, setAppService}) {
                     <button className="current-location-btn">
                         <img className="current-location-img" src={compassIcon}></img>
                     </button>    
+                    <br></br>
+                    <button className="current-location-btn" onClick={handleOpenCreatePin}>
+                        <img className="current-location-img" src={mapIcon}></img>
+                    </button>
                 </section>
+
+                {showCreatePin && (
+                    <div className="create-pin-sheet">
+                    <div className="sheet-handle" />
+
+                    <div className="sheet-header">
+                        <h2>Create Pin</h2>
+                        <button className="close-btn" onClick={() => setShowCreatePin(false)}>
+                        ✕
+                        </button>
+                    </div>
+
+                    <input
+                        className="info-input"
+                        placeholder="Name"
+                        value={pinName}
+                        onChange={(e) => setPinName(e.target.value)}
+                    />
+
+                    <input
+                        className="info-input"
+                        placeholder="Address"
+                        value={pinAddress}
+                        onChange={(e) => setPinAddress(e.target.value)}
+                    />
+
+                    <div className="info-input">
+                        <input
+                            placeholder="Latitude"
+                            value={pinLatitude || ""}
+                            onChange={(e) => setPinLatitude(parseFloat(e.target.value))}
+                        />
+                        <input
+                            placeholder="Longitude"
+                            value={pinLongitude || ""}
+                            onChange={(e) => setPinLongitude(parseFloat(e.target.value))}
+                        />
+                    </div>
+
+                    <textarea
+                        className="info-input"
+                        placeholder="Description"
+                        value={pinDescription}
+                        onChange={(e) => setPinDescription(e.target.value)}
+                    />
+
+                    <button className="confirm-pin-btn" onClick={() => handleAddPinnedLocation()}>
+                        →
+                    </button>
+                    </div>
+                )}
 
                 <footer>
                     <nav>
