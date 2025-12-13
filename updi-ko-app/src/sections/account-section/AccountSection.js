@@ -1,54 +1,72 @@
 import './AccountSection.css';
 
-// import dropdownIcon from './../../images/icon/dropdown-icon.png'
+import mascot from './../../images/logo/barney.jpg'
 import homeIcon from './../../images/icon/home-icon.png'
 import mapIcon from './../../images/icon/map-pin-icon.png'
 import accountIcon from './../../images/icon/user-icon.png'
-import accountData from './../../json/accountTags.json';
-import { logOut } from '../../firebase/firebase.js';
+import bookmarkIcon from './../../images/icon/saved-icon.png'
+import logoutIcon from './../../images/icon/logout-icon.png'
+
+import { logOut, getCurrentUser } from '../../firebase/firebase.js';
 import { useRef, useState } from "react";
 
 function AccountSection({ isActive, setAppSection }) {
-
-    const [setDropdownVisible] = useState(false);
-
-    function toggleDropdown() {
-        setDropdownVisible(prev => !prev);
+    async function userLogOut() {
+        await logOut();
+        setAppSection("LOGIN");  
     }
 
-    const dropdownsRef = useRef(null);
-    
-    function toggleDropdown(index) {
-        const dropdownsContainer = dropdownsRef.current;        // use current to get the actual element from dropdownsRef
-        const dropdown = dropdownsContainer.querySelectorAll('.service-dropdown .dropdown-option-list')[index];
-        dropdown.classList.toggle("hidden");
-    }
-
-    async function handleTag(tag) {
-        if (tag === "LOGOUT") {
-            await logOut();
-            setAppSection("LOGIN");  // Push user back home
-        } else {
-            setAppSection(tag);  // Push user to the selected section
-        }
-    }
-
-    const data = accountData;
+    const user = getCurrentUser();
 
     return (
         (isActive) ? (
             <div className="AccountSection">
+                <header>
+                    <div className='profile'>
+                        <figure className='logo'><img src={mascot}></img></figure>
+                        <div className='information'>
+                            <div className='name'>{user.displayName}</div>
+                            <div className='email'>{user.email}</div>
+                        </div>
+                    </div>
+                    <div className='buttons'>
+                        <figure className='logout-icon btn'><img src={logoutIcon} onClick={ userLogOut }></img></figure>
+                    </div>
+                </header>
 
+                <section className='dashboard'>
+                    <hgroup>
+                        <h1>Dashboard</h1>
+                        <h2>Good day! What do you want to today?</h2>
+                    </hgroup>
+                    <div className='dashboard-options'>
+                        <div className='option-btn btn' >
+                            <img src={bookmarkIcon}></img>
+                            <div>
+                                <h2 className='title'>Saved Services</h2>
+                                <h3 className='subtitle'>Manage bookmarked services</h3>
+                            </div>
+                        </div>
+                        <div className='option-btn btn' >
+                            <img src={mapIcon}></img>
+                            <div>
+                                <h2 className='title'>Your Personal Pins</h2>
+                                <h3 className='subtitle'>Manage your created pins</h3>
+                            </div>
+                        </div>      
+                    </div>
+
+                </section>
                 {/* HEADER */}
-                <main>
+                {/* <main>
                     <figure className="mascot"></figure>
                     <div className="mascot-dialogue">
                         ACCOUNT SETTINGS
                     </div>
-                </main>
+                </main> */}
 
                 { /* Users see the dropdowns which contains the services they want to get */}
-                <section className="selections" ref={dropdownsRef}>
+                {/* <section className="selections" ref={dropdownsRef}>
                 {
                     data.map((service, index) => (
                         <div key={index} className="service-dropdown">
@@ -66,25 +84,28 @@ function AccountSection({ isActive, setAppSection }) {
                         </div>    
                     ))  
                 }
-                </section>
+                </section> */}
 
                 {/* NAV BAR */}
                 <footer>
-                    <nav className="nav-bar">
-                        <div className="navigations" onClick={() => setAppSection("HOME")}>
-                            <img src={homeIcon}></img>
-                            <p>Home</p>
-                        </div>
-                        <div className="navigations" onClick={() => setAppSection("MAP")}>
-                            <img src={mapIcon}></img>
-                            <p>Map</p>
-                        </div>        
-                        <div className="navigations active-section" onClick={() => setAppSection("ACCOUNT")}>
-                            <img src={accountIcon} id='account'></img>
-                            <p>Account</p>
-                        </div>
+                    <nav>
+                        <ul>
+                            <li className='navigation btn' onClick={ () => setAppSection("HOME") }>
+                                <img className='icon' src={homeIcon}></img>
+                                <p className='label'>Service</p>    
+                            </li>
+                            <li className='navigation btn'>
+                                <img className='icon' src={mapIcon} onClick={ () => setAppSection("MAP") }></img>
+                                <p className='label'>Map</p>    
+                            </li>
+                            <li className='navigation active btn' onClick={ () => setAppSection("ACCOUNT") }>
+                                <img className='icon' src={accountIcon}></img>
+                                <p className='label'>Account</p>    
+                            </li>
+                        </ul>
                     </nav>
                 </footer>
+
             </div>
         ) : <></>
     );
