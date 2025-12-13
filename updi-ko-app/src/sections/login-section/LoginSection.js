@@ -57,7 +57,7 @@ function LoginSection({ isActive, setAppSection }) {
                             <input 
                                 type= { isVisible? "text": "password"} 
                                 placeholder="Password"
-
+                                className='password'
                             />
                                 
                         </div>

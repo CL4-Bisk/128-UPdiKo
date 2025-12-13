@@ -24,10 +24,10 @@ function App() {
                     service = {service}
                     setAppService = {setService}
                 />
-                {/* <AccountSection 
+                <AccountSection 
                     isActive = { section === "ACCOUNT"} 
                     setAppSection = {setSection}
-                / */}
+                />
             </div>
             <div className='AccountUI'>
                 <LoginSection 

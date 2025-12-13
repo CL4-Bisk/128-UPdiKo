@@ -66,6 +66,7 @@ function RegisterSection({ isActive, setAppSection }) {
                                 onClick={ togglePasswordVisibility }
                             />
                             <input 
+                                className='password'
                                 type= { isVisible? "text": "password"} 
                                 placeholder="Password"
 
