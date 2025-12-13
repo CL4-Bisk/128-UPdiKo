@@ -85,15 +85,13 @@ function StartSection({isActive, setAppSection, setAppService}) {
                     <div className='service-list'>
                     {
                         filteredServices.map((service, index) => (
-                            (activeCategory == "All" || service.tags.includes(activeCategory)) ? (
-                                <div key={index} className='service-btn btn' >
-                                    <img src={mapIcon}></img>
-                                    <div>
-                                        <h2 className='title'>{service.name}</h2>
-                                        <h3 className='tag'>{service.tags}</h3>
-                                    </div>
+                            <div key={index} className='service-btn btn' >
+                                <img src={mapIcon}></img>
+                                <div>
+                                    <h2 className='title'>{service.name}</h2>
+                                    <h3 className='tag'>{service.tags}</h3>
                                 </div>
-                            ) : (null)
+                            </div>
                         ))
                     }
                     </div>
