@@ -34,8 +34,8 @@ function ChangeView({ center }) {
   return null;
 }
 
-// main map element
-const MapView = ({ userLocation, selectedService }) => {
+// // main map element
+function MapView({ userLocation, selectedService }) {
   const defaultCenter = [10.641944, 122.235556];
   const [center, setCenter] = useState(defaultCenter);
   const [loading, setLoading] = useState(true);
@@ -89,9 +89,10 @@ const MapView = ({ userLocation, selectedService }) => {
     return facility.tags && facility.tags.includes(selectedService);
   };
 
-  return (
-    <div className="map-container">
-      <MapContainer center={center} zoom={15} style={{ width: "100%", height: "100%" }} zoomControl={false}>
+  
+  return (  
+    <div className="MapView">
+      <MapContainer center={center} zoom={15} style={{ width: "100%", height: "100%", zIndex: 0}} zoomControl={false}>
         <ChangeView center={center} />
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -100,7 +101,7 @@ const MapView = ({ userLocation, selectedService }) => {
         {/* <Marker position={center}>
           <Popup>You are here</Popup>
         </Marker> */}
-        {pinnedLocations.map((pin) => (
+         {pinnedLocations.map((pin) => (
           <Marker key={pin.id} position={[pin.latitude, pin.longitude]} eventHandlers={{ click: () => setSelectedMarkerInfo(pin) }}>
             <Popup>{pin.name}</Popup>
           </Marker>
@@ -114,43 +115,74 @@ const MapView = ({ userLocation, selectedService }) => {
           <Marker key={facility.id} position={facility.reformat_coords} eventHandlers={{ click: () => setSelectedMarkerInfo({...facility, type: "Campus"}) }}>
             <Popup>{facility.name}</Popup>
           </Marker>
-        ))}
-        
+        ))} 
       </MapContainer>
-      {selectedMarkerInfo && (
-        <div className="marker-info-panel">
-          <h2>{selectedMarkerInfo.name}</h2>
-          <p>{selectedMarkerInfo.type}</p>
-          <p>{selectedMarkerInfo.address}</p>
-          
-          {selectedMarkerInfo.opening_hours && selectedMarkerInfo.opening_hours.length > 0 && (
-            <div>
-              <br></br>
-              <h3>Opening Hours</h3>
-              <ul>
-                {selectedMarkerInfo.opening_hours.map((hour, index) => (
-                  <li key={index}>{hour}</li>
-                ))}
-              </ul>
-            </div>
-          )} 
-
-          {selectedMarkerInfo.contact_info && selectedMarkerInfo.contact_info.length > 0 && (
-            <div>
-              <br></br>
-              <h3>Contact Information</h3>
-              <ul>
-                {selectedMarkerInfo.contact_info.map((info, index) => (
-                  <li key={index}>{info}</li>
-                ))}
-              </ul>
-            </div>
-          )}         
-          <button onClick={() => setSelectedMarkerInfo(null)}>Close</button>
-        </div>
-      )}
     </div>
-  );
+  )
+
+
+//     <div className="map-container">
+//       <MapContainer center={center} zoom={15} style={{ width: "100%", height: "100%" }} zoomControl={false}>
+//         <ChangeView center={center} />
+//         <TileLayer
+//           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+//           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+//         />
+//         {/* <Marker position={center}>
+//           <Popup>You are here</Popup>
+//         </Marker> */}
+//         {pinnedLocations.map((pin) => (
+//           <Marker key={pin.id} position={[pin.latitude, pin.longitude]} eventHandlers={{ click: () => setSelectedMarkerInfo(pin) }}>
+//             <Popup>{pin.name}</Popup>
+//           </Marker>
+//         ))}
+//         {Miagao.filter(shouldShowMarker).map((facility) => (
+//           <Marker key={facility.id} position={facility.reformat_coords} eventHandlers={{ click: () => setSelectedMarkerInfo({...facility, type: "Miagao"}) }}>
+//             <Popup>{facility.name}</Popup>
+//           </Marker>
+//         ))}
+//         {Campus.filter(shouldShowMarker).map((facility) => (
+//           <Marker key={facility.id} position={facility.reformat_coords} eventHandlers={{ click: () => setSelectedMarkerInfo({...facility, type: "Campus"}) }}>
+//             <Popup>{facility.name}</Popup>
+//           </Marker>
+//         ))}
+        
+//       </MapContainer>
+
+//       {selectedMarkerInfo && (
+//         <div className="marker-info-panel">
+//           <h2>{selectedMarkerInfo.name}</h2>
+//           <p>{selectedMarkerInfo.type}</p>
+//           <p>{selectedMarkerInfo.address}</p>
+          
+//           {selectedMarkerInfo.opening_hours && selectedMarkerInfo.opening_hours.length > 0 && (
+//             <div>
+//               <br></br>
+//               <h3>Opening Hours</h3>
+//               <ul>
+//                 {selectedMarkerInfo.opening_hours.map((hour, index) => (
+//                   <li key={index}>{hour}</li>
+//                 ))}
+//               </ul>
+//             </div>
+//           )} 
+
+//           {selectedMarkerInfo.contact_info && selectedMarkerInfo.contact_info.length > 0 && (
+//             <div>
+//               <br></br>
+//               <h3>Contact Information</h3>
+//               <ul>
+//                 {selectedMarkerInfo.contact_info.map((info, index) => (
+//                   <li key={index}>{info}</li>
+//                 ))}
+//               </ul>
+//             </div>
+//           )}         
+//           <button onClick={() => setSelectedMarkerInfo(null)}>Close</button>
+//         </div>
+//       )}
+//     </div>
+//   );
 };
 
 export default MapView;

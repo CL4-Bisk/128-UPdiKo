@@ -9,7 +9,6 @@
     width: var(--screen-width);
     height: 100dvh;
     margin: auto;
-    padding: var(--pad-24) var(--pad-48);
     background-color: var(--color-background);
 }
 
@@ -157,24 +156,160 @@
 
 /* MAIN GROUP: MAP */
 .MapSection .map {
-    position: absolute;
-    top: 0px;
-    left: 0px;
     width: var(--screen-width);
     height: var(--screen-height);
     object-fit: cover;
-    z-index: 0;
     
-    .map-container {
-        width: "100%";
-        height: calc(100dvh) 
+    /* SUBGROUP: PIN INFORMATION */
+    .map-pin-info-container {
+        width: 100%;
+        height: 50vh;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: 102;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+        padding: var(--pad-24);
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;    
+        background-color: var(--color-primary);
     }
+    .map-pin-info-container::before {
+        content: "";
+        position: absolute;
+        top: 0; 
+        left: 0;
+        width: 100%; 
+        height: 100%;  
+        opacity: 20%; 
+        z-index: -1;
+        background-image: url('./../../images/bg/pin-info-ng.png');
+        background-size: cover;
+    }
+
+    /* SUBGROUP: PIN HEADER INFO  */
+    .map-pin-info-container .pin-info-header {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: var(--pad-8);
+        border-bottom: solid 1px var(--color-accent-2);
+        color: white;
+    }
+    .map-pin-info-container .name {
+        font-family: var(--ff-heading);
+        font-size: var(--fs-32);
+    }
+    .map-pin-info-container .tags {
+        font-size: var(--fs-14);
+    }
+
+    /* SUBGROUP: PIN HEADER BUTTONS  */
+    .map-pin-info-container .pin-buttons-container {
+        display: flex;
+    }
+    .map-pin-info-container .pin-buttons-container figure {
+        height: 28px;
+        aspect-ratio: 1/1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-inline: var(--mar-8);
+        border-radius: 50%;
+        background-color: var(--color-accent-2);
+    }
+    .map-pin-info-container .pin-buttons-container figure img {
+        height: 20px;
+        aspect-ratio: 1/1;
+    }
+
+    /* SUBGROUP: PIN NAVIGATION  */
+    .map-pin-info-container .pin-info-nav {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        color: var(--color-accent-2)
+    }
+    .map-pin-info-container .pin-info-nav * {
+        width: 10ch;
+        padding-block: var(--pad-8);
+        text-align: center;
+        font-size: var(--fs-12);
+        font-weight: var(--fw-semi);
+        opacity: 40%;
+    }
+    .map-pin-info-container .pin-info-nav .active {
+        border-bottom: solid 1px var(--color-accent-2);
+        opacity: 100%;
+    }
+
+    /* SUBGROUP: PIN INFO BODY  */
+    .map-pin-info-container .pin-info-body {
+        width: 100%;
+        color: white;
+        font-size: var(--fs-12);
+    }
+    .map-pin-info-container .pin-important-info {
+        padding: var(--pad-16) var(--pad-8);
+    }
+    .map-pin-info-container .pin-info-body figure {
+        display: flex;
+        margin: var(--mar-8);
+    }
+    .map-pin-info-container .pin-info-body figure img {
+        height: 20px;
+        aspect-ratio: 1/1;
+        margin-right: var(--mar-8);
+        opacity: 60%;
+        display: flex;
+    }
+    .map-pin-info-container .pin-info-body figcaption {
+        font-weight: var(--fw-semi);
+    }
+    .map-pin-info-container .pin-other-info {
+        line-height: 150%;
+    }
+    
+    /* SUBGROUP: PIN PHOTO BODY  */
+    .map-pin-info-container .pin-photo-body {
+        display: flex;
+        width: 100%;
+        overflow-x: auto;
+    }
+    .map-pin-info-container .pin-photo-body figure img {
+        height: 180px;
+        width: 240px;
+        object-fit: cover;
+        margin: var(--mar-16);
+        border-radius: 10px;
+        cursor: pointer;
+    }
+    .map-pin-info-container .pin-photo-body::-webkit-scrollbar {
+        width: 5px;
+        height: 3px;
+        border-radius: 20px;
+        background-color: var(--color-primary-80a);
+    }
+    .map-pin-info-container .pin-photo-body::-webkit-scrollbar-thumb  {
+        background-color: var(--color-accent-1);
+        opacity: 60%;
+        border-radius: 20px;
+    }
+    
 }
+
+
+
+
+
 
 /* MAIN GROUP: CONTROL BUTTONS */
 .MapSection .controls {
     position: absolute;
-    z-index: 2;
     bottom: 80px;   
     right: 5%;
 
@@ -185,7 +320,7 @@
         border: none;
         border-radius: 50%;
         background-color: var(--color-primary);
-        z-index: 2;
+        z-index: 0;
     }
 
     .current-location-img {

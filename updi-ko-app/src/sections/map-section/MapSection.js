@@ -1,19 +1,15 @@
 import './MapSection.css'
 
-// import mapImg from './../../images/icons/map-template-example.png'
-// import homeIcon from './../../images/icons/home-icon.png'
-// import mapIcon from './../../images/icons/pin-solid-icon.png'
-// import accountIcon from './../../images/icons/account-icon.png'
-// import menuIcon from './../../images/icons/menu-icon.png'
-// import recentIcon from './../../images/icons/recent-icon.png'
-// import closeIcon from './../../images/icons/close-icon.png'
-// import backIcon from './../../images/icons/back-icon.png'
 import searchIcon from './../../images/icon/search-icon.png'
 import homeIcon from './../../images/icon/home-icon.png'
 import mapIcon from './../../images/icon/map-pin-icon.png'
 import accountIcon from './../../images/icon/user-icon.png';
 import compassIcon from './../../images/icon/compass-icon.png';
 import backIcon from './../../images/icon/back-icon.png';
+import saveIcon from './../../images/icon/save-icon.png';
+import closeIcon from './../../images/icon/close-icon.png';
+import timeIcon from './../../images/icon/time-icon.png';
+import placeholder from './../../images/bg/placeholder.png';
 
 
 import campusServicesData from './../../json/campus-facilities.json';
@@ -27,9 +23,7 @@ import MapView from "./MapView";
 
 function MapSection({isActive, setAppSection, service, setAppService}) {   
 
-    const [searchQuery, setSearchQuery] = useState("");
-    const [activeSearch, setSearchActive] = useState(false);
-
+    /* Create Pin Location Logic */
     const [showCreatePin, setShowCreatePin] = useState(false);
     const [pinName, setPinName] = useState("");
     const [pinAddress, setPinAddress] = useState("");
@@ -37,7 +31,6 @@ function MapSection({isActive, setAppSection, service, setAppService}) {
     const [pinLatitude, setPinLatitude] = useState(null);
     const [pinLongitude, setPinLongitude] = useState(null);
     const [mapCenter, setMapCenter] = useState({ lat: 10.641944, lng: 122.235556 });
-
     const handleOpenCreatePin = () => {
         if (!getCurrentUser()) {
         alert("Please log in to add pins.");
@@ -45,7 +38,6 @@ function MapSection({isActive, setAppSection, service, setAppService}) {
         }
         setShowCreatePin(true);
     };
-
     const handleAddPinnedLocation = async () => {
         const user = getCurrentUser();
         if (!user) return;
@@ -73,6 +65,11 @@ function MapSection({isActive, setAppSection, service, setAppService}) {
         }
     };
 
+
+    /* Search Location Logic */
+    const [searchQuery, setSearchQuery] = useState("");
+    const [activeSearch, setSearchActive] = useState(false);
+
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value.toLowerCase().trim()); 
     }
@@ -83,6 +80,13 @@ function MapSection({isActive, setAppSection, service, setAppService}) {
         const matchesSearch = nameLower.includes(searchQuery);
         return matchesSearch ;
     });
+
+
+    /* Map Information Logic */
+    const [openMapInfo, setOpenMapInfo] = useState(false);
+    const [mapInfoTab, setMapInfoTab] = useState("about");
+
+
 
     // sample location
     const userLocation = { lat: 10.641944, lng: 122.235556 };
@@ -122,20 +126,51 @@ function MapSection({isActive, setAppSection, service, setAppService}) {
                 <section className="map">
                     <div className = "map-container">
                         <MapView userLocation={userLocation} selectedService={service} onCenterChange={(lat, lng) => setMapCenter({ lat, lng })}/>
+                        <div className= "map-pin-info-container">
+                            <div className='pin-info-header'>
+                                <div className='pin-header-container'>
+                                    <h1 className='name'>Name</h1>
+                                    <h2 className='tags'>Tags</h2>
+                                </div>
+                                <div className='pin-buttons-container'>
+                                    <figure className='save-img btn'><img src={saveIcon}></img></figure>
+                                    <figure className='close-info btn'><img src={closeIcon}></img></figure>
+                                </div>
+                            </div>
+                            <div className='pin-info-nav'>
+                                <div className= {(mapInfoTab == "about") ?  'info-tab btn active': 'info-tab btn'} onClick={() => setMapInfoTab("about")}> About </div>
+                                <div className={(mapInfoTab == "photo") ?  'photo-tab btn active': 'photo-tab btn'} onClick={() => setMapInfoTab("photo")}> Photos </div>
+                            </div>
+                            <div className={(mapInfoTab == "about") ? "pin-info-body": "pin-info-body hidden"}>
+                                <div className='pin-important-info'>
+                                    <figure>
+                                        <img src={mapIcon}></img>
+                                        <figcaption>Located at </figcaption>
+                                    </figure>
+                                    <figure>
+                                        <img src={timeIcon}></img>
+                                        <figcaption>Opens at</figcaption>
+                                    </figure>
+                                </div>
+                                <div className='pin-other-info'>    
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vestibulum quam tellus, euismod laoreet velit varius sit amet. Nullam rutrum ante non mauris ultricies, vitae tempus diam ornare. Nullam egestas placerat orci pretium fermentum. Duis fermentum tortor nec tristique congue. Fusce commodo maximus lobortis.
+                                </div>
+                            </div>
+                            <div className= {(mapInfoTab == "photo") ? "pin-photo-body": "pin-photo-body hidden"}>
+                                <figure>
+                                    <img src={placeholder}></img>
+                                </figure>
+                                <figure>
+                                    <img src={placeholder}></img>
+                                </figure>
+                            </div>
+
+                        </div>
                     </div>
                 </section>
 
-                <section className="controls">
-                    <button className="current-location-btn">
-                        <img className="current-location-img" src={compassIcon}></img>
-                    </button>    
-                    <br></br>
-                    <button className="current-location-btn" onClick={handleOpenCreatePin}>
-                        <img className="current-location-img" src={mapIcon}></img>
-                    </button>
-                </section>
 
-                {showCreatePin && (
+                {/* {showCreatePin && (
                     <div className="create-pin-sheet">
                     <div className="sheet-handle" />
 
@@ -186,6 +221,18 @@ function MapSection({isActive, setAppSection, service, setAppService}) {
                     </div>
                 )}
 
+             */}
+
+                <section className="controls">
+                    <button className="current-location-btn">
+                        <img className="current-location-img" src={compassIcon}></img>
+                    </button>    
+                    <br></br>
+                    <button className="current-location-btn" onClick={handleOpenCreatePin}>
+                        <img className="current-location-img" src={mapIcon}></img>
+                    </button>
+                </section>
+                        
                 <footer>
                     <nav>
                         <ul>
