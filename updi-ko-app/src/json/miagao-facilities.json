@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "E&T Laundry Shop",
-    "type": "Miagao/Laundry",
+    "tags": ["Miagao Services", "Laundry"],
     "address": "",
     "reformat_coords": [
       10.641202,
@@ -18,7 +18,6 @@
     "services": {
       "global": []
     },
-    "tags": ["Miagao", "Laundry"],
     "images": [],
     "additional_info": {
       "text_based": [],
@@ -29,7 +28,7 @@
   {
     "id": 2,
     "name": "Green Ribbon",
-    "type": "Miagao/Grocery",
+    "tags": ["Miagao Services", "Grocery"],
     "address": "",
     "reformat_coords": [
       10.640541,
@@ -42,7 +41,6 @@
     "services": {
       "global": []
     },
-    "tags": ["Grocery"],
     "images": [],
     "additional_info": {
       "text_based": [],
@@ -53,7 +51,7 @@
   {
     "id": 3,
     "name": "Nulada's Trading 12",
-    "type": "Miagao/Grocery",
+    "tags": ["Miagao Services", "Grocery"],
     "address": "",
     "reformat_coords": [
       10.641363,
@@ -66,7 +64,6 @@
     "services": {
       "global": []
     },
-    "tags": ["Grocery"],
     "images": [],
     "additional_info": {
       "text_based": [],
@@ -77,7 +74,7 @@
   {
     "id": 4,
     "name": "Nochete",
-    "type": "Miagao/Legal-Services",
+    "tags": ["Miagao Services", "Legal Services"],
     "address": "",
     "reformat_coords": [
       10.641176,
@@ -91,7 +88,6 @@
     "services": {
       "global": []
     },
-    "tags": ["Legal Services"],
     "images": [],
     "additional_info": {
       "text_based": [],
@@ -102,7 +98,7 @@
   {
     "id": 5,
     "name": "Law office of atty. Mark Justic Mooc",
-    "type": "Miagao/Legal-Services",
+    "tags": ["Miagao Services", "Legal Services"],
     "address": "",
     "reformat_coords": [
       10.642468,
@@ -116,7 +112,6 @@
     "services": {
       "global": []
     },
-    "tags": ["Legal Services"],
     "images": [],
     "additional_info": {
       "text_based": [],
@@ -127,7 +122,7 @@
   {
     "id": 6,
     "name": "Kandingan sa Tacas Miagao",
-    "type": "Miagao/Eatery",
+    "tags": ["Miagao Services", "Restaurant"],
     "address": "",
     "reformat_coords": [
       10.642674,
@@ -142,8 +137,7 @@
     "services": {
       "global": []
     },
-    "tags": ["Restaurant"],
-    "images": [],
+    "images": ["https://i.imgur.com/yKO1b0g.jpeg", "https://i.imgur.com/aq5GVLE.jpeg", "https://i.imgur.com/6vOSyeO.jpeg"],
     "additional_info": {
       "text_based": [],
       "image_based": [],
@@ -153,7 +147,7 @@
   {
     "id": 7,
     "name": "AK sisig house Box 1",
-    "type": "Miagao/Eatery",
+    "tags": ["Miagao Services", "Restaurant"],
     "address": "",
     "reformat_coords": [
       10.640435,
@@ -166,7 +160,6 @@
     "services": {
       "global": []
     },
-    "tags": ["Restaurant"],
     "images": [],
     "additional_info": {
       "text_based": [],
@@ -177,7 +170,7 @@
   {
     "id": 8,
     "name": "Mercury Drug Store",
-    "type": "Miagao/Pharmacy",
+    "tags": ["Miagao Services", "Pharmacy"],
     "address": "",
     "reformat_coords": [
       10.641182,
@@ -190,7 +183,6 @@
     "services": {
       "global": []
     },
-    "tags": ["Pharmacy"],
     "images": [],
     "additional_info": {
       "text_based": [],
@@ -201,7 +193,7 @@
   {
     "id": 9,
     "name": "Farmacia Elna",
-    "type": "Miagao/Pharmacy",
+    "tags": ["Miagao Services", "Pharmacy"],
     "address": "",
     "reformat_coords": [
       10.640840,
@@ -215,7 +207,6 @@
     "services": {
       "global": []
     },
-    "tags": ["Pharmacy"],
     "images": [],
     "additional_info": {
       "text_based": [],
@@ -226,7 +217,7 @@
   {
     "id": 10,
     "name": "Double Check - Barber shop",
-    "type": "Miagao/Barber",
+    "tags": ["Miagao Services", "Barber Shop"],
     "address": "",
     "reformat_coords": [
       10.641126,
@@ -239,7 +230,6 @@
     "services": {
       "global": []
     },
-    "tags": ["Barber Shop"],
     "images": [],
     "additional_info": {
       "text_based": [],
@@ -250,7 +240,7 @@
   {
     "id": 11,
     "name": "KC's BarberShop",
-    "type": "Miagao/Barber",
+    "tags": ["Miagao Services", "Barber Shop"],
     "address": "",
     "reformat_coords": [
       10.640988,
@@ -263,7 +253,6 @@
     "services": {
       "global": []
     },
-    "tags": ["Barber Shop"],
     "images": [],
     "additional_info": {
       "text_based": [],
@@ -274,7 +263,7 @@
   {
     "id": 12,
     "name": "Printlab by Stanphil",
-    "type": "Miagao/Media-and-Printing",
+    "tags": ["Miagao Services", "Media and Printing"],
     "address": "2nd Flr., Nite Plaza Commercial Building",
     "reformat_coords": [
       10.641780,
@@ -287,7 +276,6 @@
     "services": {
       "global": []
     },
-    "tags": ["Printer"],
     "images": [],
     "additional_info": {
       "text_based": [],
@@ -298,7 +286,7 @@
   {
     "id": 13,
     "name": "Mitsubishi Digital",
-    "type": "Miagao/Media-and-Printing",
+    "tags": ["Miagao Services", "Media and Printing"],
     "address": "",
     "reformat_coords": [
       10.642180,
@@ -311,7 +299,6 @@
     "services": {
       "global": []
     },
-    "tags": ["Printer"],
     "images": [],
     "additional_info": {
       "text_based": [],
@@ -322,7 +309,7 @@
   {
     "id": 14,
     "name": "RD Pawnshop",
-    "type": "Miagao/Pawnshop",
+    "tags": ["Miagao Services", "Pawnshop"],
     "address": "",
     "reformat_coords": [
       10.641579,
@@ -336,7 +323,6 @@
     "services": {
       "global": []
     },
-    "tags": ["Pawnshop"],
     "images": [],
     "additional_info": {
       "text_based": [],
@@ -347,7 +333,7 @@
   {
     "id": 15,
     "name": "Palawan Pawnshop",
-    "type": "Miagao/Pawnshop",
+    "tags": ["Miagao Services", "Pawnshop"],
     "address": "",
     "reformat_coords": [
       10.641117,
@@ -360,7 +346,6 @@
     "services": {
       "global": []
     },
-    "tags": ["Pawnshop"],
     "images": [],
     "additional_info": {
       "text_based": [],
@@ -371,7 +356,7 @@
   {
     "id": 16,
     "name": "Las Hijas",
-    "type": "Miagao/Study",
+    "tags": ["Miagao Services", "Student Lounge"],
     "address": "",
     "reformat_coords": [
       10.641174,
@@ -386,7 +371,6 @@
     "services": {
       "global": []
     },
-    "tags": ["Student Lounge"],
     "images": [],
     "additional_info": {
       "text_based": [],
@@ -397,7 +381,7 @@
   {
     "id": 17,
     "name": "Studio SG",
-    "type": "Miagao/Study",
+    "tags": ["Miagao Services", "Student Lounge"],
     "address": "",
     "reformat_coords": [
       10.640684,
@@ -410,7 +394,6 @@
     "services": {
       "global": []
     },
-    "tags": ["Student Lounge"],
     "images": [],
     "additional_info": {
       "text_based": [],
@@ -421,7 +404,7 @@
   {
     "id": 18,
     "name": "Flippers E-Sports Cafe",
-    "type": "Miagao/Computer Shop",
+    "tags": ["Miagao Services", "Computer Shop"],
     "address": "",
     "reformat_coords": [
       10.642304,
@@ -434,7 +417,6 @@
     "services": {
       "global": []
     },
-    "tags": ["Computer Shop"],
     "images": [],
     "additional_info": {
       "text_based": [],

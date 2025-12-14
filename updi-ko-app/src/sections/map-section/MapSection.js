@@ -137,52 +137,63 @@ function MapSection({isActive, setAppSection, service, setAppService}) {
 
                 {showCreatePin && (
                     <div className="create-pin-sheet">
-                    <div className="sheet-handle" />
+                        
 
-                    <div className="sheet-header">
-                        <h2>Create Pin</h2>
-                        <button className="close-btn" onClick={() => setShowCreatePin(false)}>
-                        ✕
-                        </button>
-                    </div>
+                        <div className="sheet-header">
+                            <h2>Create Pin</h2>
+                            <span className="close-btn" onClick={() => setShowCreatePin(false)}>
+                            ✕
+                            </span>
+                        </div>
 
-                    <input
-                        className="info-input"
-                        placeholder="Name"
-                        value={pinName}
-                        onChange={(e) => setPinName(e.target.value)}
-                    />
+                        <hr></hr>
+                        
+                        <div className="sheet-inputs">
+                            
+                            <div className="pin-info-form">
+                                <input
+                                    className="info-input"
+                                    placeholder="Name"
+                                    value={pinName}
+                                    onChange={(e) => setPinName(e.target.value)}
+                                />
 
-                    <input
-                        className="info-input"
-                        placeholder="Address"
-                        value={pinAddress}
-                        onChange={(e) => setPinAddress(e.target.value)}
-                    />
+                                <input
+                                    className="info-input"
+                                    placeholder="Address"
+                                    value={pinAddress}
+                                    onChange={(e) => setPinAddress(e.target.value)}
+                                />
+                            </div>
 
-                    <div className="info-input">
-                        <input
-                            placeholder="Latitude"
-                            value={pinLatitude || ""}
-                            onChange={(e) => setPinLatitude(parseFloat(e.target.value))}
-                        />
-                        <input
-                            placeholder="Longitude"
-                            value={pinLongitude || ""}
-                            onChange={(e) => setPinLongitude(parseFloat(e.target.value))}
-                        />
-                    </div>
+                            <div className="coordinates-inputs">
+                                <input
+                                    className="info-input"
+                                    placeholder="Latitude"
+                                    value={pinLatitude || ""}
+                                    onChange={(e) => setPinLatitude(parseFloat(e.target.value))}
+                                />
+                                <input
+                                    className="info-input"
+                                    placeholder="Longitude"
+                                    value={pinLongitude || ""}
+                                    onChange={(e) => setPinLongitude(parseFloat(e.target.value))}
+                                />
+                            </div>
 
-                    <textarea
-                        className="info-input"
-                        placeholder="Description"
-                        value={pinDescription}
-                        onChange={(e) => setPinDescription(e.target.value)}
-                    />
+                            <div className="description-input">
+                                <textarea
+                                    className="info-input"
+                                    placeholder="Description"
+                                    value={pinDescription}
+                                    onChange={(e) => setPinDescription(e.target.value)}
+                                />
+                            </div>
+                        </div>
 
-                    <button className="confirm-pin-btn" onClick={() => handleAddPinnedLocation()}>
-                        →
-                    </button>
+                        <span className="confirm-pin-btn" onClick={() => handleAddPinnedLocation()}>
+                            →
+                        </span>
                     </div>
                 )}
 

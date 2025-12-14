@@ -1,35 +1,30 @@
 [
     { 
-        "group": "University Services",
+        "group": "Fixed Services",
         "tags" : [
             "Scholarship",
             "Register",
-            "College Building",
+            "Finance",
             "Dormitory",
-            "Library",
             "Clinic",
+            "Cafeteria",
             "Student Lounge"
+            
         ]
     },
     { 
-        "group": "Food Services",
-        "tags" : ["Restaurant", "Cafeteria"]
-    },
-    { 
-        "group": "Entertainment Services",
-        "tags" : ["Bar", "Computer Shop"]
-    },
-    { 
-        "group": "Other Services",
+        "group": "Miagao Services",
         "tags" : [
-            "Convenience Store",
+            "Computer Shop",
+            "Restaurant",
             "Grocery",
-            "Printer",
+            "Media and Printing",
             "Laundry",
             "Legal Services",
             "Pharmacy",
             "Barber Shop",
-            "Pawnshop"
+            "Pawnshop",
+            "Student Lounge"
         ]
     }
 ]
