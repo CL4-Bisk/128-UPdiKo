@@ -20,7 +20,7 @@ import MapView from "./MapView";
 
 function MapSection({setAppSection, service, setAppService}) {   
     /* Search Location Logic */
-    const [searchQuery, setSearchQuery] = useState("");
+    const [searchQuery, setSearchQuery] = useState((service)? service.name : "");
     const [activeSearch, setSearchActive] = useState(false);
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value.toLowerCase().trim()); 
@@ -30,9 +30,9 @@ function MapSection({setAppSection, service, setAppService}) {
     function chooseService(service) {
         setAppService(service); 
         setAppSection("MAP");
+        setSearchQuery((service) ? service.name : "");
         setSearchActive(false);
     }
-
 
     /* Show Pin Information Logic */
     const [openMapInfo, setOpenMapInfo] = useState(false);
@@ -96,14 +96,15 @@ function MapSection({setAppSection, service, setAppService}) {
     return (
         <div className="MapSection">
             <header className = {(activeSearch) ? "active-search-layout" : "inactive-search-layout"}>
-                { (activeSearch) ? <img src={backIcon} onClick={() => setSearchActive(false)} className="close-search-btn btn"></img> : null }
+                { (activeSearch) ? <img src={backIcon} onClick={() => {setSearchActive(false); setSearchQuery(""); chooseService(null)}} className="close-search-btn btn"></img> : null }
                 <section className='search-container'>
                     <img src={searchIcon} className="icon"></img>
                     <input  
+                        value= {searchQuery}
                         className='search-bar' 
                         placeholder='Search for Services'
                         onChange={handleSearchChange}
-                        onFocus={() => setSearchActive(true)}
+                        onFocus={() => {setSearchActive(true);}}
                     />
                 </section>  
             </header>
@@ -210,7 +211,7 @@ function MapSection({setAppSection, service, setAppService}) {
             <footer>
                 <nav>
                     <ul>
-                        <li className='navigation btn' onClick={ () => setAppSection("HOME") }>
+                        <li className='navigation btn' onClick={ () => { setAppSection("HOME") ; setAppService(null)} }>
                             <img className='icon' src={homeIcon}></img>
                             <p className='label'>Service</p>    
                         </li>
@@ -218,7 +219,7 @@ function MapSection({setAppSection, service, setAppService}) {
                             <img className='icon' src={mapIcon}></img>
                             <p className='label'>Map</p>    
                         </li>
-                        <li className='navigation btn' onClick={ () => getCurrentUser() ? setAppSection("ACCOUNT") : setAppSection("LOGIN") }>
+                        <li className='navigation btn' onClick={ () => getCurrentUser() ? (setAppSection("ACCOUNT"), setAppService(null)) : (setAppSection("LOGIN"), setAppService(null))}>
                             <img className='icon' src={accountIcon}></img>
                             <p className='label'>Account</p>    
                         </li>

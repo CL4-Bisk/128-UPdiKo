@@ -46,9 +46,7 @@ function MapView({ userLocation, selectedService }) {
   const [selectedPanelTab, setSelectedPanelTab] = useState("About"); // NEW state
 
   useEffect(() => {
-    if (selectedService) {
       setSelectedMarkerInfo(selectedService)
-    }
   }, [selectedService])
   useEffect(() => {
     if (userLocation) {
