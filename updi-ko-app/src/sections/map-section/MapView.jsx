@@ -41,6 +41,7 @@ function MapView({ userLocation, selectedService }) {
   const [loading, setLoading] = useState(true);
   const [pinnedLocations, setPinnedLocations] = useState([]); // NEW
   const [selectedMarkerInfo, setSelectedMarkerInfo] = useState(null); // NEW state
+  const [selectedPanelTab, setSelectedPanelTab] = useState("About"); // NEW state
 
   useEffect(() => {
     if (userLocation) {
@@ -81,7 +82,6 @@ function MapView({ userLocation, selectedService }) {
       </div>
     );
   }
-
   const shouldShowMarker = (facility) => {
     if (selectedService === "All") return true;
     
@@ -117,6 +117,69 @@ function MapView({ userLocation, selectedService }) {
           </Marker>
         ))} 
       </MapContainer>
+      {selectedMarkerInfo && (
+        <div className="marker-info-panel">
+
+          <div className="panel-handle">
+          <h2>{selectedMarkerInfo.name}</h2>
+          <span onClick={() => setSelectedMarkerInfo(null)}>Close</span>
+          </div>
+
+          <hr></hr>
+
+          <div className="marker-info-header">
+            <span className="header-btn" onClick={() => setSelectedPanelTab("About")}>About</span>
+            <span className="header-btn" onClick={() => setSelectedPanelTab("Photos")}>Photos</span>
+          </div>
+
+          {selectedPanelTab === "About" && (
+            <div className="marker-info-container">
+              <div className="marker-description">
+                <p>{selectedMarkerInfo.type}</p>
+                <p>{selectedMarkerInfo.address}</p>                       
+                {selectedMarkerInfo.opening_hours && selectedMarkerInfo.opening_hours.length > 0 && (
+                  <div>
+                    <br></br>
+                    <h3>Opening Hours</h3>
+                    <ul>
+                      {selectedMarkerInfo.opening_hours.map((hour, index) => (
+                        <li key={index}>{hour}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )} 
+
+                {selectedMarkerInfo.contact_info && selectedMarkerInfo.contact_info.length > 0 && (
+                  <div>
+                    <br></br>
+                    <h3>Contact Information</h3>
+                    <ul>
+                      {selectedMarkerInfo.contact_info.map((info, index) => (
+                        <li key={index}>{info}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}     
+              </div>
+            </div>
+          )}
+          
+          {selectedPanelTab === "Photos" && selectedMarkerInfo.images && selectedMarkerInfo.images.length > 0 && (
+            <div className="image-container">
+              <div className="image-gallery">
+                {selectedMarkerInfo.images.map((imgUrl, index) => (
+                  <img key={index} className="image" src={imgUrl} alt={`Image ${index + 1}`} />
+                ))}
+              </div>
+            </div>
+          )}
+          {selectedPanelTab === "Photos" && selectedMarkerInfo.images && selectedMarkerInfo.images.length <= 0 && (
+            <div className="image-container">
+              <p>No photos available.</p>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   )
 

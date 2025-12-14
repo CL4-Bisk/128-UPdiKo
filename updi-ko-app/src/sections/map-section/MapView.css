@@ -7,6 +7,30 @@
 }
 
 /* MAIN GROUP: LOADING SCREEN */
+.marker-info-panel {
+  padding: 12px;
+  padding-bottom: 100px;
+  background: white;
+  border-radius: 12px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-Index: 999;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  height: 42%;
+}
+
+
+
+/* .marker-info-panel p, .marker-info-panel h2 {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+} */
+
 .map-loading {
   display: flex;
   justify-content: center;
@@ -63,3 +87,47 @@
 } */
 
 
+/* IMAGE STYLES */
+.image{
+  max-height: 100%;
+  width: auto;
+  display: block;
+}
+
+.image-gallery{
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  -ms-overflow-style: none;  
+  scrollbar-width: none; 
+  height: 100%;
+}
+.image-container::-webkit-scrollbar {
+  display: none;
+}
+
+.image-container {
+  padding-top: 0.5em;
+  height: 90%;
+}
+  
+
+.panel-handle{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5em;
+}
+
+.marker-info-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.5em;
+}
+
+.marker-description {
+  overflow-y: auto;
+  max-height: 240px;
+  padding: 0.5em;
+}
