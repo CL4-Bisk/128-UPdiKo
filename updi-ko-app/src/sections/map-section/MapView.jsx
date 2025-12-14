@@ -42,9 +42,14 @@ function MapView({ userLocation, selectedService }) {
   const [center, setCenter] = useState(defaultCenter);
   const [loading, setLoading] = useState(true);
   const [pinnedLocations, setPinnedLocations] = useState([]); // NEW
-  const [selectedMarkerInfo, setSelectedMarkerInfo] = useState(null); // NEW state
+  const [selectedMarkerInfo, setSelectedMarkerInfo] = useState(selectedService); // NEW state
   const [selectedPanelTab, setSelectedPanelTab] = useState("About"); // NEW state
 
+  useEffect(() => {
+    if (selectedService) {
+      setSelectedMarkerInfo(selectedService)
+    }
+  }, [selectedService])
   useEffect(() => {
     if (userLocation) {
       setCenter([userLocation.lat, userLocation.lng]);
@@ -85,10 +90,10 @@ function MapView({ userLocation, selectedService }) {
     );
   }
   const shouldShowMarker = (facility) => {
-    if (selectedService === "All") return true;
+    if (!selectedService) return true;
     
     // Check if facility has a tags array and if it includes the selected service
-    return facility.tags && facility.tags.includes(selectedService);
+    return facility.name && facility.name.includes(selectedService.name);
   };
 
   
@@ -105,17 +110,17 @@ function MapView({ userLocation, selectedService }) {
         </Marker> */}
          {pinnedLocations.map((pin) => (
           <Marker key={pin.id} position={[pin.latitude, pin.longitude]} eventHandlers={{ click: () => setSelectedMarkerInfo(pin) }}>
-            <Popup>{pin.name}</Popup>
+            {/* <Popup>{pin.name}</Popup> */}
           </Marker>
         ))}
         {Miagao.filter(shouldShowMarker).map((facility) => (
           <Marker key={facility.id} position={facility.reformat_coords} eventHandlers={{ click: () => setSelectedMarkerInfo({...facility, type: "Miagao"}) }}>
-            <Popup>{facility.name}</Popup>
+            {/* <Popup>{facility.name}</Popup> */}
           </Marker>
         ))}
         {Campus.filter(shouldShowMarker).map((facility) => (
           <Marker key={facility.id} position={facility.reformat_coords} eventHandlers={{ click: () => setSelectedMarkerInfo({...facility, type: "Campus"}) }}>
-            <Popup>{facility.name}</Popup>
+            {/* <Popup>{facility.name}</Popup> */}
           </Marker>
         ))} 
       </MapContainer>

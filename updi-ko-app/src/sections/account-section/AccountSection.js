@@ -10,104 +10,101 @@ import logoutIcon from './../../images/icon/logout-icon.png'
 import { logOut, getCurrentUser } from '../../firebase/firebase.js';
 import { useRef, useState } from "react";
 
-function AccountSection({ isActive, setAppSection }) {
+function AccountSection({ setAppSection }) {
     async function userLogOut() {
         await logOut();
         setAppSection("LOGIN");  
     }
-
+    console.log("Hi from Account Section!")
     const user = getCurrentUser();
 
     return (
-        (isActive) ? (
-            <div className="AccountSection">
-                <header>
-                    <div className='profile'>
-                        <figure className='logo'><img src={mascot}></img></figure>
-                        <div className='information'>
-                            <div className='name'>{user.displayName}</div>
-                            <div className='email'>{user.email}</div>
+        <div className="AccountSection">
+            <header>
+                <div className='profile'>
+                    <figure className='logo'><img src={mascot}></img></figure>
+                    <div className='information'>
+                        <div className='name'>{user.displayName}</div>
+                        <div className='email'>{user.email}</div>
+                    </div>
+                </div>
+                <div className='buttons'>
+                    <figure className='logout-icon btn'><img src={logoutIcon} onClick={ userLogOut }></img></figure>
+                </div>
+            </header>
+
+            <section className='dashboard'>
+                <hgroup>
+                    <h1>Dashboard</h1>
+                    <h2>Good day! What do you want to today?</h2>
+                </hgroup>
+                <div className='dashboard-options'>
+                    <div className='option-btn btn' >
+                        <img src={bookmarkIcon}></img>
+                        <div>
+                            <h2 className='title'>Saved Services</h2>
+                            <h3 className='subtitle'>Manage bookmarked services</h3>
                         </div>
                     </div>
-                    <div className='buttons'>
-                        <figure className='logout-icon btn'><img src={logoutIcon} onClick={ userLogOut }></img></figure>
-                    </div>
-                </header>
-
-                <section className='dashboard'>
-                    <hgroup>
-                        <h1>Dashboard</h1>
-                        <h2>Good day! What do you want to today?</h2>
-                    </hgroup>
-                    <div className='dashboard-options'>
-                        <div className='option-btn btn' >
-                            <img src={bookmarkIcon}></img>
-                            <div>
-                                <h2 className='title'>Saved Services</h2>
-                                <h3 className='subtitle'>Manage bookmarked services</h3>
-                            </div>
+                    <div className='option-btn btn' >
+                        <img src={mapIcon}></img>
+                        <div>
+                            <h2 className='title'>Your Personal Pins</h2>
+                            <h3 className='subtitle'>Manage your created pins</h3>
                         </div>
-                        <div className='option-btn btn' >
-                            <img src={mapIcon}></img>
-                            <div>
-                                <h2 className='title'>Your Personal Pins</h2>
-                                <h3 className='subtitle'>Manage your created pins</h3>
-                            </div>
-                        </div>      
-                    </div>
+                    </div>      
+                </div>
 
-                </section>
-                {/* HEADER */}
-                {/* <main>
-                    <figure className="mascot"></figure>
-                    <div className="mascot-dialogue">
-                        ACCOUNT SETTINGS
-                    </div>
-                </main> */}
+            </section>
+            {/* HEADER */}
+            {/* <main>
+                <figure className="mascot"></figure>
+                <div className="mascot-dialogue">
+                    ACCOUNT SETTINGS
+                </div>
+            </main> */}
 
-                { /* Users see the dropdowns which contains the services they want to get */}
-                {/* <section className="selections" ref={dropdownsRef}>
-                {
-                    data.map((service, index) => (
-                        <div key={index} className="service-dropdown">
-                            <div className="dropdown-selected-container"  onClick= {() => toggleDropdown(index)}>
-                                <p>{service.setting}</p>
-                                <img src=''></img>
-                            </div>
-                            <div className="dropdown-option-list hidden">
-                                {
-                                    service.tags.map((tag, index) => (
-                                        <button key={index} className="dropdown-option" onClick = { () => handleTag(tag.toUpperCase())}>{tag}</button>
-                                    ))
-                                }
-                            </div>    
+            { /* Users see the dropdowns which contains the services they want to get */}
+            {/* <section className="selections" ref={dropdownsRef}>
+            {
+                data.map((service, index) => (
+                    <div key={index} className="service-dropdown">
+                        <div className="dropdown-selected-container"  onClick= {() => toggleDropdown(index)}>
+                            <p>{service.setting}</p>
+                            <img src=''></img>
+                        </div>
+                        <div className="dropdown-option-list hidden">
+                            {
+                                service.tags.map((tag, index) => (
+                                    <button key={index} className="dropdown-option" onClick = { () => handleTag(tag.toUpperCase())}>{tag}</button>
+                                ))
+                            }
                         </div>    
-                    ))  
-                }
-                </section> */}
+                    </div>    
+                ))  
+            }
+            </section> */}
 
-                {/* NAV BAR */}
-                <footer>
-                    <nav>
-                        <ul>
-                            <li className='navigation btn' onClick={ () => setAppSection("HOME") }>
-                                <img className='icon' src={homeIcon}></img>
-                                <p className='label'>Service</p>    
-                            </li>
-                            <li className='navigation btn'>
-                                <img className='icon' src={mapIcon} onClick={ () => setAppSection("MAP") }></img>
-                                <p className='label'>Map</p>    
-                            </li>
-                            <li className='navigation active btn' onClick={ () => setAppSection("ACCOUNT") }>
-                                <img className='icon' src={accountIcon}></img>
-                                <p className='label'>Account</p>    
-                            </li>
-                        </ul>
-                    </nav>
-                </footer>
-
-            </div>
-        ) : <></>
+            {/* NAV BAR */}
+            <footer>
+                <nav>
+                    <ul>
+                        <li className='navigation btn' onClick={ () => setAppSection("HOME") }>
+                            <img className='icon' src={homeIcon}></img>
+                            <p className='label'>Service</p>    
+                        </li>
+                        <li className='navigation btn'>
+                            <img className='icon' src={mapIcon} onClick={ () => setAppSection("MAP") }></img>
+                            <p className='label'>Map</p>    
+                        </li>
+                        <li className='navigation active btn' onClick={ () => setAppSection("ACCOUNT") }>
+                            <img className='icon' src={accountIcon}></img>
+                            <p className='label'>Account</p>    
+                        </li>
+                    </ul>
+                </nav>
+            </footer>
+        </div>
     );
 }
 

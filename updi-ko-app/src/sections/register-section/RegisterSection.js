@@ -10,7 +10,7 @@ import hidePassIcon from './../../images/icon/hide-pass-icon.png'
 
 import { useState } from "react" 
 
-function RegisterSection({ isActive, setAppSection }) {
+function RegisterSection({ setAppSection }) {
     const [isVisible, setVisible] = useState(false);
 
     function togglePasswordVisibility() {    
@@ -43,64 +43,63 @@ function RegisterSection({ isActive, setAppSection }) {
     }
 
     return (
-        (isActive) ? (
-            <div className="RegisterSection">
-                <header> 
-                <figure className='logo'>
-                    <img src={mascot} alt='Logo Image'></img>
-                    <figcaption className="logo-name">
-                        User Signup
-                    </figcaption>
-                </figure>
-            </header>   
+      
+        <div className="RegisterSection">
+            <header> 
+            <figure className='logo'>
+                <img src={mascot} alt='Logo Image'></img>
+                <figcaption className="logo-name">
+                    User Signup
+                </figcaption>
+            </figure>
+        </header>   
 
-            <section className='form-section'>
-                <div className="register-container">
-                     <input type="text" className='FName' placeholder="First Name"></input>
-                        <input type="text" className='LName' placeholder="Last Name"></input>
-                        <input type="text" className='email' placeholder="Email"></input>
-                        <div className='password-input-container'>                            
-                            <img 
-                                className='show-pass-btn btn' 
-                                src={ isVisible ? hidePassIcon : showPassIcon }
-                                onClick={ togglePasswordVisibility }
-                            />
-                            <input 
-                                className='password'
-                                type= { isVisible? "text": "password"} 
-                                placeholder="Password"
+        <section className='form-section'>
+            <div className="register-container">
+                    <input type="text" className='FName' placeholder="First Name"></input>
+                    <input type="text" className='LName' placeholder="Last Name"></input>
+                    <input type="text" className='email' placeholder="Email"></input>
+                    <div className='password-input-container'>                            
+                        <img 
+                            className='show-pass-btn btn' 
+                            src={ isVisible ? hidePassIcon : showPassIcon }
+                            onClick={ togglePasswordVisibility }
+                        />
+                        <input 
+                            className='password'
+                            type= { isVisible? "text": "password"} 
+                            placeholder="Password"
 
-                            />        
-                        </div>                        
-                        <button className="register-button" onClick={() => handleRegister()}>Register</button>
-                </div>
-            </section>
+                        />        
+                    </div>                        
+                    <button className="register-button" onClick={() => handleRegister()}>Register</button>
+            </div>
+        </section>
 
-            <section className='register-description-section'>
-                Already have an account? <br></br><span className='to-register-ref' onClick={ () => setAppSection("LOGIN") }>Login to your account</span> 
-            </section>
+        <section className='register-description-section'>
+            Already have an account? <br></br><span className='to-register-ref' onClick={ () => setAppSection("LOGIN") }>Login to your account</span> 
+        </section>
 
-            {/* NAV BAR */}
-            <footer>
-                <nav>
-                    <ul>
-                        <li className='navigation btn' onClick={ () => setAppSection("HOME") }>
-                            <img className='icon' src={homeIcon}></img>
-                            <p className='label'>Service</p>    
-                        </li>
-                        <li className='navigation btn'>
-                            <img className='icon' src={mapIcon} onClick={ () => setAppSection("MAP") }></img>
-                            <p className='label'>Map</p>    
-                        </li>
-                        <li className='navigation active btn' onClick={ () => setAppSection("ACCOUNT") }>
-                            <img className='icon' src={accountIcon}></img>
-                            <p className='label'>Account</p>    
-                        </li>
-                    </ul>
-                </nav>
-            </footer>
-        </div>
-        ) : <></>
+        {/* NAV BAR */}
+        <footer>
+            <nav>
+                <ul>
+                    <li className='navigation btn' onClick={ () => setAppSection("HOME") }>
+                        <img className='icon' src={homeIcon}></img>
+                        <p className='label'>Service</p>    
+                    </li>
+                    <li className='navigation btn'>
+                        <img className='icon' src={mapIcon} onClick={ () => setAppSection("MAP") }></img>
+                        <p className='label'>Map</p>    
+                    </li>
+                    <li className='navigation active btn' onClick={ () => setAppSection("ACCOUNT") }>
+                        <img className='icon' src={accountIcon}></img>
+                        <p className='label'>Account</p>    
+                    </li>
+                </ul>
+            </nav>
+        </footer>
+    </div>
     );
 }
 

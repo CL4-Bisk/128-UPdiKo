@@ -1,4 +1,3 @@
-import './App.css'
 import { useState } from 'react';
 import MapSection from './sections/map-section/MapSection'
 import StartSection from './sections/start-section/StartSection';
@@ -9,48 +8,38 @@ import AccountInfoSection from './sections/account-info-section/AccountInfoSecti
 import AccountUpdateSection from './sections/account-update-section/AccountUpdateSection';
 
 function App() {
+    /** 
+     *  This hook is a global state that keeps track of the current page the user is in.  
+     *  The pages are: HOME, MAP, ACCOUNT, LOGIN, & REGISTER  
+     */
     const [section, setSection] = useState("HOME");
-    const [service, setService] = useState("All"); 
+    
+    /**
+     * This hook is a global state that keeps track of the current service the user chose/searched 
+     * from HOME or MAP
+     * 
+     * The service state will be kept until the user exits MAP.  
+     * The service will be displayed in MAP.
+     */
+    const [service, setService] = useState(null); 
 
-    return ( 
-        <div className="App">
-            <div className="HomeUI">
-                <StartSection 
-                    isActive = { section  === "HOME"} 
-                    setAppSection = {setSection}  
-                    setAppService = {setService}
-                />
-                <MapSection 
-                    isActive = { section === "MAP"} 
-                    setAppSection = {setSection} 
-                    service = {service}
-                    setAppService = {setService}
-                />
-                <AccountSection 
-                    isActive = { section === "ACCOUNT"} 
-                    setAppSection = {setSection}
-                />
-            </div>
-            <div className='AccountUI'>
-                <LoginSection 
-                    isActive = { section === "LOGIN"} 
-                    setAppSection = {setSection}
-                />
-                <RegisterSection 
-                    isActive = { section === "REGISTER"} 
-                    setAppSection = {setSection}
-                />
-                <AccountInfoSection 
-                    isActive = { section === "SHOW ACCOUNT INFO"} 
-                    setAppSection = {setSection}
-                />
-                <AccountUpdateSection 
-                    isActive = { section === "UPDATE PROFILE"} 
-                    setAppSection = {setSection}
-                />
-            </div>
-        </div>
-    );
+    /**
+     * These are the routes or logic for the currently renderd page.
+     */
+    switch (section) {
+    case "HOME":
+        return <StartSection setAppSection={setSection} setAppService={setService} />;
+    case "MAP":
+        return <MapSection setAppSection={setSection} service={service} setAppService={setService} />;
+    case "ACCOUNT":
+        return <AccountSection setAppSection={setSection} />;
+    case "LOGIN":
+        return <LoginSection setAppSection={setSection} />;
+    case "REGISTER":
+        return <RegisterSection setAppSection={setSection} />;
+    default:
+        return <StartSection setAppSection={setSection} setAppService={setService} />; // Fallback
+    }
 }
 
 export default App;

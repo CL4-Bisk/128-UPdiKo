@@ -12,7 +12,7 @@ import {
 
 import { useEffect, useState } from "react";
 
-function AccountUpdateSection({ isActive, setAppSection }) {
+function AccountUpdateSection({ setAppSection }) {
   const user = getCurrentUser();
 
   const [displayName, setDisplayName] = useState("");
@@ -28,7 +28,7 @@ function AccountUpdateSection({ isActive, setAppSection }) {
     }
   }, [user]);
 
-  if (!isActive || !user) return null;
+  if (!user) return null;
 
   const handleUpdate = async () => {
     try {

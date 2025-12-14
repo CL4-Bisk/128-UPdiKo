@@ -10,7 +10,6 @@
     --color-accent-2: #EAE0B9; 
     --color-footer: #171221;
 
-
     --pad-0 : 0px;
     --pad-2 : 2px;
     --pad-4 : 4px;
@@ -106,4 +105,8 @@ input {
 
 .active-section p {
     color: black;
+}
+
+body {
+    background-color: black;
 }

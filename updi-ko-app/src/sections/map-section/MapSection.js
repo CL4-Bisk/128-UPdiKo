@@ -18,7 +18,25 @@ import { getCurrentUser, addPinnedLocationToDB } from '../../firebase/firebase.j
 import React from "react";
 import MapView from "./MapView";
 
-function MapSection({isActive, setAppSection, service, setAppService}) {   
+function MapSection({setAppSection, service, setAppService}) {   
+    /* Search Location Logic */
+    const [searchQuery, setSearchQuery] = useState("");
+    const [activeSearch, setSearchActive] = useState(false);
+    const handleSearchChange = (event) => {
+        setSearchQuery(event.target.value.toLowerCase().trim()); 
+    }
+
+    /* For user choosing a service */
+    function chooseService(service) {
+        setAppService(service); 
+        setAppSection("MAP");
+        setSearchActive(false);
+    }
+
+
+    /* Show Pin Information Logic */
+    const [openMapInfo, setOpenMapInfo] = useState(false);
+    const [mapInfoTab, setMapInfoTab] = useState("about");
 
     /* Create Pin Location Logic */
     const [showCreatePin, setShowCreatePin] = useState(false);
@@ -49,7 +67,6 @@ function MapSection({isActive, setAppSection, service, setAppService}) {
                 pinDescription
             );
 
-
             // Reset
             setShowCreatePin(false);
             setPinName("");
@@ -62,15 +79,7 @@ function MapSection({isActive, setAppSection, service, setAppService}) {
         }
     };
 
-
-    /* Search Location Logic */
-    const [searchQuery, setSearchQuery] = useState("");
-    const [activeSearch, setSearchActive] = useState(false);
-
-    const handleSearchChange = (event) => {
-        setSearchQuery(event.target.value.toLowerCase().trim()); 
-    }
-
+    /* Services Data */
     const services = [...campusServicesData, ...communityServicesData]
     const filteredServices = services.filter(service => {
         const nameLower = service.name.toLowerCase();    
@@ -78,153 +87,145 @@ function MapSection({isActive, setAppSection, service, setAppService}) {
         return matchesSearch ;
     });
 
-
-    /* Map Information Logic */
-    const [openMapInfo, setOpenMapInfo] = useState(false);
-    const [mapInfoTab, setMapInfoTab] = useState("about");
-
-
-
-    // sample location
-    const userLocation = { lat: 10.641944, lng: 122.235556 };
+    /* Set Location */    
+    const userLocation = { lat: 10.641944, lng: 122.235556 };   // default location 
+    if (service) {
+        [userLocation.lat, userLocation.lng] = service.reformat_coords   // selected service/location
+    } 
 
     return (
-        (isActive) ? (
-            <div className="MapSection">
-                <header className = {(activeSearch) ? "active-search-layout" : "inactive-search-layout"}>
-                    { (activeSearch) ? <img src={backIcon} onClick={() => setSearchActive(false)} className="close-search-btn btn"></img> : null }
-                    <section className='search-container'>
-                        <img src={searchIcon} className="icon"></img>
-                        <input  
-                            className='search-bar' 
-                            placeholder='Search for Services'
-                            onChange={handleSearchChange}
-                            onFocus={() => setSearchActive(true)}
-                        />
-                    </section>  
-                </header>
+        <div className="MapSection">
+            <header className = {(activeSearch) ? "active-search-layout" : "inactive-search-layout"}>
+                { (activeSearch) ? <img src={backIcon} onClick={() => setSearchActive(false)} className="close-search-btn btn"></img> : null }
+                <section className='search-container'>
+                    <img src={searchIcon} className="icon"></img>
+                    <input  
+                        className='search-bar' 
+                        placeholder='Search for Services'
+                        onChange={handleSearchChange}
+                        onFocus={() => setSearchActive(true)}
+                    />
+                </section>  
+            </header>
 
-                <section className= { (activeSearch) ? 'search-list-section' : 'search-list-section hidden' }>
-                    <section className='service-list'>
-                    {
-                        filteredServices.map((service, index) => (
-                            <div key={index} className='service-btn btn' >
-                                <img src={mapIcon}></img>
-                                <div>
-                                    <h2 className='title'>{service.name}</h2>
-                                    <h3 className='tag'>{service.tags}</h3>
-                                </div>
+            <section className= { (activeSearch) ? 'search-list-section' : 'search-list-section hidden' }>
+                <section className='service-list'>
+                {
+                    filteredServices.map((service, index) => (
+                        <div key={index} className='service-btn btn' onClick={() => chooseService(service)}>
+                            <img src={mapIcon}></img>
+                            <div>
+                                <h2 className='title'>{service.name}</h2>
+                                <h3 className='tag'>{service.tags}</h3>
                             </div>
-                        ))
-                    }
-                    </section>
+                        </div>
+                    ))
+                }
                 </section>
+            </section>
 
-                <section className="map">
-                    <div className = "map-container">
-                        <MapView userLocation={userLocation} selectedService={service} onCenterChange={(lat, lng) => setMapCenter({ lat, lng })}/>
+            <section className="map">
+                <div className = "map-container">
+                    <MapView userLocation={userLocation} selectedService={service} onCenterChange={(lat, lng) => setMapCenter({ lat, lng })}/>
+                </div>
+            </section>
+
+
+            {showCreatePin && (
+                <div className="create-pin-sheet">
+                    
+
+                    <div className="sheet-header">
+                        <h2>Create Pin</h2>
+                        <span className="close-btn" onClick={() => setShowCreatePin(false)}>
+                            <img src={closeIcon}></img>
+                        </span>
                     </div>
-                </section>
 
-
-                {showCreatePin && (
-                    <div className="create-pin-sheet">
+                    <hr className="separator"></hr>
+                    
+                    <div className="sheet-inputs">
                         
+                        <div className="pin-info-form">
+                            <input
+                                className="info-input"
+                                placeholder="Name"
+                                value={pinName}
+                                onChange={(e) => setPinName(e.target.value)}
+                            />
 
-                        <div className="sheet-header">
-                            <h2>Create Pin</h2>
-                            <span className="close-btn" onClick={() => setShowCreatePin(false)}>
-                                <img src={closeIcon}></img>
-                            </span>
+                            <input
+                                className="info-input"
+                                placeholder="Address"
+                                value={pinAddress}
+                                onChange={(e) => setPinAddress(e.target.value)}
+                            />
                         </div>
 
-                        <hr className="separator"></hr>
-                        
-                        <div className="sheet-inputs">
-                            
-                            <div className="pin-info-form">
-                                <input
-                                    className="info-input"
-                                    placeholder="Name"
-                                    value={pinName}
-                                    onChange={(e) => setPinName(e.target.value)}
-                                />
-
-                                <input
-                                    className="info-input"
-                                    placeholder="Address"
-                                    value={pinAddress}
-                                    onChange={(e) => setPinAddress(e.target.value)}
-                                />
-                            </div>
-
-                            <div className="coordinates-inputs">
-                                <input
-                                    className="info-input"
-                                    placeholder="Latitude"
-                                    value={pinLatitude || ""}
-                                    onChange={(e) => setPinLatitude(parseFloat(e.target.value))}
-                                />
-                                <input
-                                    className="info-input"
-                                    placeholder="Longitude"
-                                    value={pinLongitude || ""}
-                                    onChange={(e) => setPinLongitude(parseFloat(e.target.value))}
-                                />
-                            </div>
-
-                            <div className="description-input">
-                                <textarea
-                                    className="info-input"
-                                    placeholder="Description"
-                                    value={pinDescription}
-                                    onChange={(e) => setPinDescription(e.target.value)}
-                                />
-                            </div>
+                        <div className="coordinates-inputs">
+                            <input
+                                className="info-input"
+                                placeholder="Latitude"
+                                value={pinLatitude || ""}
+                                onChange={(e) => setPinLatitude(parseFloat(e.target.value))}
+                            />
+                            <input
+                                className="info-input"
+                                placeholder="Longitude"
+                                value={pinLongitude || ""}
+                                onChange={(e) => setPinLongitude(parseFloat(e.target.value))}
+                            />
                         </div>
 
-                        <div className='confirm-container'>
-                            <span className="confirm-pin-btn btn" onClick={() => handleAddPinnedLocation()}>
-                                <img src={nextIcon}></img>
-                            </span>
+                        <div className="description-input">
+                            <textarea
+                                className="info-input"
+                                placeholder="Description"
+                                value={pinDescription}
+                                onChange={(e) => setPinDescription(e.target.value)}
+                            />
                         </div>
                     </div>
-                )}
 
-            
+                    <div className='confirm-container'>
+                        <span className="confirm-pin-btn btn" onClick={() => handleAddPinnedLocation()}>
+                            <img src={nextIcon}></img>
+                        </span>
+                    </div>
+                </div>
+            )}
 
-                <section className="controls">
-                    <button className="current-location-btn">
-                        <img className="current-location-img" src={compassIcon}></img>
-                    </button>    
-                    <br></br>
-                    <button className="current-location-btn" onClick={handleOpenCreatePin}>
-                        <img className="current-location-img" src={mapIcon}></img>
-                    </button>
-                </section>
-                        
-                <footer>
-                    <nav>
-                        <ul>
-                            <li className='navigation btn' onClick={ () => setAppSection("HOME") }>
-                                <img className='icon' src={homeIcon}></img>
-                                <p className='label'>Service</p>    
-                            </li>
-                            <li className='navigation active btn' onClick={ () => setAppSection("MAP") }>
-                                <img className='icon' src={mapIcon}></img>
-                                <p className='label'>Map</p>    
-                            </li>
-                            <li className='navigation btn' onClick={ () => getCurrentUser() ? setAppSection("ACCOUNT") : setAppSection("LOGIN") }>
-                                <img className='icon' src={accountIcon}></img>
-                                <p className='label'>Account</p>    
-                            </li>
-                        </ul>
-                    </nav>
-                </footer>
-            </div>
-        ) 
-        : ( <></> )
         
+
+            <section className="controls">
+                <button className="current-location-btn">
+                    <img className="current-location-img" src={compassIcon}></img>
+                </button>    
+                <br></br>
+                <button className="current-location-btn" onClick={handleOpenCreatePin}>
+                    <img className="current-location-img" src={mapIcon}></img>
+                </button>
+            </section>
+                    
+            <footer>
+                <nav>
+                    <ul>
+                        <li className='navigation btn' onClick={ () => setAppSection("HOME") }>
+                            <img className='icon' src={homeIcon}></img>
+                            <p className='label'>Service</p>    
+                        </li>
+                        <li className='navigation active btn' onClick={ () => setAppSection("MAP") }>
+                            <img className='icon' src={mapIcon}></img>
+                            <p className='label'>Map</p>    
+                        </li>
+                        <li className='navigation btn' onClick={ () => getCurrentUser() ? setAppSection("ACCOUNT") : setAppSection("LOGIN") }>
+                            <img className='icon' src={accountIcon}></img>
+                            <p className='label'>Account</p>    
+                        </li>
+                    </ul>
+                </nav>
+            </footer>
+        </div>        
     );
 }
 

@@ -18,23 +18,21 @@ import communityServicesData from './../../json/miagao-facilities.json';
 import { use, useState } from 'react';
 import { onAuthStateChangedListener, getCurrentUser } from '../../firebase/firebase.js'
 
-function StartSection({isActive, setAppSection, setAppService}) {
+function StartSection({setAppSection, setAppService}) {
+    /* For searching services through the search bar or filtering displayed services with tags */
     const [activeCategory, setCategory] = useState("All")          
     const [searchQuery, setSearchQuery] = useState("") 
-
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value.toLowerCase().trim()); 
     }
 
-    onAuthStateChangedListener(async (user) => {
-        if (user) {
-            console.log(`User logged in -\nName: ${user.displayName}\nEmail: ${user.email}\nUID: ${user.uid}`);
-        } else {
-            console.log("wala user eh :)");
-        }
-    })
+    /* For user choosing a service */
+    function chooseService(service) {
+        setAppService(service); 
+        setAppSection("MAP")
+    }
 
-    // JSON Data
+    /* Services Data */
     const tags = serviceTagsData.reduce((accumulator, curr) => [...accumulator , ...curr.tags], ["All"])
     const services = [...campusServicesData, ...communityServicesData]
     const filteredServices = services.filter(service => {
@@ -45,79 +43,77 @@ function StartSection({isActive, setAppSection, setAppService}) {
     });
 
     return (
-        (isActive) ? (
-            <div className="StartSection">
-                <header> 
-                    <figure className='logo'>
-                        <img src={mascot} alt='Logo Image'></img>
-                        <figcaption className="logo-name">
-                            Updi Ko
-                        </figcaption>
-                        <figcaption className='subheading'>Lorem ipsum dolor sit amet</figcaption>
-                    </figure>
-                </header>   
-                
-                <section className='search-section'>
-                    <img src={searchIcon} className="icon"></img>
-                    <input 
-                        className='search-bar' 
-                        placeholder='Search for Services'
-                        onChange={handleSearchChange}
-                    />    
-                </section>
+        <div className="StartSection">
+            <header> 
+                <figure className='logo'>
+                    <img src={mascot} alt='Logo Image'></img>
+                    <figcaption className="logo-name">
+                        Updi Ko
+                    </figcaption>
+                    <figcaption className='subheading'>Lorem ipsum dolor sit amet</figcaption>
+                </figure>
+            </header>   
+            
+            <section className='search-section'>
+                <img src={searchIcon} className="icon"></img>
+                <input 
+                    className='search-bar' 
+                    placeholder='Search for Services'
+                    onChange={handleSearchChange}
+                />    
+            </section>
 
-                <section className='service-section'>
-                    <h1>Services</h1>
-                    <div className='categories'>
-                    {
-                        tags.map((tag, index) => (
-                            <div 
-                                key={index} 
-                                className= { (tag == activeCategory) ? "category-btn active-category btn" : "category-btn btn" } 
-                                onClick= { () => setCategory(tag) } 
-                            >
-                                {tag}
+            <section className='service-section'>
+                <h1>Services</h1>
+                <div className='categories'>
+                {
+                    tags.map((tag, index) => (
+                        <div 
+                            key={index} 
+                            className= { (tag == activeCategory) ? "category-btn active-category btn" : "category-btn btn" } 
+                            onClick= { () => setCategory(tag) } 
+                        >
+                            {tag}
+                        </div>
+                    ))
+                }
+                </div>
+                <div className='service-list'>
+                {
+                    filteredServices.map((service, index) => (
+                        <div key={index} className='service-btn btn' onClick = {() => chooseService(service)} >
+                            <img src={mapIcon}></img>
+                            <div>
+                                <h2 className='title'>{service.name}</h2>
+                                <h3 className='tag'>{service.tags.join(", ")}</h3>
                             </div>
-                        ))
-                    }
-                    </div>
-                    <div className='service-list'>
-                    {
-                        filteredServices.map((service, index) => (
-                            <div key={index} className='service-btn btn' >
-                                <img src={mapIcon}></img>
-                                <div>
-                                    <h2 className='title'>{service.name}</h2>
-                                    <h3 className='tag'>{service.tags}</h3>
-                                </div>
-                            </div>
-                        ))
-                    }
-                    </div>
-                </section>
+                        </div>
+                    ))
+                }
+                </div>
+            </section>
 
 
-                <footer>
-                    <nav>
-                        <ul>
-                            <li className='navigation active btn' onClick={ () => setAppSection("HOME") }>
-                                <img className='icon' src={homeIcon}></img>
-                                <p className='label'>Service</p>    
-                            </li>
-                            <li className='navigation btn' onClick={ () => setAppSection("MAP") }>
-                                <img className='icon' src={mapIcon}></img>
-                                <p className='label'>Map</p>    
-                            </li>
-                            <li className='navigation btn' onClick={ () => getCurrentUser() ? setAppSection("ACCOUNT") : setAppSection("LOGIN") }>
-                                <img className='icon' src={accountIcon}></img>
-                                <p className='label'>Account</p>    
-                            </li>
-                        </ul>
-                    </nav>
-                </footer>
-            </div>
-        ) : ( <></> )
-    );
+            <footer>
+                <nav>
+                    <ul>
+                        <li className='navigation active btn' onClick={ () => setAppSection("HOME") }>
+                            <img className='icon' src={homeIcon}></img>
+                            <p className='label'>Service</p>    
+                        </li>
+                        <li className='navigation btn' onClick={ () => setAppSection("MAP") }>
+                            <img className='icon' src={mapIcon}></img>
+                            <p className='label'>Map</p>    
+                        </li>
+                        <li className='navigation btn' onClick={ () => getCurrentUser() ? setAppSection("ACCOUNT") : setAppSection("LOGIN") }>
+                            <img className='icon' src={accountIcon}></img>
+                            <p className='label'>Account</p>    
+                        </li>
+                    </ul>
+                </nav>
+            </footer>
+        </div>
+    )
 }
 
 export default StartSection;
