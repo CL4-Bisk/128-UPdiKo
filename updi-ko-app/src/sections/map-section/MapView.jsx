@@ -6,6 +6,8 @@ import "./MapView.css";
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
+import closeIcon from './../../images/icon/close-icon.png';
+import timeIcon from './../../images/icon/time-icon.png';
 import { onAuthStateChangedListener, getPinnedLocationsFromDB } from "../../firebase/firebase.js";
 import Miagao from "../../json/miagao-facilities.json"
 import Campus from "../../json/campus-facilities.json"
@@ -122,14 +124,14 @@ function MapView({ userLocation, selectedService }) {
 
           <div className="panel-handle">
           <h2>{selectedMarkerInfo.name}</h2>
-          <span onClick={() => setSelectedMarkerInfo(null)}>Close</span>
+          <span className="close-btn btn" onClick={() => setSelectedMarkerInfo(null)}><img src={closeIcon}></img></span>
           </div>
 
-          <hr></hr>
+          <hr className="separator"></hr>
 
           <div className="marker-info-header">
-            <span className="header-btn" onClick={() => setSelectedPanelTab("About")}>About</span>
-            <span className="header-btn" onClick={() => setSelectedPanelTab("Photos")}>Photos</span>
+            <span className={"header-btn btn " + ((selectedPanelTab == "About") ? "active" : " ")} onClick={() => setSelectedPanelTab("About")}>About</span>
+            <span className={"header-btn btn " + ((selectedPanelTab == "Photos") ? "active" : " ")}  onClick={() => setSelectedPanelTab("Photos")}>Photos</span>
           </div>
 
           {selectedPanelTab === "About" && (
@@ -182,70 +184,6 @@ function MapView({ userLocation, selectedService }) {
       )}
     </div>
   )
-
-
-//     <div className="map-container">
-//       <MapContainer center={center} zoom={15} style={{ width: "100%", height: "100%" }} zoomControl={false}>
-//         <ChangeView center={center} />
-//         <TileLayer
-//           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-//           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-//         />
-//         {/* <Marker position={center}>
-//           <Popup>You are here</Popup>
-//         </Marker> */}
-//         {pinnedLocations.map((pin) => (
-//           <Marker key={pin.id} position={[pin.latitude, pin.longitude]} eventHandlers={{ click: () => setSelectedMarkerInfo(pin) }}>
-//             <Popup>{pin.name}</Popup>
-//           </Marker>
-//         ))}
-//         {Miagao.filter(shouldShowMarker).map((facility) => (
-//           <Marker key={facility.id} position={facility.reformat_coords} eventHandlers={{ click: () => setSelectedMarkerInfo({...facility, type: "Miagao"}) }}>
-//             <Popup>{facility.name}</Popup>
-//           </Marker>
-//         ))}
-//         {Campus.filter(shouldShowMarker).map((facility) => (
-//           <Marker key={facility.id} position={facility.reformat_coords} eventHandlers={{ click: () => setSelectedMarkerInfo({...facility, type: "Campus"}) }}>
-//             <Popup>{facility.name}</Popup>
-//           </Marker>
-//         ))}
-        
-//       </MapContainer>
-
-//       {selectedMarkerInfo && (
-//         <div className="marker-info-panel">
-//           <h2>{selectedMarkerInfo.name}</h2>
-//           <p>{selectedMarkerInfo.type}</p>
-//           <p>{selectedMarkerInfo.address}</p>
-          
-//           {selectedMarkerInfo.opening_hours && selectedMarkerInfo.opening_hours.length > 0 && (
-//             <div>
-//               <br></br>
-//               <h3>Opening Hours</h3>
-//               <ul>
-//                 {selectedMarkerInfo.opening_hours.map((hour, index) => (
-//                   <li key={index}>{hour}</li>
-//                 ))}
-//               </ul>
-//             </div>
-//           )} 
-
-//           {selectedMarkerInfo.contact_info && selectedMarkerInfo.contact_info.length > 0 && (
-//             <div>
-//               <br></br>
-//               <h3>Contact Information</h3>
-//               <ul>
-//                 {selectedMarkerInfo.contact_info.map((info, index) => (
-//                   <li key={index}>{info}</li>
-//                 ))}
-//               </ul>
-//             </div>
-//           )}         
-//           <button onClick={() => setSelectedMarkerInfo(null)}>Close</button>
-//         </div>
-//       )}
-//     </div>
-//   );
 };
 
 export default MapView;

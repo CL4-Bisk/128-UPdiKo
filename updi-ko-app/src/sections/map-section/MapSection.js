@@ -6,11 +6,8 @@ import mapIcon from './../../images/icon/map-pin-icon.png'
 import accountIcon from './../../images/icon/user-icon.png';
 import compassIcon from './../../images/icon/compass-icon.png';
 import backIcon from './../../images/icon/back-icon.png';
-import saveIcon from './../../images/icon/save-icon.png';
 import closeIcon from './../../images/icon/close-icon.png';
-import timeIcon from './../../images/icon/time-icon.png';
-import placeholder from './../../images/bg/placeholder.png';
-
+import nextIcon from './../../images/icon/next-icon.png';
 
 import campusServicesData from './../../json/campus-facilities.json';
 import communityServicesData from './../../json/miagao-facilities.json';
@@ -126,62 +123,22 @@ function MapSection({isActive, setAppSection, service, setAppService}) {
                 <section className="map">
                     <div className = "map-container">
                         <MapView userLocation={userLocation} selectedService={service} onCenterChange={(lat, lng) => setMapCenter({ lat, lng })}/>
-                        <div className= "map-pin-info-container">
-                            <div className='pin-info-header'>
-                                <div className='pin-header-container'>
-                                    <h1 className='name'>Name</h1>
-                                    <h2 className='tags'>Tags</h2>
-                                </div>
-                                <div className='pin-buttons-container'>
-                                    <figure className='save-img btn'><img src={saveIcon}></img></figure>
-                                    <figure className='close-info btn'><img src={closeIcon}></img></figure>
-                                </div>
-                            </div>
-                            <div className='pin-info-nav'>
-                                <div className= {(mapInfoTab == "about") ?  'info-tab btn active': 'info-tab btn'} onClick={() => setMapInfoTab("about")}> About </div>
-                                <div className={(mapInfoTab == "photo") ?  'photo-tab btn active': 'photo-tab btn'} onClick={() => setMapInfoTab("photo")}> Photos </div>
-                            </div>
-                            <div className={(mapInfoTab == "about") ? "pin-info-body": "pin-info-body hidden"}>
-                                <div className='pin-important-info'>
-                                    <figure>
-                                        <img src={mapIcon}></img>
-                                        <figcaption>Located at </figcaption>
-                                    </figure>
-                                    <figure>
-                                        <img src={timeIcon}></img>
-                                        <figcaption>Opens at</figcaption>
-                                    </figure>
-                                </div>
-                                <div className='pin-other-info'>    
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vestibulum quam tellus, euismod laoreet velit varius sit amet. Nullam rutrum ante non mauris ultricies, vitae tempus diam ornare. Nullam egestas placerat orci pretium fermentum. Duis fermentum tortor nec tristique congue. Fusce commodo maximus lobortis.
-                                </div>
-                            </div>
-                            <div className= {(mapInfoTab == "photo") ? "pin-photo-body": "pin-photo-body hidden"}>
-                                <figure>
-                                    <img src={placeholder}></img>
-                                </figure>
-                                <figure>
-                                    <img src={placeholder}></img>
-                                </figure>
-                            </div>
-
-                        </div>
                     </div>
                 </section>
 
 
-                {/* {showCreatePin && (
+                {showCreatePin && (
                     <div className="create-pin-sheet">
                         
 
                         <div className="sheet-header">
                             <h2>Create Pin</h2>
                             <span className="close-btn" onClick={() => setShowCreatePin(false)}>
-                            ✕
+                                <img src={closeIcon}></img>
                             </span>
                         </div>
 
-                        <hr></hr>
+                        <hr className="separator"></hr>
                         
                         <div className="sheet-inputs">
                             
@@ -226,13 +183,15 @@ function MapSection({isActive, setAppSection, service, setAppService}) {
                             </div>
                         </div>
 
-                        <span className="confirm-pin-btn" onClick={() => handleAddPinnedLocation()}>
-                            →
-                        </span>
+                        <div className='confirm-container'>
+                            <span className="confirm-pin-btn btn" onClick={() => handleAddPinnedLocation()}>
+                                <img src={nextIcon}></img>
+                            </span>
+                        </div>
                     </div>
                 )}
 
-             */}
+            
 
                 <section className="controls">
                     <button className="current-location-btn">
