@@ -3,7 +3,7 @@
     "id": 1,
     "name": "E&T Laundry Shop",
     "tags": ["Miagao Services", "Laundry"],
-    "address": "",
+    "address": "Zulueta Avenue, Bolho, Miagao, Iloilo, 5023",
     "reformat_coords": [
       10.641202,
       122.233722
@@ -32,7 +32,7 @@
     "id": 2,
     "name": "Green Ribbon",
     "tags": ["Miagao Services", "Grocery"],
-    "address": "",
+    "address": "Green Ribbon Minimart, Octaviano St., Bolho, Miagao, Iloilo, 5023",
     "reformat_coords": [
       10.640541,
       122.236712
@@ -58,7 +58,7 @@
     "id": 3,
     "name": "Nulada's Trading 12",
     "tags": ["Miagao Services", "Grocery"],
-    "address": "",
+    "address": "NT Miagao, Orbe St., Baybay Norte, Miagao, Iloilo, 5023",
     "reformat_coords": [
       10.641363,
       122.237085
@@ -110,7 +110,7 @@
     "id": 5,
     "name": "Law office of atty. Mark Justic Mooc",
     "tags": ["Miagao Services", "Legal Services"],
-    "address": "",
+    "address": "2F, Noble St., Ubos Ilawod, Miagao, Iloilo, 5023",
     "reformat_coords": [
       10.642468,
       122.235997
@@ -138,7 +138,7 @@
     "id": 6,
     "name": "Kandingan sa Tacas Miagao",
     "tags": ["Miagao Services", "Restaurant"],
-    "address": "",
+    "address": "Tajanlangit St., Miagao, Iloilo, 5023",
     "reformat_coords": [
       10.642674,
       122.234608
@@ -167,7 +167,7 @@
     "id": 7,
     "name": "AK sisig house Box 1",
     "tags": ["Miagao Services", "Restaurant"],
-    "address": "",
+    "address": "Box 1 UPV, Zulueta Avenue, Brgy. Sapa, Sapa-Miagao, Philippines, Iloilo, 5023",
     "reformat_coords": [
       10.640435,
       122.231978
@@ -193,7 +193,7 @@
     "id": 8,
     "name": "Mercury Drug Store",
     "tags": ["Miagao Services", "Pharmacy"],
-    "address": "",
+    "address": "Zulueta Avenue, Bolho, Miagao, Iloilo, 5023",
     "reformat_coords": [
       10.641182,
       122.234390
@@ -219,7 +219,7 @@
     "id": 9,
     "name": "Farmacia Elna",
     "tags": ["Miagao Services", "Pharmacy"],
-    "address": "",
+    "address": "Legaspi St., Baybay Norte, Miagao, Iloilo, 5023",
     "reformat_coords": [
       10.640840,
       122.236847
@@ -247,7 +247,7 @@
     "id": 10,
     "name": "Double Check - Barber shop",
     "tags": ["Miagao Services", "Barber Shop"],
-    "address": "",
+    "address": "Legaspi St., Baybay Norte, Miagao, Iloilo, Iloilo, 5023",
     "reformat_coords": [
       10.641126,
       122.237447
@@ -274,7 +274,7 @@
     "id": 11,
     "name": "KC's BarberShop",
     "tags": ["Miagao Services", "Barber Shop"],
-    "address": "",
+    "address": "Orbe St., Baybay Norte, Miagao, Iloilo, 5023",
     "reformat_coords": [
       10.640988,
       122.237640
@@ -300,7 +300,7 @@
     "id": 12,
     "name": "Printlab by Stanphil",
     "tags": ["Miagao Services", "Media and Printing"],
-    "address": "2nd Flr., Nite Plaza Commercial Building",
+    "address": "2F Nite Plaza Commercial Building, Tajanlangit St. Tacas, Miagao, Iloilo, 5023",
     "reformat_coords": [
       10.641780,
       122.234923
@@ -327,7 +327,7 @@
     "id": 13,
     "name": "Mitsubishi Digital",
     "tags": ["Miagao Services", "Media and Printing"],
-    "address": "",
+    "address": "Noble St., Bolho, Miagao, Iloilo, 5023",
     "reformat_coords": [
       10.642180,
       122.236290
@@ -350,7 +350,7 @@
     "id": 14,
     "name": "RD Pawnshop",
     "tags": ["Miagao Services", "Pawnshop"],
-    "address": "",
+    "address": "Rizal St., Bolho, Miagao, Iloilo, 5023",
     "reformat_coords": [
       10.641579,
       122.236402
@@ -377,7 +377,7 @@
     "id": 15,
     "name": "Palawan Pawnshop",
     "tags": ["Miagao Services", "Pawnshop"],
-    "address": "",
+    "address": "Orbe St., Baybay Norte, Miagao, Iloilo, 5023",
     "reformat_coords": [
       10.641117,
       122.237603
@@ -403,7 +403,7 @@
     "id": 16,
     "name": "Las Hijas",
     "tags": ["Miagao Services", "Student Lounge"],
-    "address": "",
+    "address": "2F Novilla Bldg., Mueda St., Bolho, Miagao, Iloilo, 5023",
     "reformat_coords": [
       10.641174,
       122.235056
@@ -431,7 +431,7 @@
     "id": 17,
     "name": "Studio SG",
     "tags": ["Miagao Services", "Student Lounge"],
-    "address": "",
+    "address": "Sapa-Bolho Road, Miagao, Iloilo, 5023",
     "reformat_coords": [
       10.640684,
       122.233392
@@ -454,7 +454,7 @@
     "id": 18,
     "name": "Flippers E-Sports Cafe",
     "tags": ["Miagao Services", "Computer Shop"],
-    "address": "",
+    "address": "Tajanlangit St., Miagao, Iloilo, 5023",
     "reformat_coords": [
       10.642304,
       122.234654
