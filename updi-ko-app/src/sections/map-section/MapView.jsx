@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L, { marker } from "leaflet";
 import "./MapView.css";
@@ -19,6 +19,32 @@ L.Icon.Default.mergeOptions({
   iconUrl: markerIcon,
   shadowUrl: markerShadow,
 });
+
+function LocationMarker({ tempLocation, selectedMarkerInfo, setTempLocation, setSelectedMarkerInfo }) {
+  // listen for a click event on the map
+  useMapEvents({
+    click(e) {
+      if (tempLocation && !(tempLocation && !selectedMarkerInfo)) {
+        // when there is an existing pin, remove it
+        setTempLocation(null);
+        setSelectedMarkerInfo(null);
+      } else {
+        // when there is no pin, show a pin for that location.
+        const newPin = {
+          latitude: e.latlng.lat,
+          longitude: e.latlng.lng,
+          name: "Temporary Pin",
+          type: "Temporary Pin",
+          address: `${e.latlng.lat.toFixed(6)}, ${e.latlng.lng.toFixed(6)}`, 
+        };
+        setTempLocation(newPin);
+        setSelectedMarkerInfo(newPin);
+      }
+    },
+  });
+
+  return null;
+}
 
 // responds to location change
 function ChangeView({ center }) {
@@ -44,6 +70,7 @@ function MapView({ userLocation, selectedService }) {
   const [pinnedLocations, setPinnedLocations] = useState([]); // NEW
   const [selectedMarkerInfo, setSelectedMarkerInfo] = useState(selectedService); // NEW state
   const [selectedPanelTab, setSelectedPanelTab] = useState("About"); // NEW state
+  const [tempLocation, setTempLocation] = useState(null);
 
   useEffect(() => {
       setSelectedMarkerInfo(selectedService)
@@ -100,10 +127,33 @@ function MapView({ userLocation, selectedService }) {
     <div className="MapView">
       <MapContainer center={center} zoom={15} style={{ width: "100%", height: "100%", zIndex: 0}} zoomControl={false}>
         <ChangeView center={center} />
-        <TileLayer
+        {/* <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        /> */}
+        <TileLayer
+            attribution='&copy; <a href="https://stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
+            url='https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png'
         />
+        <LocationMarker 
+            tempLocation={tempLocation}
+            selectedMarkerInfo={selectedMarkerInfo}
+            setTempLocation={setTempLocation} 
+            setSelectedMarkerInfo={setSelectedMarkerInfo} 
+        />
+        {tempLocation && (
+          <Marker 
+            position={[tempLocation.latitude, tempLocation.longitude]} 
+            eventHandlers={{ click: () => setSelectedMarkerInfo(tempLocation) }}
+          >
+             <Popup>
+               Clicked Location: <br />
+               Lat: {tempLocation.latitude.toFixed(6)}, <br />
+               Lng: {tempLocation.longitude.toFixed(6)}
+             </Popup>
+          </Marker>
+        )}
+
         {/* <Marker position={center}>
           <Popup>You are here</Popup>
         </Marker> */}
