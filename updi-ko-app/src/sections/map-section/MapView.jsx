@@ -113,12 +113,12 @@ function MapView({ userLocation, selectedService }) {
           </Marker>
         ))}
         {Miagao.filter(shouldShowMarker).map((facility) => (
-          <Marker key={facility.id} position={facility.reformat_coords} eventHandlers={{ click: () => setSelectedMarkerInfo({...facility, type: "Miagao"}) }}>
+          <Marker key={facility.id} position={facility.reformat_coords} eventHandlers={{ click: () => setSelectedMarkerInfo(facility) }}>
             {/* <Popup>{facility.name}</Popup> */}
           </Marker>
         ))}
         {Campus.filter(shouldShowMarker).map((facility) => (
-          <Marker key={facility.id} position={facility.reformat_coords} eventHandlers={{ click: () => setSelectedMarkerInfo({...facility, type: "Campus"}) }}>
+          <Marker key={facility.id} position={facility.reformat_coords} eventHandlers={{ click: () => setSelectedMarkerInfo(facility) }}>
             {/* <Popup>{facility.name}</Popup> */}
           </Marker>
         ))} 
@@ -141,7 +141,7 @@ function MapView({ userLocation, selectedService }) {
           {selectedPanelTab === "About" && (
             <div className="marker-info-container">
               <div className="marker-description">
-                <p>{selectedMarkerInfo.type}</p>
+                <p>{selectedMarkerInfo.tags.join(", ")}</p>
                 <p>{selectedMarkerInfo.address}</p>                       
                 {selectedMarkerInfo.opening_hours && selectedMarkerInfo.opening_hours.length > 0 && (
                   <div>

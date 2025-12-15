@@ -87,6 +87,7 @@ function MapSection({setAppSection, service, setAppService}) {
         return matchesSearch ;
     });
 
+
     /* Set Location */    
     const userLocation = { lat: 10.641944, lng: 122.235556 };   // default location 
     if (service) {
@@ -96,7 +97,12 @@ function MapSection({setAppSection, service, setAppService}) {
     return (
         <div className="MapSection">
             <header className = {(activeSearch) ? "active-search-layout" : "inactive-search-layout"}>
-                { (activeSearch) ? <img src={backIcon} onClick={() => {setSearchActive(false); setSearchQuery(""); chooseService(null)}} className="close-search-btn btn"></img> : null }
+                { (activeSearch) ? <img src={backIcon} onClick={() => {
+                        setSearchActive(false); 
+                        setSearchQuery(""); 
+                        setAppService(null); 
+                    }} className="close-search-btn btn"></img> : null 
+                }              
                 <section className='search-container'>
                     <img src={searchIcon} className="icon"></img>
                     <input  
@@ -104,13 +110,13 @@ function MapSection({setAppSection, service, setAppService}) {
                         className='search-bar' 
                         placeholder='Search for Services'
                         onChange={handleSearchChange}
-                        onFocus={() => {setSearchActive(true);}}
+                        onFocus={(e) => {setSearchActive(true); handleSearchChange(e)}}
                     />
                 </section>  
             </header>
 
             <section className= { (activeSearch) ? 'search-list-section' : 'search-list-section hidden' }>
-                <section className='service-list'>
+                <section className='service-list' key={searchQuery}>
                 {
                     filteredServices.map((service, index) => (
                         <div key={index} className='service-btn btn' onClick={() => chooseService(service)}>
@@ -134,8 +140,7 @@ function MapSection({setAppSection, service, setAppService}) {
 
             {showCreatePin && (
                 <div className="create-pin-sheet">
-                    
-
+                
                     <div className="sheet-header">
                         <h2>Create Pin</h2>
                         <span className="close-btn" onClick={() => setShowCreatePin(false)}>
@@ -203,9 +208,10 @@ function MapSection({setAppSection, service, setAppService}) {
                     <img className="current-location-img" src={compassIcon}></img>
                 </button>    
                 <br></br>
+                {(getCurrentUser() &&
                 <button className="current-location-btn" onClick={handleOpenCreatePin}>
                     <img className="current-location-img" src={mapIcon}></img>
-                </button>
+                </button>)}
             </section>
                     
             <footer>
