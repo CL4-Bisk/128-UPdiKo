@@ -58,7 +58,7 @@ function MapView({ userLocation, selectedService }) {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener(async (user) => {
-      if (user) {
+      if (!selectedService && user) {
         const pins = await getPinnedLocationsFromDB(user.uid);
         setPinnedLocations(
           pins.map((pin) => ({
@@ -87,6 +87,7 @@ function MapView({ userLocation, selectedService }) {
       </div>
     );
   }
+
   const shouldShowMarker = (facility) => {
     if (!selectedService) return true;
     

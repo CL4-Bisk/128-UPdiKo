@@ -78,7 +78,7 @@ function StartSection({setAppSection, setAppService}) {
                     ))
                 }
                 </div>
-                <div className='service-list'>
+                <div className='service-list' key={activeCategory + searchQuery}>
                 {
                     filteredServices.map((service, index) => (
                         <div key={index} className='service-btn btn' onClick = {() => chooseService(service)} >
