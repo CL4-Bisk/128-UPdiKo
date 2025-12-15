@@ -18,7 +18,10 @@
     "services": {
       "global": []
     },
-    "images": [],
+    "images": [
+      "../../images/location/E&T Laundry Shop/IMG_20251027_093935-min.jpg",
+      "../../images/location/E&T Laundry Shop/IMG_20251027_093947-min.jpg"
+    ],
     "additional_info": {
       "text_based": [],
       "image_based": [],
@@ -41,7 +44,10 @@
     "services": {
       "global": []
     },
-    "images": [],
+    "images": [
+      "../../images/location/Green Ribbon/IMG_20251027_112419-min.jpg",
+      "../../images/location/Green Ribbon/IMG_20251027_112422-min.jpg"
+    ],
     "additional_info": {
       "text_based": [],
       "image_based": [],
@@ -64,7 +70,10 @@
     "services": {
       "global": []
     },
-    "images": [],
+    "images": [
+      "../../images/location/Nuladas/IMG_20251027_113359-min.jpg",
+      "../../images/location/Nuladas/IMG_20251027_113404-min.jpg"
+    ],
     "additional_info": {
       "text_based": [],
       "image_based": [],
@@ -88,7 +97,9 @@
     "services": {
       "global": []
     },
-    "images": [],
+    "images": [
+      "../../images/location/Nochete Law Office/IMG_20251027_100453-min.jpg"
+    ],
     "additional_info": {
       "text_based": [],
       "image_based": [],
@@ -112,7 +123,11 @@
     "services": {
       "global": []
     },
-    "images": [],
+    "images": [
+      "../../images/location/Mark Justice Law/IMG_20251027_114132-min.jpg",
+      "../../images/location/Mark Justice Law/IMG_20251027_114141-min.jpg",
+      "../../images/location/Mark Justice Law/IMG_20251027_114236-min.jpg"
+    ],
     "additional_info": {
       "text_based": [],
       "image_based": [],
@@ -137,7 +152,11 @@
     "services": {
       "global": []
     },
-    "images": [],
+    "images": [
+      "../../images/location/Kandingan/IMG_20251027_093010-min.jpg",
+      "../../images/location/Kandingan/IMG_20251027_093019-min.jpg",
+      "../../images/location/Kandingan/IMG_20251027_093032-min.jpg"
+    ],
     "additional_info": {
       "text_based": [],
       "image_based": [],
@@ -160,7 +179,10 @@
     "services": {
       "global": []
     },
-    "images": [],
+    "images": [
+      "../../images/location/AK Sisig House/20251027_121356-min.jpg",
+      "../../images/location/AK Sisig House/IMG_20251027_121353-min.jpg"
+    ],
     "additional_info": {
       "text_based": [],
       "image_based": [],
@@ -183,7 +205,10 @@
     "services": {
       "global": []
     },
-    "images": [],
+    "images": [
+      "../../images/location/Mercury Drug Store/IMG_20251027_094945-min.jpg",
+      "../../images/location/Mercury Drug Store/IMG_20251027_094946-min.jpg"
+    ],
     "additional_info": {
       "text_based": [],
       "image_based": [],
@@ -207,7 +232,11 @@
     "services": {
       "global": []
     },
-    "images": [],
+    "images": [
+      "../../images/location/Farmacia Elna/20251027_112919-min.jpg",
+      "../../images/location/Farmacia Elna/IMG_20251027_112830-min.jpg",
+      "../../images/location/Farmacia Elna/IMG_20251027_112849-min.jpg"
+    ],
     "additional_info": {
       "text_based": [],
       "image_based": [],
@@ -230,7 +259,11 @@
     "services": {
       "global": []
     },
-    "images": [],
+    "images": [
+      "../../images/location/Double Check/IMG_20251027_101801-min.jpg",
+      "../../images/location/Double Check/IMG_20251027_101806-min.jpg",
+      "../../images/location/Double Check/IMG_20251027_101821-min.jpg"
+    ],
     "additional_info": {
       "text_based": [],
       "image_based": [],
@@ -253,7 +286,10 @@
     "services": {
       "global": []
     },
-    "images": [],
+    "images": [
+      "../../images/location/KC Barber Shop/IMG_20251027_102213-min.jpg",
+      "../../images/location/KC Barber Shop/IMG_20251027_102222-min.jpg",
+    ],
     "additional_info": {
       "text_based": [],
       "image_based": [],
@@ -276,7 +312,11 @@
     "services": {
       "global": []
     },
-    "images": [],
+    "images": [
+      "../../images/location/Printlab/20251027_092015-min.jpg",
+      "../../images/location/Printlab/IMG_20251027_092356-min.jpg",
+      "../../images/location/Printlab/IMG_20251027_113915-min.jpg"
+    ],
     "additional_info": {
       "text_based": [],
       "image_based": [],
@@ -323,7 +363,10 @@
     "services": {
       "global": []
     },
-    "images": [],
+    "images": [
+      "../../images/location/RD Pawnshop/20251027_101403-min.jpg",
+      "../../images/location/RD Pawnshop/IMG_20251027_101356-min.jpg"
+    ],
     "additional_info": {
       "text_based": [],
       "image_based": [],
@@ -346,7 +389,10 @@
     "services": {
       "global": []
     },
-    "images": [],
+    "images": [
+      "../../images/location/Palawan Pawnshop/20251027_101844-min.jpg",
+      "../../images/location/Palawan Pawnshop/IMG_20251027_102002-min.jpg"
+    ],
     "additional_info": {
       "text_based": [],
       "image_based": [],
@@ -371,7 +417,10 @@
     "services": {
       "global": []
     },
-    "images": [],
+    "images": [
+      "../../images/location/Las Hijas/IMG_20251027_100316-min.jpg",
+      "../../images/location/Las Hijas/IMG_20251027_100413-min.jpg"
+    ],
     "additional_info": {
       "text_based": [],
       "image_based": [],
@@ -417,7 +466,9 @@
     "services": {
       "global": []
     },
-    "images": [],
+    "images": [
+      "../../images/location/Flippers/IMG_20251027_092623-min.jpg"
+    ],
     "additional_info": {
       "text_based": [],
       "image_based": [],
