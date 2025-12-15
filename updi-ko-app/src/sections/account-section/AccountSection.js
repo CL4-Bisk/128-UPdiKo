@@ -15,6 +15,7 @@ function AccountSection({ setAppSection }) {
         await logOut();
         setAppSection("LOGIN");  
     }
+
     console.log("Hi from Account Section!")
     const user = getCurrentUser();
 
@@ -46,7 +47,7 @@ function AccountSection({ setAppSection }) {
                             <h3 className='subtitle'>Manage bookmarked services</h3>
                         </div>
                     </div>
-                    <div className='option-btn btn' >
+                    <div className='option-btn btn' onClick={ () => setAppSection("PERSONAL-PIN") }>
                         <img src={mapIcon}></img>
                         <div>
                             <h2 className='title'>Your Personal Pins</h2>

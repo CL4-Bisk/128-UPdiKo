@@ -6,6 +6,7 @@ import LoginSection from './sections/login-section/LoginSection';
 import RegisterSection from './sections/register-section/RegisterSection';
 import AccountInfoSection from './sections/account-info-section/AccountInfoSection';
 import AccountUpdateSection from './sections/account-update-section/AccountUpdateSection';
+import PersonalPinSection from './sections/personal-pin-section/PersonalPinSection';
 
 function App() {
     /** 
@@ -37,6 +38,8 @@ function App() {
         return <LoginSection setAppSection={setSection} />;
     case "REGISTER":
         return <RegisterSection setAppSection={setSection} />;
+    case "PERSONAL-PIN":
+        return <PersonalPinSection setAppSection={setSection} />;
     default:
         return <StartSection setAppSection={setSection} setAppService={setService} />; // Fallback
     }
