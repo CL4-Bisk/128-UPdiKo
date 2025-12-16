@@ -106,6 +106,22 @@
         margin-top: var(--mar-72);  
         height: calc(100dvh - 150px);
         overflow-y: auto;
+
+        -webkit-mask-image: linear-gradient(
+            to bottom, 
+            transparent 0%, 
+            black 1%, 
+            black 99%, 
+            transparent 100%
+        );
+        mask-image: linear-gradient(
+            to bottom, 
+            transparent 0%, 
+            black 1%, 
+            black 99%, 
+            transparent 100%
+        );
+    
     }
     .service-list::-webkit-scrollbar {
         display: none;

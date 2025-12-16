@@ -8,6 +8,7 @@ import hidePassIcon from './../../images/icon/hide-pass-icon.png'
 import bookmarkIcon from './../../images/icon/saved-icon.png'
 import logoutIcon from './../../images/icon/logout-icon.png'
 import backIcon from './../../images/icon/back-icon-2.png'
+import closeIcon from './../../images/icon/close-icon.png'
 
 import {
   getCurrentUser,
@@ -163,38 +164,40 @@ function AccountUpdateSection({ setAppSection, redirect, setAppRedirectBody}) {
 
         {/* PASSWORD CONFIRM */}
         {showPasswordConfirm && (
-          <div className="dialogue">
-            <p>Enter current password to confirm</p>
-            <input
-              className="info-input"
-              type="password"
-              value={currentPassword}
-              onChange={(e) => setCurrentPassword(e.target.value)}
-            />
-            <button className="update-btn btn" onClick={handlePasswordConfirm}>
-              Confirm
-            </button>
-          </div>
+            <div className="modal">
+              <div className="dialogue">
+                <figure className="close-btn btn" onClick={() => setShowPasswordConfirm(false)}><img src={closeIcon}></img></figure>
+                <p>Enter current password to confirm</p>
+                <input
+                  className="info-input"
+                  type="password"
+                  value={currentPassword}
+                  onChange={(e) => setCurrentPassword(e.target.value)}
+                />
+                <button className="update-btn btn" onClick={handlePasswordConfirm}>
+                  Confirm
+                </button>
+              </div>
+            </div>
         )}
 
       {/* NAV BAR */}
       <footer>
-        <nav className="nav-bar">
-          <div className="navigations" onClick={() => setAppSection("HOME")}>
-            <img src={homeIcon} />
-            <p>Home</p>
-          </div>
-          <div className="navigations" onClick={() => setAppSection("MAP")}>
-            <img src={mapIcon} />
-            <p>Map</p>
-          </div>
-          <div
-            className="navigations active-section"
-            onClick={() => setAppSection("ACCOUNT")}
-          >
-            <img src={accountIcon} />
-            <p>Account</p>
-          </div>
+        <nav>
+            <ul>
+                <li className='navigation btn' onClick={ () => { setAppSection("HOME")} }>
+                    <img className='icon' src={homeIcon}></img>
+                    <p className='label'>Service</p>    
+                </li>
+                <li className='navigation active btn' onClick={ () => setAppSection("MAP") }>
+                    <img className='icon' src={mapIcon}></img>
+                    <p className='label'>Map</p>    
+                </li>
+                <li className='navigation btn' onClick={ () => getCurrentUser() ? (setAppSection("ACCOUNT")) : (setAppSection("LOGIN"))}>
+                    <img className='icon' src={accountIcon}></img>
+                    <p className='label'>Account</p>    
+                </li>
+            </ul>
         </nav>
       </footer>
     </div>

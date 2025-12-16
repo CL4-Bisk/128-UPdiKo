@@ -3,7 +3,6 @@
   width: 100%;
   height: 100dvh;
   z-index: 0;
-
 }
 
 /* MAIN GROUP: LOADING SCREEN */
@@ -17,7 +16,7 @@
   right: 0;
   z-Index: 2;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  height: 42%;
+  height: 47%;
   color: white;
   
 }
@@ -114,6 +113,7 @@
   border: solid 1px var(--color-accent-2);
   opacity: 50%;  
 }
+
 .marker-info-header {
   display: flex;
   justify-content: space-around;
@@ -134,13 +134,25 @@
   border-bottom: solid 1px var(--color-accent-2);
 }
 
-
 .marker-description {
   overflow-y: auto;
-  max-height: 240px;
+  height: 200px;
   padding: 0.5em;
+  margin-top: var(--mar-16);
   font-size: var(--fs-12);
 }
+
+::-webkit-scrollbar {
+        width: 5px;
+        height: 3px;
+        border-radius: 20px;
+        background-color: var(--color-primary-80a);
+    }
+  ::-webkit-scrollbar-thumb  {
+        background-color: var(--color-accent-1);
+        opacity: 60%;
+        border-radius: 20px;
+    }
 
 .marker-description h3, .marker-description p, .image-container{
   font-weight: var(--fw-semi);

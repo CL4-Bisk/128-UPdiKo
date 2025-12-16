@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import MapSection from './sections/map-section/MapSection'
-import StartSection from './sections/start-section/StartSection';
-import AccountSection from './sections/account-section/AccountSection';
-import LoginSection from './sections/login-section/LoginSection';
-import RegisterSection from './sections/register-section/RegisterSection';
-import AccountInfoSection from './sections/account-info-section/AccountInfoSection';
-import AccountUpdateSection from './sections/account-update-section/AccountUpdateSection';
-import PersonalPinSection from './sections/personal-pin-section/PersonalPinSection';
+import MapSection from './sections/map-section/MapSection.js';
+import StartSection from './sections/start-section/StartSection.js';
+import AccountSection from './sections/account-section/AccountSection.js';
+import LoginSection from './sections/login-section/LoginSection.js';
+import RegisterSection from './sections/register-section/RegisterSection.js';
+import AccountInfoSection from './sections/account-info-section/AccountInfoSection.js';
+import AccountUpdateSection from './sections/account-update-section/AccountUpdateSection.js';
+import PersonalPinSection from './sections/personal-pin-section/PersonalPinSection.js';
 
 function App() {
     /** 

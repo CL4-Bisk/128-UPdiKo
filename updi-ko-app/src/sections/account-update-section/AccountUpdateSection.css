@@ -274,3 +274,79 @@
         color: var(--color-accent-2);
     }
 }
+
+.AccountUpdateSection .modal {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: calc(100% - 64px);
+    margin: var(--mar-32);
+    padding: var(--mar-24);
+    height: 250px;
+    background-color: var(--color-background);
+    z-index: 2;
+    box-shadow: 0px 4px 4px  rgba(0, 0, 0, 0.2);;
+
+    .close-btn {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        justify-self: right;
+        align-items: center;
+        background-color: var(--color-accent-2);
+    }
+    .close-btn img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .dialogue {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    p {
+        color: white;
+    }
+    input {
+        display: flex;
+        margin-block: var(--pad-16);
+        width: 100%;
+        height: 54px;          
+        background-color: var(--color-primary);
+        color: white;
+        padding-block: var(--pad-16);
+        opacity: 80%;
+    }
+    button {
+        width: 100%;
+        background-color: var(--color-primary);
+        border-radius: 10px;
+        height: 54px;          
+        padding-block: var(--pad-16);
+        color: white;
+    }
+}
+.AccountUpdateSection .modal::before {
+    content: "";
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%;  
+    opacity: 20%; 
+    z-index: -1;
+    background-image: url('./../../images/bg/mountain-1.jpg');
+    background-size: cover;
+} 
+
+
+

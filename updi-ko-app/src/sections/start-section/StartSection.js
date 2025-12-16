@@ -48,7 +48,7 @@ function StartSection({setAppSection, setAppService}) {
                 <figure className='logo'>
                     <img src={mascot} alt='Logo Image'></img>
                     <figcaption className="logo-name">
-                        Updi Ko
+                        UPdi Ko!
                     </figcaption>
                     <figcaption className='subheading'>Lorem ipsum dolor sit amet</figcaption>
                 </figure>
