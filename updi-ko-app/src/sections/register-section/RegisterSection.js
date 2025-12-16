@@ -65,12 +65,7 @@ function RegisterSection({ setAppSection }) {
             setErrorMessage(mapFirebaseError(error));
         }
     }
-
-
-    async function goToLogin() {
-        setAppSection("LOGIN");
-    }
-
+    
     return (
         <div className="RegisterSection">
             <header> 

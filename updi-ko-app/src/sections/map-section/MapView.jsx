@@ -191,7 +191,7 @@ function MapView({ userLocation, selectedService }) {
           {selectedPanelTab === "About" && (
             <div className="marker-info-container">
               <div className="marker-description">
-                <p>{selectedMarkerInfo.tags.join(", ")}</p>
+                <p>{selectedMarkerInfo?.tags?.join(", ") ?? ""}</p>
                 <p>{selectedMarkerInfo.address}</p>                       
                 {selectedMarkerInfo.opening_hours && selectedMarkerInfo.opening_hours.length > 0 && (
                   <div>
