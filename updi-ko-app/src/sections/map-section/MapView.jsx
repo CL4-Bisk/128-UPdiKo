@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import L, { marker } from "leaflet";
+import L, { map, marker } from "leaflet";
 import "./MapView.css";
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
@@ -20,25 +20,68 @@ L.Icon.Default.mergeOptions({
   shadowUrl: markerShadow,
 });
 
-function LocationMarker({ tempLocation, selectedMarkerInfo, setTempLocation, setSelectedMarkerInfo }) {
-  // listen for a click event on the map
+// function LocationMarker({ tempLocation, selectedMarkerInfo, setTempLocation, setSelectedMarkerInfo }) {
+//   // listen for a click event on the map
+//   useMapEvents({
+//     click(e) {
+//       if (tempLocation && !(tempLocation && !selectedMarkerInfo)) {
+//         // when there is an existing pin, remove it
+//         setTempLocation(null);
+//         setSelectedMarkerInfo(null);
+//       } else {
+//         // when there is no pin, show a pin for that location.
+//         const newPin = {
+//           latitude: e.latlng.lat,
+//           longitude: e.latlng.lng,
+//           name: "Temporary Pin",
+//           type: "Temporary Pin",
+//           tags: ["Temporary Pin"],
+//           address: `${e.latlng.lat.toFixed(6)}, ${e.latlng.lng.toFixed(6)}`, 
+//         };
+//         setTempLocation(newPin);
+//         setSelectedMarkerInfo(newPin);
+//       }
+//     },
+//   });
+
+//   return null;
+// }
+
+// REVISED: Component to handle map clicks and open the pin form
+function LocationMarker({ tempLocation, setTempLocation, setSelectedMarkerInfo, onMapClickForPin, onClosePinForm, handleMarkerClick }) {
+  // Use useMapEvents to listen for a click event on the map
   useMapEvents({
     click(e) {
-      if (tempLocation && !(tempLocation && !selectedMarkerInfo)) {
-        // when there is an existing pin, remove it
+      const lat = e.latlng.lat;
+      const lng = e.latlng.lng;
+        
+      // 1. Always remove any existing temporary pin first, according to previous rule
+      if (tempLocation) {
+        // RULE 1: If a temporary pin exists, remove it and close the form.
         setTempLocation(null);
         setSelectedMarkerInfo(null);
-      } else {
-        // when there is no pin, show a pin for that location.
+        onClosePinForm();
+       } else {
+        // RULE 2: If no temporary pin exists, create one and open the form.
+        
+        // 1. Create the temporary pin data object
         const newPin = {
-          latitude: e.latlng.lat,
-          longitude: e.latlng.lng,
-          name: "Temporary Pin",
-          type: "Temporary Pin",
-          address: `${e.latlng.lat.toFixed(6)}, ${e.latlng.lng.toFixed(6)}`, 
+            latitude: lat,
+            longitude: lng,
+            name: "Temporary Pin",
+            type: "Temporary Pin",
+            tags: ["Temporary Pin"],
+            address: `${lat}, ${lng}`,
         };
-        setTempLocation(newPin);
-        setSelectedMarkerInfo(newPin);
+
+        // 2. Set the temporary pin to be rendered on the map
+        handleMarkerClick(newPin, newPin.latitude, newPin.longitude)
+        setTempLocation(newPin); 
+        setSelectedMarkerInfo(null);
+        
+
+        // 3. Trigger the pin creation form in the parent component
+        onMapClickForPin({ lat, lng });
       }
     },
   });
@@ -46,24 +89,55 @@ function LocationMarker({ tempLocation, selectedMarkerInfo, setTempLocation, set
   return null;
 }
 
-// responds to location change
-function ChangeView({ center }) {
+// // responds to location change
+// function ChangeView({ center }) {
+//   const map = useMap();
+//   const prevCenter = useRef(center);
+  
+//   useEffect(() => {
+//     // Only update if center coordinates actually changed
+//     if (center && (prevCenter.current[0] !== center[0] || prevCenter.current[1] !== center[1])) {
+//       map.setView(center);
+//       prevCenter.current = center;
+//     }
+//   }, [center, map]);
+
+//   return null;
+// }
+
+// 1. REVISED: responds to location change, now accepts 'zoom'
+function ChangeView({ center, zoom }) {
   const map = useMap();
   const prevCenter = useRef(center);
-  
+  const prevZoom = useRef(zoom); // Track previous zoom
+
   useEffect(() => {
-    // Only update if center coordinates actually changed
-    if (center && (prevCenter.current[0] !== center[0] || prevCenter.current[1] !== center[1])) {
-      map.setView(center);
+    const tolerance = 0.000001; 
+    const isDifferentCenter = !center || 
+                        Math.abs(prevCenter.current[0] - center[0]) > tolerance || 
+                        Math.abs(prevCenter.current[1] - center[1]) > tolerance;
+    
+    const isDifferentZoom = zoom !== undefined && Math.abs(prevZoom.current - zoom) > 0;
+    
+    if (center && (isDifferentCenter || isDifferentZoom)) {
+      // Use the new zoom level if provided, otherwise stick to current map zoom
+      const targetZoom = zoom || map.getZoom(); 
+      
+      map.setView(center, targetZoom, {
+          animate: true,
+          duration: 0.5
+      });
+      
       prevCenter.current = center;
+      prevZoom.current = targetZoom;
     }
-  }, [center, map]);
+  }, [center, zoom, map]); // Add zoom to dependencies
 
   return null;
 }
 
 // // main map element
-function MapView({ userLocation, selectedService }) {
+function MapView({ userLocation, currentCoords, trackingEnabled, selectedService, onMapClickForPin, onClosePinForm, onMarkerClick }) {
   const defaultCenter = [10.641944, 122.235556];
   const [center, setCenter] = useState(defaultCenter);
   const [loading, setLoading] = useState(true);
@@ -72,8 +146,32 @@ function MapView({ userLocation, selectedService }) {
   const [selectedPanelTab, setSelectedPanelTab] = useState("About"); // NEW state
   const [tempLocation, setTempLocation] = useState(null);
 
+  // Extract the zoom level if available (assuming MapSection passed it via userLocation)
+  const mapZoom = userLocation?.zoom || 16;
+
+  
+  // Function to handle the marker click logic
+  const handleMarkerClick = (data, lat, lng) => {
+      // 1. Set the selected marker info panel
+      setSelectedMarkerInfo(data);
+      setTempLocation(null);
+      onClosePinForm();
+      
+      // 2. Center the map using the prop function passed from the parent (MapSection)
+      // We pass the desired zoom level (e.g., 17) along with the coordinates.
+      if (onMarkerClick) {
+          onMarkerClick(lat, lng, 17); 
+      }
+  };
+
+  const handleServiceClick = (selectedService) => {
+    if (selectedService) {
+      handleMarkerClick({...selectedService, type: "Miagao"}, selectedService.reformat_coords[0], selectedService.reformat_coords[1])
+    }
+  }
+
   useEffect(() => {
-      setSelectedMarkerInfo(selectedService)
+      handleServiceClick(selectedService)
   }, [selectedService])
   useEffect(() => {
     if (userLocation) {
@@ -125,8 +223,8 @@ function MapView({ userLocation, selectedService }) {
   
   return (  
     <div className="MapView">
-      <MapContainer center={center} zoom={15} style={{ width: "100%", height: "100%", zIndex: 0}} zoomControl={false}>
-        <ChangeView center={center} />
+      <MapContainer center={center} zoom={mapZoom} style={{ width: "100%", height: "100%", zIndex: 0}} zoomControl={false}>
+        <ChangeView center={center} zoom={mapZoom} />
         {/* <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -137,19 +235,21 @@ function MapView({ userLocation, selectedService }) {
         />
         <LocationMarker 
             tempLocation={tempLocation}
-            selectedMarkerInfo={selectedMarkerInfo}
             setTempLocation={setTempLocation} 
-            setSelectedMarkerInfo={setSelectedMarkerInfo} 
+            setSelectedMarkerInfo={setSelectedMarkerInfo}
+            onMapClickForPin={onMapClickForPin}
+            onClosePinForm={onClosePinForm}
+            handleMarkerClick={handleMarkerClick}
         />
         {tempLocation && (
           <Marker 
             position={[tempLocation.latitude, tempLocation.longitude]} 
-            eventHandlers={{ click: () => setSelectedMarkerInfo(tempLocation) }}
+            eventHandlers={{ click: () => {handleMarkerClick(tempLocation, tempLocation.latitude, tempLocation.longitude)} }}
           >
              <Popup>
                Clicked Location: <br />
-               Lat: {tempLocation.latitude.toFixed(6)}, <br />
-               Lng: {tempLocation.longitude.toFixed(6)}
+               Lat: {tempLocation.latitude}, <br />
+               Lng: {tempLocation.longitude}
              </Popup>
           </Marker>
         )}
@@ -158,17 +258,17 @@ function MapView({ userLocation, selectedService }) {
           <Popup>You are here</Popup>
         </Marker> */}
          {pinnedLocations.map((pin) => (
-          <Marker key={pin.id} position={[pin.latitude, pin.longitude]} eventHandlers={{ click: () => setSelectedMarkerInfo(pin) }}>
+          <Marker key={pin.id} position={[pin.latitude, pin.longitude]} eventHandlers={{ click: () => {handleMarkerClick(pin, pin.latitude, pin.longitude)} }}>
             {/* <Popup>{pin.name}</Popup> */}
           </Marker>
         ))}
         {Miagao.filter(shouldShowMarker).map((facility) => (
-          <Marker key={facility.id} position={facility.reformat_coords} eventHandlers={{ click: () => setSelectedMarkerInfo(facility) }}>
+          <Marker key={facility.id} position={facility.reformat_coords} eventHandlers={{ click: () => {handleMarkerClick({...facility, type: "Miagao"}, facility.reformat_coords[0], facility.reformat_coords[1])} }}>
             {/* <Popup>{facility.name}</Popup> */}
           </Marker>
         ))}
         {Campus.filter(shouldShowMarker).map((facility) => (
-          <Marker key={facility.id} position={facility.reformat_coords} eventHandlers={{ click: () => setSelectedMarkerInfo(facility) }}>
+          <Marker key={facility.id} position={facility.reformat_coords} eventHandlers={{ click: () => {handleMarkerClick({...facility, type: "Campus"}, facility.reformat_coords[0], facility.reformat_coords[1])} }}>
             {/* <Popup>{facility.name}</Popup> */}
           </Marker>
         ))} 
