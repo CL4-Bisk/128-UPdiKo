@@ -292,13 +292,13 @@ function MapSection({setAppSection, service, setAppService}) {
                         <div className="coordinates-inputs">
                             {/* Display pre-filled coordinates as read-only or allow editing */}
                             <input
-                                className="info-input"
+                                className="info-input hidden"
                                 placeholder="Latitude"
                                 value={pinLatitude === null ? "" : pinLatitude}
                                 onChange={(e) => setPinLatitude(e.target.value)}
                             />
                             <input
-                                className="info-input"
+                                className="info-input hidden"
                                 placeholder="Longitude"
                                 value={pinLongitude === null ? "" : pinLongitude}
                                 onChange={(e) => setPinLongitude(e.target.value)}
@@ -329,11 +329,6 @@ function MapSection({setAppSection, service, setAppService}) {
                 <button className="current-location-btn">
                     <img className="current-location-img" src={compassIcon}></img>
                 </button>    
-                <br></br>
-                {(getCurrentUser() &&
-                <button className="current-location-btn" onClick={handleOpenCreatePin}>
-                    <img className="current-location-img" src={mapIcon}></img>
-                </button>)}
             </section>
                     
             <footer>
