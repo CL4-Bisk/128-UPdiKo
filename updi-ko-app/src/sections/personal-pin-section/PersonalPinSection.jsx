@@ -10,7 +10,7 @@ import backIcon from './../../images/icon/back-icon-2.png'
 
 import { useState, useEffect } from 'react';
 
-import { getCurrentUser, logOut, getPinnedLocationsFromDB } from '../../firebase/firebase.js';
+import { getCurrentUser, logOut, getPinnedLocationsFromDB, deletePinnedLocationFromDB } from '../../firebase/firebase.js';
 
 function PersonalPinSection({setAppSection, setAppService}) {  
     
@@ -18,6 +18,9 @@ function PersonalPinSection({setAppSection, setAppService}) {
 
     const user = getCurrentUser();
 
+    async function deletePinnedLocation(userID, locationID) {
+        await deletePinnedLocationFromDB(user.id, location.id)
+    }
     async function userLogOut() {
         await logOut();
         setAppSection("LOGIN");  
@@ -58,10 +61,10 @@ function PersonalPinSection({setAppSection, setAppService}) {
 
             <section className='personal-pins'>
                 {pinnedLocations.length === 0 ? (
-                     <div className='service-btn btn' key={location.id}>
+                     <div className='no-service-btn service-btn btn' key={location.id}>
                         <img src={mapIcon}></img>
                         <div>
-                            <h2 className='title'>{location.locationName}</h2>
+                            <h2 className='title'>There are currently no created pins.</h2>
                         </div>
                     </div>
                 ) : (
