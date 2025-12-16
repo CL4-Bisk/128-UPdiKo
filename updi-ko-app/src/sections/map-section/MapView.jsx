@@ -183,7 +183,7 @@ function MapView({ userLocation, currentCoords, trackingEnabled, selectedService
 
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener(async (user) => {
-      if (!selectedService && user) {
+      if (user) {
         const pins = await getPinnedLocationsFromDB(user.uid);
         setPinnedLocations(
           pins.map((pin) => ({
@@ -214,7 +214,7 @@ function MapView({ userLocation, currentCoords, trackingEnabled, selectedService
   }
 
   const shouldShowMarker = (facility) => {
-    if (!selectedService) return true;
+    return true;
     
     // Check if facility has a tags array and if it includes the selected service
     return facility.name && facility.name.includes(selectedService.name);
