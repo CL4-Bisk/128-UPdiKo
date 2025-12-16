@@ -80,7 +80,7 @@
         box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.40);
         font-size: var(--fs-14);
         letter-spacing: 1px;
-        text-indent: var(--mar-24);
+        padding-left: var(--pad-48);
         color: white;
     }
     .icon {
@@ -150,18 +150,42 @@
         font-size: var(--fs-11);
         letter-spacing: 0.5px;
         white-space: nowrap;
+        transition: background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
     }
     .categories .active-category {
         background-color: var(--color-accent-1);
         color: var(--color-primary)
     }
+    .categories .active-category {
+        background-color: var(--color-accent-1);
+        color: var(--color-primary);
+        opacity: 100%;
+    }
 
     /* SUBGROUP: SERVICES LIST */
     .service-list {
         width: 100%;
-        margin-top: var(--mar-32);
-        height: 275px;
+        margin-top: var(--mar-24);
+        padding-block: var(--pad-4);
+        height: calc(100dvh - 314px - 160px);
         overflow-y: auto;
+        position: relative; 
+        
+        -webkit-mask-image: linear-gradient(
+            to bottom, 
+            transparent 0%, 
+            black 1%, 
+            black 97%, 
+            transparent 100%
+        );
+        mask-image: linear-gradient(
+            to bottom, 
+            transparent 0%, 
+            black 3%, 
+            black 97%, 
+            transparent 100%
+        );
+    
     }
     .service-list::-webkit-scrollbar {
         display: none;

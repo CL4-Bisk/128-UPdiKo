@@ -12,10 +12,11 @@ import { logIn } from "../../firebase/firebase.js";
 
 function LoginSection({ setAppSection }) {
     const [isVisible, setVisible] = useState(false);
-
     function togglePasswordVisibility() {    
         setVisible(!isVisible);
     }
+
+    const [errorMessage, setErrorMessage] = useState('');
 
     async function handleLogin() {
         const email = document.querySelector('.email').value.trim();
@@ -24,13 +25,13 @@ function LoginSection({ setAppSection }) {
             await logIn(email, password);
             setAppSection("HOME");  // Push user back home
         } catch (e) {
+            setErrorMessage("Invalid Email or Password Found.")
             return;   
         }   
     }
 
     return (
         <div className="LoginSection">
-
                 <header> 
                 <figure className='logo'>
                     <img src={mascot} alt='Logo Image'></img>
@@ -56,9 +57,11 @@ function LoginSection({ setAppSection }) {
                             type= { isVisible? "text": "password"} 
                             placeholder="Password"
                             className='password'
-                        />
-                            
+                        />            
                     </div>
+                    {errorMessage && (
+                        <p className="error-message">{errorMessage}</p>
+                    )}
                     <button className="login-button" onClick={() => handleLogin()}>Login</button>
                 </div>
             </section>

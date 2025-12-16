@@ -11,7 +11,7 @@ import nextIcon from './../../images/icon/next-icon.png';
 
 import campusServicesData from './../../json/campus-facilities.json';
 import communityServicesData from './../../json/miagao-facilities.json';
-import { act, useState, useEffect } from 'react';
+import { act, useState, useEffect, useRef } from 'react';
 
 import { getCurrentUser, addPinnedLocationToDB } from '../../firebase/firebase.js';
 
@@ -45,14 +45,99 @@ function MapSection({setAppSection, service, setAppService}) {
     const [pinDescription, setPinDescription] = useState("");
     const [pinLatitude, setPinLatitude] = useState(null);
     const [pinLongitude, setPinLongitude] = useState(null);
-    const [mapCenter, setMapCenter] = useState({ lat: 10.641944, lng: 122.235556 });
-    const handleOpenCreatePin = () => {
+    // const [mapCenter, setMapCenter] = useState({ lat: 10.641944, lng: 122.235556 });
+
+    // Default center coordinates (used for initialization and recentering)
+    const defaultCenter = { lat: 10.641944, lng: 122.235556 };
+    const [mapCenter, setMapCenter] = useState(defaultCenter);
+    
+    // Tracks the user's latest GPS coordinates
+    const [userCurrentLocation, setUserCurrentLocation] = useState(null); 
+    
+    // NEW STATE: Controls whether the map should automatically pan to the user's location
+    const [trackingEnabled, setTrackingEnabled] = useState(false); 
+
+    // Ref to hold the watchPosition ID so we can clear it later
+    const watchIdRef = useRef(null);
+
+    // // NEW useEffect: Start continuous tracking on mount
+    // useEffect(() => {
+    //     if ("geolocation" in navigator) {
+    //         // Function to handle location update
+    //         const successHandler = (position) => {
+    //             const location = {
+    //                 lat: position.coords.latitude,
+    //                 lng: position.coords.longitude,
+    //             };
+    //             setUserCurrentLocation(location);
+                
+    //             // If tracking is enabled, update the mapCenter state immediately
+    //             if (trackingEnabled) {
+    //                 setMapCenter(location);
+    //             }
+    //         };
+            
+    //         const errorHandler = (error) => {
+    //             console.error("Error getting user location:", error);
+    //         };
+
+    //         // Start continuous watching and store the ID in the ref
+    //         watchIdRef.current = navigator.geolocation.watchPosition(
+    //             successHandler,
+    //             errorHandler,
+    //             { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+    //         );
+    //     } else {
+    //         console.log("Geolocation is not supported by this browser.");
+    //     }
+
+    //     // Cleanup function: Stops watching when the component unmounts
+    //     return () => {
+    //         if (watchIdRef.current) {
+    //             navigator.geolocation.clearWatch(watchIdRef.current);
+    //         }
+    //     };
+    // }, [trackingEnabled]);
+
+    // NEW FUNCTION: Centralized way to close the form and clear temporary state
+    const handleCloseCreatePin = () => {
+        setShowCreatePin(false);
+        setPinLatitude(null);
+        setPinLongitude(null);
+    };
+
+    // REVISED: Function to handle map click or button click for pin creation
+    const handleOpenCreatePin = (coords = null) => {
         if (!getCurrentUser()) {
-        alert("Please log in to add pins.");
-        return;
+            alert("Please log in to add pins.");
+            return;
         }
+        
+        // Clear previous data
+        setPinName("");
+        setPinAddress("");
+        setPinDescription("");
+
+        if (coords) {
+            // Map click: Pre-fill coordinates from the event
+            setPinLatitude(coords.lat);
+            setPinLongitude(coords.lng);
+        } else {
+            // Button click: Coordinates are null, user must input manually
+            setPinLatitude(null);
+            setPinLongitude(null);
+        }
+        
         setShowCreatePin(true);
     };
+
+    // const handleOpenCreatePin = () => {
+    //     if (!getCurrentUser()) {
+    //     alert("Please log in to add pins.");
+    //     return;
+    //     }
+    //     setShowCreatePin(true);
+    // };
     const handleAddPinnedLocation = async () => {
         const user = getCurrentUser();
         if (!user) return;
@@ -79,6 +164,15 @@ function MapSection({setAppSection, service, setAppService}) {
         }
     };
 
+    // NEW: Function to handle centering to a clicked pin
+    const handleCenterToPin = (lat, lng, zoomLevel = 17) => {
+        // Stop continuous tracking if a pin is manually centered
+        setTrackingEnabled(false); 
+        setMapCenter({ lat, lng, zoom: zoomLevel }); 
+        // We update mapCenter, but MapView needs to interpret the zoom change.
+        // We will adjust MapView's useEffect to handle an optional zoom prop.
+    };
+
     /* Services Data */
     const services = [...campusServicesData, ...communityServicesData]
     const filteredServices = services.filter(service => {
@@ -87,16 +181,22 @@ function MapSection({setAppSection, service, setAppService}) {
         return matchesSearch ;
     });
 
+
     /* Set Location */    
-    const userLocation = { lat: 10.641944, lng: 122.235556 };   // default location 
-    if (service) {
-        [userLocation.lat, userLocation.lng] = service.reformat_coords   // selected service/location
-    } 
+    // const userLocation = { lat: 10.641944, lng: 122.235556 };   // default location 
+    // if (service) {
+    //     [userLocation.lat, userLocation.lng] = service.reformat_coords   // selected service/location
+    // } 
 
     return (
         <div className="MapSection">
             <header className = {(activeSearch) ? "active-search-layout" : "inactive-search-layout"}>
-                { (activeSearch) ? <img src={backIcon} onClick={() => {setSearchActive(false); setSearchQuery(""); chooseService(null)}} className="close-search-btn btn"></img> : null }
+                { (activeSearch) ? <img src={backIcon} onClick={() => {
+                        setSearchActive(false); 
+                        setSearchQuery(""); 
+                        setAppService(null); 
+                    }} className="close-search-btn btn"></img> : null 
+                }              
                 <section className='search-container'>
                     <img src={searchIcon} className="icon"></img>
                     <input  
@@ -104,13 +204,13 @@ function MapSection({setAppSection, service, setAppService}) {
                         className='search-bar' 
                         placeholder='Search for Services'
                         onChange={handleSearchChange}
-                        onFocus={() => {setSearchActive(true);}}
+                        onFocus={(e) => {setSearchActive(true); handleSearchChange(e)}}
                     />
                 </section>  
             </header>
 
             <section className= { (activeSearch) ? 'search-list-section' : 'search-list-section hidden' }>
-                <section className='service-list'>
+                <section className='service-list' key={searchQuery}>
                 {
                     filteredServices.map((service, index) => (
                         <div key={index} className='service-btn btn' onClick={() => chooseService(service)}>
@@ -125,17 +225,30 @@ function MapSection({setAppSection, service, setAppService}) {
                 </section>
             </section>
 
-            <section className="map">
+            {/* <section className="map">
                 <div className = "map-container">
                     <MapView userLocation={userLocation} selectedService={service} onCenterChange={(lat, lng) => setMapCenter({ lat, lng })}/>
+                </div>
+            </section> */}
+            <section className="map">
+                <div className = "map-container">
+                    <MapView 
+                        userLocation={mapCenter} 
+                        currentCoords={userCurrentLocation}
+                        trackingEnabled={trackingEnabled}
+                        selectedService={service} 
+                        // NEW PROP: Pass the function to open the pin form with coordinates
+                        onMapClickForPin={handleOpenCreatePin} 
+                        onClosePinForm={handleCloseCreatePin}
+                        onMarkerClick={handleCenterToPin}
+                    />
                 </div>
             </section>
 
 
             {showCreatePin && (
                 <div className="create-pin-sheet">
-                    
-
+                
                     <div className="sheet-header">
                         <h2>Create Pin</h2>
                         <span className="close-btn" onClick={() => setShowCreatePin(false)}>
@@ -163,7 +276,7 @@ function MapSection({setAppSection, service, setAppService}) {
                             />
                         </div>
 
-                        <div className="coordinates-inputs">
+                        {/* <div className="coordinates-inputs">
                             <input
                                 className="info-input"
                                 placeholder="Latitude"
@@ -175,6 +288,21 @@ function MapSection({setAppSection, service, setAppService}) {
                                 placeholder="Longitude"
                                 value={pinLongitude || ""}
                                 onChange={(e) => setPinLongitude(parseFloat(e.target.value))}
+                            />
+                        </div> */}
+                        <div className="coordinates-inputs">
+                            {/* Display pre-filled coordinates as read-only or allow editing */}
+                            <input
+                                className="info-input"
+                                placeholder="Latitude"
+                                value={pinLatitude === null ? "" : pinLatitude}
+                                onChange={(e) => setPinLatitude(e.target.value)}
+                            />
+                            <input
+                                className="info-input"
+                                placeholder="Longitude"
+                                value={pinLongitude === null ? "" : pinLongitude}
+                                onChange={(e) => setPinLongitude(e.target.value)}
                             />
                         </div>
 
@@ -203,9 +331,10 @@ function MapSection({setAppSection, service, setAppService}) {
                     <img className="current-location-img" src={compassIcon}></img>
                 </button>    
                 <br></br>
+                {(getCurrentUser() &&
                 <button className="current-location-btn" onClick={handleOpenCreatePin}>
                     <img className="current-location-img" src={mapIcon}></img>
-                </button>
+                </button>)}
             </section>
                     
             <footer>

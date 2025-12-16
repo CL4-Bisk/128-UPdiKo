@@ -10,13 +10,18 @@ import logoutIcon from './../../images/icon/logout-icon.png'
 import { logOut, getCurrentUser } from '../../firebase/firebase.js';
 import { useRef, useState } from "react";
 
-function AccountSection({ setAppSection }) {
+function AccountSection({ setAppSection, redirect, setAppRedirectBody}) {    
+    const [redirectMsg, setRedirectMsg] = useState(null)
+    if (redirect) {
+        setRedirectMsg("Account Updated Successfully!")
+        setAppRedirectBody("")
+    }
+
     async function userLogOut() {
         await logOut();
         setAppSection("LOGIN");  
     }
 
-    console.log("Hi from Account Section!")
     const user = getCurrentUser();
 
     return (
@@ -40,11 +45,11 @@ function AccountSection({ setAppSection }) {
                     <h2>Good day! What do you want to today?</h2>
                 </hgroup>
                 <div className='dashboard-options'>
-                    <div className='option-btn btn' >
+                    <div className='option-btn btn' onClick={() => setAppSection("ACCOUNT-UPDATE")}>
                         <img src={bookmarkIcon}></img>
                         <div>
-                            <h2 className='title'>Saved Services</h2>
-                            <h3 className='subtitle'>Manage bookmarked services</h3>
+                            <h2 className='title'>Update Account</h2>
+                            <h3 className='subtitle'>Change your account details</h3>
                         </div>
                     </div>
                     <div className='option-btn btn' onClick={ () => setAppSection("PERSONAL-PIN") }>
@@ -57,35 +62,7 @@ function AccountSection({ setAppSection }) {
                 </div>
 
             </section>
-            {/* HEADER */}
-            {/* <main>
-                <figure className="mascot"></figure>
-                <div className="mascot-dialogue">
-                    ACCOUNT SETTINGS
-                </div>
-            </main> */}
-
-            { /* Users see the dropdowns which contains the services they want to get */}
-            {/* <section className="selections" ref={dropdownsRef}>
-            {
-                data.map((service, index) => (
-                    <div key={index} className="service-dropdown">
-                        <div className="dropdown-selected-container"  onClick= {() => toggleDropdown(index)}>
-                            <p>{service.setting}</p>
-                            <img src=''></img>
-                        </div>
-                        <div className="dropdown-option-list hidden">
-                            {
-                                service.tags.map((tag, index) => (
-                                    <button key={index} className="dropdown-option" onClick = { () => handleTag(tag.toUpperCase())}>{tag}</button>
-                                ))
-                            }
-                        </div>    
-                    </div>    
-                ))  
-            }
-            </section> */}
-
+      
             {/* NAV BAR */}
             <footer>
                 <nav>

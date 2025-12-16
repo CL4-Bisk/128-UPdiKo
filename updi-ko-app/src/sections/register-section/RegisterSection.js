@@ -12,54 +12,77 @@ import { useState } from "react"
 
 function RegisterSection({ setAppSection }) {
     const [isVisible, setVisible] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(''); 
 
-    function togglePasswordVisibility() {    
+    function togglePasswordVisibility() {    
         setVisible(!isVisible);
     }
 
+    const mapFirebaseError = (error) => {
+        switch (error.code) {
+            case 'auth/email-already-in-use':
+                return "This email address is already registered. Please log in.";
+            case 'auth/invalid-email':
+                return "The email address is not in a valid format.";
+            case 'auth/weak-password':
+                return "The password must be at least 6 characters long.";
+            default:
+                return "Registration failed. Please check your inputs and try again.";
+        }
+    };
+
+    
     async function handleRegister() {
-        const email = document.querySelector('.email').value;
-        const password = document.querySelector('.password').value;
-        const FName = document.querySelector('.FName').value.toUpperCase();
-        const LName = document.querySelector('.LName').value.toUpperCase();
+        setErrorMessage('');
+
+        const email = document.querySelector('.email').value.trim();
+        const password = document.querySelector('.password').value.trim();
+        const FName = document.querySelector('.FName').value.trim();
+        const LName = document.querySelector('.LName').value.trim();
         const name = `${FName} ${LName}`;
+
+        if (!FName || !LName || !email || !password) {
+            setErrorMessage("Please fill in all the required fields.");
+            return;
+        }
+
         try {
-            const newUser = await signUp(email, password);
+            const newUserCredential = await signUp(email, password);
+            
             await updateUserProfile({
               displayName: name
             });
-            await saveUserDataToDB(newUser.uid, {
+            
+            await saveUserDataToDB(newUserCredential.uid, {
               name,
               email
             });
-          } catch (error) {
+
+
+            setAppSection("HOME");
+        } catch (error) {
             console.error("Error creating account:", error);
-          }
-        setAppSection("LOGIN");  // Push user back to re-authenticate
+            setErrorMessage(mapFirebaseError(error));
+        }
     }
-
-    async function goToLogin() {
-        setAppSection("LOGIN");
-    }
-
+    
     return (
-      
         <div className="RegisterSection">
             <header> 
-            <figure className='logo'>
-                <img src={mascot} alt='Logo Image'></img>
-                <figcaption className="logo-name">
-                    User Signup
-                </figcaption>
-            </figure>
-        </header>   
+                <figure className='logo'>
+                    <img src={mascot} alt='Logo Image'></img>
+                    <figcaption className="logo-name">
+                        User Signup
+                    </figcaption>
+                </figure>
+            </header> 
 
-        <section className='form-section'>
-            <div className="register-container">
+            <section className='form-section'>
+                <div className="register-container">
                     <input type="text" className='FName' placeholder="First Name"></input>
                     <input type="text" className='LName' placeholder="Last Name"></input>
                     <input type="text" className='email' placeholder="Email"></input>
-                    <div className='password-input-container'>                            
+                    <div className='password-input-container'> 
                         <img 
                             className='show-pass-btn btn' 
                             src={ isVisible ? hidePassIcon : showPassIcon }
@@ -69,37 +92,41 @@ function RegisterSection({ setAppSection }) {
                             className='password'
                             type= { isVisible? "text": "password"} 
                             placeholder="Password"
+                        /> 
+                    </div>
+                    
+                    {errorMessage && (
+                        <p className="error-message">{errorMessage}</p>
+                    )}
 
-                        />        
-                    </div>                        
-                    <button className="register-button" onClick={() => handleRegister()}>Register</button>
-            </div>
-        </section>
+                    <button className="register-button" onClick={handleRegister}>Register</button>
+                </div>
+            </section>
 
-        <section className='register-description-section'>
-            Already have an account? <br></br><span className='to-register-ref' onClick={ () => setAppSection("LOGIN") }>Login to your account</span> 
-        </section>
+            <section className='register-description-section'>
+                Already have an account? <br></br><span className='to-register-ref' onClick={ () => setAppSection("LOGIN") }>Login to your account</span> 
+            </section>
 
-        {/* NAV BAR */}
-        <footer>
-            <nav>
-                <ul>
-                    <li className='navigation btn' onClick={ () => setAppSection("HOME") }>
-                        <img className='icon' src={homeIcon}></img>
-                        <p className='label'>Service</p>    
-                    </li>
-                    <li className='navigation btn'>
-                        <img className='icon' src={mapIcon} onClick={ () => setAppSection("MAP") }></img>
-                        <p className='label'>Map</p>    
-                    </li>
-                    <li className='navigation active btn' onClick={ () => setAppSection("ACCOUNT") }>
-                        <img className='icon' src={accountIcon}></img>
-                        <p className='label'>Account</p>    
-                    </li>
-                </ul>
-            </nav>
-        </footer>
-    </div>
+            {/* NAV BAR */}
+            <footer>
+                <nav>
+                    <ul>
+                        <li className='navigation btn' onClick={ () => setAppSection("HOME") }>
+                            <img className='icon' src={homeIcon}></img>
+                            <p className='label'>Service</p>
+                        </li>
+                        <li className='navigation btn'>
+                            <img className='icon' src={mapIcon} onClick={ () => setAppSection("MAP") }></img>
+                            <p className='label'>Map</p> 
+                        </li>
+                        <li className='navigation active btn' onClick={ () => setAppSection("ACCOUNT") }>
+                            <img className='icon' src={accountIcon}></img>
+                            <p className='label'>Account</p> 
+                        </li>
+                    </ul>
+                </nav>
+            </footer>
+        </div>
     );
 }
 
