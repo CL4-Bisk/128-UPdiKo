@@ -7,17 +7,11 @@ import accountIcon from './../../images/icon/user-icon.png'
 import bookmarkIcon from './../../images/icon/saved-icon.png'
 import logoutIcon from './../../images/icon/logout-icon.png'
 
-import { logOut, getCurrentUser } from '../../firebase/firebase.js';
-import { useRef, useState } from "react";
+import { logOut, getCurrentUser, getUserDataFromDB } from '../../firebase/firebase.js';
+import { useRef, useState, useEffect } from "react";
 
-function AccountSection({ setAppSection, redirect, setAppRedirectBody}) {    
-    const [redirectMsg, setRedirectMsg] = useState(null)
-    if (redirect) {
-        setRedirectMsg("Account Updated Successfully!")
-        setAppRedirectBody("")
-    }
-
-    async function userLogOut() {
+function AccountSection({ setAppSection}) {    
+     async function userLogOut() {
         await logOut();
         setAppSection("LOGIN");  
     }
@@ -60,9 +54,9 @@ function AccountSection({ setAppSection, redirect, setAppRedirectBody}) {
                         </div>
                     </div>      
                 </div>
-
             </section>
       
+           
             {/* NAV BAR */}
             <footer>
                 <nav>

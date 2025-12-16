@@ -109,7 +109,6 @@ function MapSection({setAppSection, service, setAppService}) {
     // REVISED: Function to handle map click or button click for pin creation
     const handleOpenCreatePin = (coords = null) => {
         if (!getCurrentUser()) {
-            alert("Please log in to add pins.");
             return;
         }
         
@@ -204,7 +203,7 @@ function MapSection({setAppSection, service, setAppService}) {
                         className='search-bar' 
                         placeholder='Search for Services'
                         onChange={handleSearchChange}
-                        onFocus={(e) => {setSearchActive(true); handleSearchChange(e)}}
+                        onFocus={() => {setSearchActive(true); setSearchQuery("")}}
                     />
                 </section>  
             </header>
