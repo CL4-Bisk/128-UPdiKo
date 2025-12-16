@@ -16,7 +16,7 @@ import { act, useState, useEffect, useRef } from 'react';
 import { getCurrentUser, addPinnedLocationToDB } from '../../firebase/firebase.js';
 
 import React from "react";
-import MapView from "./MapView";
+import MapView from "./MapView.jsx";
 
 function MapSection({setAppSection, service, setAppService}) {   
     /* Search Location Logic */
