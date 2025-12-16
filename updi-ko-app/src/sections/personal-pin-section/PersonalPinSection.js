@@ -6,6 +6,7 @@ import mapIcon from './../../images/icon/map-pin-icon.png'
 import accountIcon from './../../images/icon/user-icon.png'
 import bookmarkIcon from './../../images/icon/saved-icon.png'
 import logoutIcon from './../../images/icon/logout-icon.png'
+import backIcon from './../../images/icon/back-icon-2.png'
 
 import { useState, useEffect } from 'react';
 
@@ -45,6 +46,15 @@ function PersonalPinSection({setAppSection, setAppService}) {
                     <figure className='logout-icon btn'><img src={logoutIcon} onClick={ userLogOut }></img></figure>
                 </div>
             </header>
+
+        <section className="section-name"> 
+           <hgroup>
+                <h1>Update Account</h1>
+            </hgroup>
+            <figure className="back-button btn" onClick={ () => setAppSection("ACCOUNT")} >
+              <img src={backIcon}></img>  
+            </figure>        
+        </section> 
 
             <section className='personal-pins'>
                 {pinnedLocations.length === 0 ? (

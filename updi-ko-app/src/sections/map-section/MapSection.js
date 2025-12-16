@@ -231,7 +231,7 @@ function MapSection({setAppSection, service, setAppService}) {
                             <img src={mapIcon}></img>
                             <div>
                                 <h2 className='title'>{service.name}</h2>
-                                <h3 className='tag'>{service.tags}</h3>
+                                <h3 className='tag'>{service.tags.join(", ")}</h3>
                             </div>
                         </div>
                     ))
