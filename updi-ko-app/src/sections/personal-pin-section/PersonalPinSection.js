@@ -9,7 +9,7 @@ import logoutIcon from './../../images/icon/logout-icon.png'
 
 import { useState, useEffect } from 'react';
 
-import { getCurrentUser, logOut, getPinnedLocationsFromDB } from '../../firebase/firebase.js';
+import { getCurrentUser, logOut, getPinnedLocationsFromDB, deletePinnedLocationFromDB } from '../../firebase/firebase.js';
 
 function PersonalPinSection({setAppSection, setAppService}) {  
     
@@ -22,6 +22,14 @@ function PersonalPinSection({setAppSection, setAppService}) {
         setAppSection("LOGIN");  
     }
 
+    async function deletePinnedLocation(locationId) {
+        // Implement deletion logic here
+        await deletePinnedLocationFromDB(user.uid, locationId);
+        // Refresh the pinned locations list
+        const locations = await getPinnedLocationsFromDB(user.uid);
+        setPinnedLocations(locations);
+    }
+
     useEffect(() => {
         async function fetchPinnedLocations() {
             if (!user) return;
@@ -30,6 +38,8 @@ function PersonalPinSection({setAppSection, setAppService}) {
         }
         fetchPinnedLocations();
     }, []);
+
+    console.log(pinnedLocations);
 
     return (
         <div className="PersonalPinSection">
@@ -51,11 +61,13 @@ function PersonalPinSection({setAppSection, setAppService}) {
                     <p>You have no personal pins yet.</p>
                 ) : (
                     <div className='pinned-locations'>
-                        {pinnedLocations.map((index, location) => (
-                            <div className='pinned-location-card' key={index}>
-                                <h3 className='location-name'>{location.locationName}</h3>
-                                <p className='location-coordinates'>Lat: {location.latitude}, Lng: {location.longitude}</p>
-                                <p className='location-description'>{location.description}</p>
+                        {pinnedLocations.map((location) => (
+                            <div>
+                                <div className='pinned-location-card' key={location.id}>
+                                    <h3 className='location-name'>{location.locationName}</h3>
+                                    <p className='location-description'>{location.description}</p>
+                                </div>
+                                <span className='delete-pin-btn' onClick={ deletePinnedLocation(location.id) }>Delete</span>
                             </div>
                         ))}
                     </div>
