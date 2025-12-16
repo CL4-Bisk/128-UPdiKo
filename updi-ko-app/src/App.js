@@ -6,6 +6,7 @@ import LoginSection from './sections/login-section/LoginSection';
 import RegisterSection from './sections/register-section/RegisterSection';
 import AccountInfoSection from './sections/account-info-section/AccountInfoSection';
 import AccountUpdateSection from './sections/account-update-section/AccountUpdateSection';
+import PersonalPinSection from './sections/personal-pin-section/PersonalPinSection';
 
 function App() {
     /** 
@@ -14,12 +15,7 @@ function App() {
      */
     const [section, setSection] = useState("HOME");
     
-    /** 
-     *  This hook is a global state that keeps track of the previous page that user was in.  
-     */
-    const [redirect, setRedirectBody] = useState(null);
     
-
     /**
      * This hook is a global state that keeps track of the current service the user chose/searched 
      * from HOME or MAP
@@ -38,13 +34,15 @@ function App() {
     case "MAP":
         return <MapSection setAppSection={setSection} service={service} setAppService={setService} />;
     case "ACCOUNT":
-        return <AccountSection setAppSection={setSection} redirect={redirect} setAppRedirectBody={setRedirectBody}/>;
+        return <AccountSection setAppSection={setSection} />;
     case "ACCOUNT-UPDATE": 
-        return <AccountUpdateSection setAppSection={setSection} redirect={redirect} setAppRedirectBody={setRedirectBody}/>;
+        return <AccountUpdateSection setAppSection={setSection} />;
     case "LOGIN":
         return <LoginSection setAppSection={setSection} />;
     case "REGISTER":
         return <RegisterSection setAppSection={setSection} />;
+    case "PERSONAL-PIN":
+        return <PersonalPinSection setAppSection={setSection} />;
     default:
         return <StartSection setAppSection={setSection} setAppService={setService} />; // Fallback
     }

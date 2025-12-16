@@ -13,8 +13,8 @@ import {
   getCurrentUser,
   updateUserProfile,
   updateUserPassword,
-  saveUserDataToDB, 
-  logOut,
+  saveUserDataToDB,
+  logOut
 } from "../../firebase/firebase.js";
 
 import { useEffect, useState } from "react";
@@ -23,13 +23,7 @@ function AccountUpdateSection({ setAppSection, redirect, setAppRedirectBody}) {
   const [isVisible, setVisible] = useState(false);
   function togglePasswordVisibility() {    
       setVisible(!isVisible);
-  }  
-
-  /* Logout */
-  async function userLogOut() {
-        await logOut();
-        setAppSection("LOGIN");  
-    }
+  }
 
   /* Error Messages */
   const [errorMessage, setErrorMessage] = useState('');   
@@ -42,28 +36,33 @@ function AccountUpdateSection({ setAppSection, redirect, setAppRedirectBody}) {
           case 'auth/weak-password':
               return "The password must be at least 6 characters long.";
           default:
-              return "Registration failed. Please check your inputs and try again.";
+              return "User updates failed. Please check your inputs and try again.";
       }
   };
+
+  async function userLogOut() {
+      await logOut();
+      setAppSection("LOGIN");  
+  }
   
   const user = getCurrentUser();
+
   const [displayName, setDisplayName] = useState("");
-  const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
+
   useEffect(() => {
     if (user) {
       setDisplayName(user.displayName || "");
-      setEmail(user.email || "");
     }
   }, [user]);
+
   if (!user) return null;
 
   const handleUpdate = async () => {
-    setErrorMessage('');
     try {
-      if (!displayName || !email ) {
+      if (!displayName) {
           setErrorMessage("Please fill in all the required fields.");
           return;
       }
@@ -71,7 +70,6 @@ function AccountUpdateSection({ setAppSection, redirect, setAppRedirectBody}) {
       // Update display name and email
       await updateUserProfile({
         displayName: displayName || user.displayName,
-        email: email || user.email
       });
 
       // If password is being changed, ask for current password
@@ -81,19 +79,31 @@ function AccountUpdateSection({ setAppSection, redirect, setAppRedirectBody}) {
       }
 
       await finalizeDBUpdate();
-      setAppRedirectBody("SUCCESSFULL-UPDATE")
       setAppSection("ACCOUNT")
     } catch (error) {
-      console.error("Error creating account:", error);
       setErrorMessage(mapFirebaseError(error));
     }
-  }
+  };
 
   const finalizeDBUpdate = async () => {
     await saveUserDataToDB(user.uid, {
       name: displayName || user.displayName,
-      email: email || user.email
     });
+  };
+
+  const handlePasswordConfirm = async () => {
+    try {
+      await updateUserPassword(newPassword.trim(), currentPassword);
+
+      await finalizeDBUpdate();
+
+      setNewPassword("");
+      setCurrentPassword("");
+      setShowPasswordConfirm(false);
+      setAppSection("ACCOUNT")
+    } catch (error) {
+      setErrorMessage(mapFirebaseError(error));
+    }
   };
 
   return (
@@ -129,13 +139,6 @@ function AccountUpdateSection({ setAppSection, redirect, setAppRedirectBody}) {
                     value={displayName} 
                     onChange={(e) => setDisplayName(e.target.value)}
                 ></input>
-                <input 
-                    type="text" 
-                    className='email' 
-                    placeholder="Email" 
-                    value={email}  
-                    onChange={(e) => setEmail(e.target.value)}
-                ></input>
                 <div className='password-input-container'> 
                     <img 
                         className='show-pass-btn btn' 
@@ -158,25 +161,42 @@ function AccountUpdateSection({ setAppSection, redirect, setAppRedirectBody}) {
             </div>
         </section>
 
-        {/* NAV BAR */}
-        <footer>
-            <nav>
-                <ul>
-                    <li className='navigation btn' onClick={ () => setAppSection("HOME") }>
-                        <img className='icon' src={homeIcon}></img>
-                        <p className='label'>Service</p>
-                    </li>
-                    <li className='navigation btn'>
-                        <img className='icon' src={mapIcon} onClick={ () => setAppSection("MAP") }></img>
-                        <p className='label'>Map</p> 
-                    </li>
-                    <li className='navigation active btn' onClick={ () => setAppSection("ACCOUNT") }>
-                        <img className='icon' src={accountIcon}></img>
-                        <p className='label'>Account</p> 
-                    </li>
-                </ul>
-            </nav>
-        </footer>
+        {/* PASSWORD CONFIRM */}
+        {showPasswordConfirm && (
+          <div className="dialogue">
+            <p>Enter current password to confirm</p>
+            <input
+              className="info-input"
+              type="password"
+              value={currentPassword}
+              onChange={(e) => setCurrentPassword(e.target.value)}
+            />
+            <button className="update-btn btn" onClick={handlePasswordConfirm}>
+              Confirm
+            </button>
+          </div>
+        )}
+
+      {/* NAV BAR */}
+      <footer>
+        <nav className="nav-bar">
+          <div className="navigations" onClick={() => setAppSection("HOME")}>
+            <img src={homeIcon} />
+            <p>Home</p>
+          </div>
+          <div className="navigations" onClick={() => setAppSection("MAP")}>
+            <img src={mapIcon} />
+            <p>Map</p>
+          </div>
+          <div
+            className="navigations active-section"
+            onClick={() => setAppSection("ACCOUNT")}
+          >
+            <img src={accountIcon} />
+            <p>Account</p>
+          </div>
+        </nav>
+      </footer>
     </div>
   );
 }

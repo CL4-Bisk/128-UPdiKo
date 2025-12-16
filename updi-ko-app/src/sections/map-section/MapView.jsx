@@ -379,7 +379,7 @@ function MapView({ userLocation, currentCoords, trackingEnabled, selectedService
               </div>
             </div>
           )}
-          {selectedPanelTab === "Photos" && selectedMarkerInfo.images && selectedMarkerInfo.images.length <= 0 && (
+          {selectedPanelTab === "Photos" && (selectedMarkerInfo.images == null || (selectedMarkerInfo.images && selectedMarkerInfo.images.length <= 0)) && (
             <div className="image-container">
               <p>No photos available.</p>
             </div>

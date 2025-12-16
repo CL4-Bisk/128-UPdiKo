@@ -124,7 +124,6 @@ function MapSection({setAppSection, service, setAppService}) {
     // REVISED: Function to handle map click or button click for pin creation
     const handleOpenCreatePin = (coords = null) => {
         if (!getCurrentUser()) {
-            alert("Please log in to add pins.");
             return;
         }
         
@@ -219,7 +218,7 @@ function MapSection({setAppSection, service, setAppService}) {
                         className='search-bar' 
                         placeholder='Search for Services'
                         onChange={handleSearchChange}
-                        onFocus={(e) => {setSearchActive(true); handleSearchChange(e)}}
+                        onFocus={() => {setSearchActive(true); setSearchQuery("")}}
                     />
                 </section>  
             </header>
@@ -308,13 +307,13 @@ function MapSection({setAppSection, service, setAppService}) {
                         <div className="coordinates-inputs">
                             {/* Display pre-filled coordinates as read-only or allow editing */}
                             <input
-                                className="info-input"
+                                className="info-input hidden"
                                 placeholder="Latitude"
                                 value={pinLatitude === null ? "" : pinLatitude}
                                 onChange={(e) => setPinLatitude(e.target.value)}
                             />
                             <input
-                                className="info-input"
+                                className="info-input hidden"
                                 placeholder="Longitude"
                                 value={pinLongitude === null ? "" : pinLongitude}
                                 onChange={(e) => setPinLongitude(e.target.value)}
@@ -348,11 +347,6 @@ function MapSection({setAppSection, service, setAppService}) {
                 >
                     <img className="current-location-img" src={compassIcon}></img>
                 </button>    
-                <br></br>
-                {(getCurrentUser() &&
-                <button className="current-location-btn" onClick={handleOpenCreatePin}>
-                    <img className="current-location-img" src={mapIcon}></img>
-                </button>)}
             </section>
                     
             <footer>
