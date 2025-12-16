@@ -1,6 +1,6 @@
 [
     { 
         "setting": "Account Options",
-        "tags" : ["Logout"]
+        "tags" : ["Logout", "Update Profile", "Show Account Info"]
     }
 ]

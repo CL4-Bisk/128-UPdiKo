@@ -24,8 +24,8 @@ export const db = getFirestore(app);
 
 // Export functions with the initialized app
 // === Firestore user pins helper functions ===
-export async function addPinnedLocationToDB(uid, locationName, latitude, longitude) {
-  const docRef = await addDoc(collection(db, "users", uid, "pinnedLocations"), { locationName, latitude, longitude });
+export async function addPinnedLocationToDB(uid, locationName, address, latitude, longitude, description) {
+  const docRef = await addDoc(collection(db, "users", uid, "pinnedLocations"), { locationName, address, latitude, longitude, description });
   return docRef.id;
 }
 
@@ -151,4 +151,8 @@ export async function getUserDataFromDB(uid) {
     console.error("Error getting user data:", error);
     throw error;
   }
+}
+
+export function getCurrentUser() {
+  return auth.currentUser;
 }

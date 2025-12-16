@@ -1,26 +1,25 @@
 /* font import */
-@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nerko+One&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
 /* root styles */
 :root {
-    --color-white: #FFFFFF;
-    --color-very-light: #EEEEEE;
-    --color-light: #DDDDDD;
-    --color-medium-light: #CCCCCC;
-    --color-medium-dark: #999999;
-    --color-dark: #666666;
-    --color-very-dark: #333333;
-    --color-black: #000000;
-
-    --color-1: #6B4EFF;
+    --color-background: #3E305A;
+    --color-primary: #171221;
+    --color-primary-80a: #171221CC;
+    --color-accent-1: #F0E8CC;
+    --color-accent-2: #EAE0B9; 
+    --color-footer: #171221;
+    --color-danger: #d93025;
 
     --pad-0 : 0px;
     --pad-2 : 2px;
     --pad-4 : 4px;
+    --pad-6 : 6px;
     --pad-8 : 8px;
     --pad-12 : 12px;
     --pad-16 : 16px;
     --pad-24 : 24px;
+    --pad-28 : 28px;
     --pad-32 : 32px;
     --pad-48 : 48px;
     --pad-60 : 60px;
@@ -31,10 +30,13 @@
     --mar-12 : 12px;
     --mar-16 : 16px;
     --mar-24 : 24px;
+    --mar-28 : 28px;
     --mar-32 : 32px;
     --mar-48 : 48px;
     --mar-60 : 60px;
     --mar-72 : 72px;
+    --mar-100 : 100px;
+    --mar-150 : 150px;
 
     --fw-reg: 400;
     --fw-med: 500;
@@ -42,33 +44,34 @@
     --fw-bold: 700;
     --fw-extra: 800;
     
-    --fs-8: 8px;
+    --fs-11: 11px;
     --fs-12: 12px;
     --fs-14: 14px;
     --fs-16: 16px;
+    --fs-18: 18px;
     --fs-20: 20px;
     --fs-24: 24px;
     --fs-28: 28px;
     --fs-32: 32px;
     --fs-48: 48px;
-    --fs-60: 60px; 
+    --fs-64: 56px; 
     --fs-72: 72px; 
 
-    --screen-width: 430px;
-    --screen-height: 99vh;
-}
+    --ff-heading: "Nerko One", Verdana, sans-serif;
+    --ff-body: "Raleway", Arial, sans-serif;
 
+    --screen-width: 430px;
+    --screen-height: 100dvh;
+
+    font-size: 14px;
+}
 
 /* global styles / resets */
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: 'Albert Sans', Verdana, Geneva, Tahoma, sans-serif;
-}
-
-body { 
-    background-color: var(--color-black);
+    font-family: var(--ff-body);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -80,13 +83,19 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
+    border: none;
+    cursor: pointer;
+    font-weight: var(--fw-bold);
+}
+
+input, select, button, .btn {
     cursor: pointer;
 }
 
-input, select, button {
-    cursor: pointer;
+input {
+    border: none;
 }
-    
+
 .hidden {
     display: none !important;
 }
@@ -94,6 +103,11 @@ input, select, button {
 .active-section img {
     filter: opacity(1) !important;
 }
+
 .active-section p {
     color: black;
+}
+
+body {
+    background-color: black;
 }

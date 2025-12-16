@@ -4,119 +4,116 @@
  * 
  */ 
 import './StartSection.css'
-import dropdownIcon from './../../images/icons/dropdown-icon.png'
-import homeIcon from './../../images/icons/home-icon.png'
-import mapIcon from './../../images/icons/pin-solid-icon.png'
-import accountIcon from './../../images/icons/account-icon.png'
-import servicesData from './../../json/tags.json';
-import { useRef } from 'react';
-import { onAuthStateChangedListener } from '../../firebase/firebase.js'
 
-function StartSection({isActive, setAppSection, setAppService}) {
-    /**
-     * These are props. Yey.
-     * 
-     * These are just values or functions passed to this component. 
-     * To pass, you noticed the isActive = {...} and such in the App.js.
-     * 
-     * It is like a function, but a wacky way of passing values.
-     */
+import mascot from './../../images/logo/barney.jpg'
+import homeIcon from './../../images/icon/home-icon.png'
+import mapIcon from './../../images/icon/map-pin-icon.png'
+import accountIcon from './../../images/icon/user-icon.png'
+import searchIcon from './../../images/icon/search-icon.png'
 
+import serviceTagsData from './../../json/tags.json';
+import campusServicesData from './../../json/campus-facilities.json';
+import communityServicesData from './../../json/miagao-facilities.json';
 
-    /**
-     * UseRef is a hook that gets a reference to an element.
-     * If you know document.getElementByID() and such, that is what UseRef is.
-     * To set the reference, go to an element and put ref = {ref variable}.
-     * 
-     * You will see <section className="selections" ref={dropdownsRef}>
-     * 
-     * This just means that this section tag is being stored in the dropdownsRef variable 
-     * (just like document.getElementByID() :0)
-     * 
-     */
+import { use, useState } from 'react';
+import { onAuthStateChangedListener, getCurrentUser } from '../../firebase/firebase.js'
 
-    onAuthStateChangedListener(async (user) => {
-        if (user) {
-            console.log(`User logged in -\nName: ${user.displayName}\nEmail: ${user.email}\nUID: ${user.uid}`);
-        } else {
-            console.log("wala user eh :)");
-        }
-    })
-
-
-    const dropdownsRef = useRef(null);
-
-    function toggleDropdown(index) {
-        const dropdownsContainer = dropdownsRef.current;        // use current to get the actual element from dropdownsRef
-        const dropdown = dropdownsContainer.querySelectorAll('.service-dropdown .dropdown-option-list')[index];
-        dropdown.classList.toggle("hidden");
+function StartSection({setAppSection, setAppService}) {
+    /* For searching services through the search bar or filtering displayed services with tags */
+    const [activeCategory, setCategory] = useState("All")          
+    const [searchQuery, setSearchQuery] = useState("") 
+    const handleSearchChange = (event) => {
+        setSearchQuery(event.target.value.toLowerCase().trim()); 
     }
 
-    // Storing JSON from tags.json
-    const services = servicesData
+    /* For user choosing a service */
+    function chooseService(service) {
+        setAppService(service); 
+        setAppSection("MAP")
+    }
 
-    /**
-     * This is just basic HTML with some JS flavor.
-     * 
-     * It checks if it is the active page using isActive, if it is, then it is rendered, else it is not rendered. 
-     * We cannot work with If Else statements, so we use ? operator instead. 
-     *   
-     * Also, we do not addEventListener() anymore, we use onClick, onFocus, and etc. in the elements.
-     * React is wacky, it does not allow me to do imperative code :<
-     */
+    /* Services Data */
+    const tags = serviceTagsData.reduce((accumulator, curr) => [...accumulator , ...curr.tags], ["All"])
+    const services = [...campusServicesData, ...communityServicesData]
+    const filteredServices = services.filter(service => {
+        const nameLower = service.name.toLowerCase();    
+        const matchesSearch = nameLower.includes(searchQuery);
+        const matchesCategory = activeCategory === "All" || service.tags.includes(activeCategory);
+        return matchesSearch && matchesCategory;
+    });
+
     return (
-        (isActive) ? (
-            <div className="StartSection">
-
-                { /* Header */}
-                <main> 
-                    <figure className="mascot"></figure>
-                    <div className="mascot-dialogue">
-                        What services would you like me to find you?
-                    </div>
-                </main>   
-                
-                { /* Users see the dropdowns which contains the services they want to get */}
-                <section className="selections" ref={dropdownsRef}>
-                {
-                    services.map((service, index) => (
-                        <div key={index} className="service-dropdown">
-                            <div className="dropdown-selected-container"  onClick= {() => toggleDropdown(index)}>
-                                <p>{service.group}</p>
-                                <img src={dropdownIcon}></img>
-                            </div>
-                            <div className="dropdown-option-list hidden" onClick={() => setAppSection("MAP")}>
-                                {
-                                    service.tags.map((tag, tagIndex) => (
-                                        <button key={tagIndex} className="dropdown-option" onClick = {() => setAppService(tag)}>{tag}</button>
-                                    ))
-                                }
-                            </div>    
-                        </div>    
-                    ))  
-                }
-                </section>
+        <div className="StartSection">
+            <header> 
+                <figure className='logo'>
+                    <img src={mascot} alt='Logo Image'></img>
+                    <figcaption className="logo-name">
+                        Updi Ko
+                    </figcaption>
+                    <figcaption className='subheading'>Lorem ipsum dolor sit amet</figcaption>
+                </figure>
+            </header>   
             
-                { /* Navigation bar to other sections */}
-                <footer>
-                    <nav className="nav-bar">
-                        <div className="navigations active-section" onClick={() => setAppSection("HOME")}>
-                            <img src={homeIcon}></img>
-                            <p>Home</p>
+            <section className='search-section'>
+                <img src={searchIcon} className="icon"></img>
+                <input 
+                    className='search-bar' 
+                    placeholder='Search for Services'
+                    onChange={handleSearchChange}
+                />    
+            </section>
+
+            <section className='service-section'>
+                <h1>Services</h1>
+                <div className='categories'>
+                {
+                    tags.map((tag, index) => (
+                        <div 
+                            key={index} 
+                            className= { (tag == activeCategory) ? "category-btn active-category btn" : "category-btn btn" } 
+                            onClick= { () => setCategory(tag) } 
+                        >
+                            {tag}
                         </div>
-                        <div className="navigations" onClick={() => setAppSection("MAP")}>
+                    ))
+                }
+                </div>
+                <div className='service-list' key={activeCategory + searchQuery}>
+                {
+                    filteredServices.map((service, index) => (
+                        <div key={index} className='service-btn btn' onClick = {() => chooseService(service)} >
                             <img src={mapIcon}></img>
-                            <p>Map</p>
-                        </div>        
-                        <div className="navigations" onClick={() => setAppSection("ACCOUNT")}>
-                            <img src={accountIcon} id='account'></img>
-                            <p>Account</p>
+                            <div>
+                                <h2 className='title'>{service.name}</h2>
+                                <h3 className='tag'>{service.tags.join(", ")}</h3>
+                            </div>
                         </div>
-                    </nav>
-                </footer>     
-            </div>
-        ) : ( <></> )
-    );
+                    ))
+                }
+                </div>
+            </section>
+
+
+            <footer>
+                <nav>
+                    <ul>
+                        <li className='navigation active btn' onClick={ () => setAppSection("HOME") }>
+                            <img className='icon' src={homeIcon}></img>
+                            <p className='label'>Service</p>    
+                        </li>
+                        <li className='navigation btn' onClick={ () => setAppSection("MAP") }>
+                            <img className='icon' src={mapIcon}></img>
+                            <p className='label'>Map</p>    
+                        </li>
+                        <li className='navigation btn' onClick={ () => getCurrentUser() ? setAppSection("ACCOUNT") : setAppSection("LOGIN") }>
+                            <img className='icon' src={accountIcon}></img>
+                            <p className='label'>Account</p>    
+                        </li>
+                    </ul>
+                </nav>
+            </footer>
+        </div>
+    )
 }
 
 export default StartSection;

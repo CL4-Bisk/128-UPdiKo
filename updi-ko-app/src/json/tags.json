@@ -1,14 +1,30 @@
 [
     { 
-        "group": "University Services",
-        "tags" : ["Scholarship", "Register", "Makita si Crush"]
+        "group": "Fixed Services",
+        "tags" : [
+            "Scholarship",
+            "Register",
+            "Finance",
+            "Dormitory",
+            "Clinic",
+            "Cafeteria",
+            "Student Lounge"
+            
+        ]
     },
     { 
-        "group": "Food Services",
-        "tags" : ["Restaurant", "Cafeteria"]
-    },
-    { 
-        "group": "Entertainment Services",
-        "tags" : ["Bar", "Computer Shop"]
+        "group": "Miagao Services",
+        "tags" : [
+            "Computer Shop",
+            "Restaurant",
+            "Grocery",
+            "Media and Printing",
+            "Laundry",
+            "Legal Services",
+            "Pharmacy",
+            "Barber Shop",
+            "Pawnshop",
+            "Student Lounge"
+        ]
     }
 ]

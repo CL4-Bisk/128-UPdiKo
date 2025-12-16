@@ -1,78 +1,51 @@
-import './App.css'
 import { useState } from 'react';
 import MapSection from './sections/map-section/MapSection'
 import StartSection from './sections/start-section/StartSection';
 import AccountSection from './sections/account-section/AccountSection';
 import LoginSection from './sections/login-section/LoginSection';
 import RegisterSection from './sections/register-section/RegisterSection';
+import AccountInfoSection from './sections/account-info-section/AccountInfoSection';
+import AccountUpdateSection from './sections/account-update-section/AccountUpdateSection';
+import PersonalPinSection from './sections/personal-pin-section/PersonalPinSection';
 
 function App() {
-
-    /**
-     * This is an example of a hook. useState() in this case stores a state.
-     * 
-     * section variable is the current section in the app that the user is in. 
-     * Values are ("HOME", "MAP", "ACCOUNT", "MENU", "LOGIN", "REGISTER")
-     * As of now, we only have two pages, and by default, it starts with HOME
-     * 
-     * setSection function is just what you expect. It is a setter to change the section variable.
-     * 
-     */  
-    const [section, setSection] = useState("HOME");
-
-    /**
-     * service variable is the current service that the user inputted after pressing 
-     * his/her/their desired service in the HOME page.
-     *  
-     * setService function is just what you expect. It is a setter to change the service variable.
-     * By default, the service set is All or "all services, no filters".
-     */  
-    const [service, setService] = useState("All");    
-    /**
-     * This is the returned JSX file. Add more JSX components for future sections.
-     * 
-     * You may see a new tag <StartSection/> and <MapSection/>. These are your components 
-     * from the sections folder. These are basically custom HTML.
-     *      
-     * You may see that there are properties inside the <StartSection/> and <MapSection/>.
-     * These are properties. Go to StartSection.js for the properties.
-     * Mainly, these props are ways to customize these custom HTML elements or pass values
-     * from parent (containing) component to child (contained) component. In this case,
-     * we are seeing if it is the active section using isActive, and we are passing the setter 
-     * functions from parent to child, so that the child can also use these setters.
-     * 
+    /** 
+     *  This hook is a global state that keeps track of the current page the user is in.  
+     *  The pages are: HOME, MAP, ACCOUNT, LOGIN, & REGISTER  
      */
-    return ( 
-        <div className="App">
-            <div className="HomeUI">
-                <StartSection 
-                    isActive = { section  === "HOME"} 
-                    setAppSection = {setSection}  
-                    setAppService = {setService}
-                />
-                <MapSection 
-                    isActive = { section === "MAP"} 
-                    setAppSection = {setSection} 
-                    service = {service}
-                    setAppService = {setService}
-                />
-                <AccountSection 
-                    isActive = { section === "ACCOUNT"} 
-                    setAppSection = {setSection}
-                />
-            </div>
-            <div className='AccountUI'>
-                <LoginSection 
-                    isActive = { section === "LOGIN"} 
-                    setAppSection = {setSection}
-                />
-                <RegisterSection 
-                    isActive = { section === "REGISTER"} 
-                    setAppSection = {setSection}
-                />
-            </div>
-        </div>
-    );
+    const [section, setSection] = useState("HOME");
+    
+    
+    /**
+     * This hook is a global state that keeps track of the current service the user chose/searched 
+     * from HOME or MAP
+     * 
+     * The service state will be kept until the user exits MAP.  
+     * The service will be displayed in MAP.
+     */
+    const [service, setService] = useState(null); 
+
+    /**
+     * These are the routes or logic for the currently renderd page.
+     */
+    switch (section) {
+    case "HOME":
+        return <StartSection setAppSection={setSection} setAppService={setService} />;
+    case "MAP":
+        return <MapSection setAppSection={setSection} service={service} setAppService={setService} />;
+    case "ACCOUNT":
+        return <AccountSection setAppSection={setSection} />;
+    case "ACCOUNT-UPDATE": 
+        return <AccountUpdateSection setAppSection={setSection} />;
+    case "LOGIN":
+        return <LoginSection setAppSection={setSection} />;
+    case "REGISTER":
+        return <RegisterSection setAppSection={setSection} />;
+    case "PERSONAL-PIN":
+        return <PersonalPinSection setAppSection={setSection} />;
+    default:
+        return <StartSection setAppSection={setSection} setAppService={setService} />; // Fallback
+    }
 }
 
 export default App;
