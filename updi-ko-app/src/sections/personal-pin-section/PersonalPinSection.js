@@ -1,6 +1,6 @@
 import './PersonalPinSection.css'
 
-import mascot from './../../images/logo/barney.jpg'
+import mascot from './../../images/logo/logo.png'
 import homeIcon from './../../images/icon/home-icon.png'
 import mapIcon from './../../images/icon/map-pin-icon.png'
 import accountIcon from './../../images/icon/user-icon.png'
@@ -49,7 +49,7 @@ function PersonalPinSection({setAppSection, setAppService}) {
 
         <section className="section-name"> 
            <hgroup>
-                <h1>Update Account</h1>
+                <h1>Your Personal Pins</h1>
             </hgroup>
             <figure className="back-button btn" onClick={ () => setAppSection("ACCOUNT")} >
               <img src={backIcon}></img>  
@@ -60,15 +60,20 @@ function PersonalPinSection({setAppSection, setAppService}) {
                 {pinnedLocations.length === 0 ? (
                     <p>You have no personal pins yet.</p>
                 ) : (
-                    <div className='pinned-locations'>
-                        {pinnedLocations.map((index, location) => (
-                            <div className='pinned-location-card' key={index}>
-                                <h3 className='location-name'>{location.locationName}</h3>
-                                <p className='location-coordinates'>Lat: {location.latitude}, Lng: {location.longitude}</p>
-                                <p className='location-description'>{location.description}</p>
+                   <div className='service-list' >
+                    {
+                        pinnedLocations.map((location) => (
+                            <div className='service-btn btn' key={location.id}>
+                                <img src={mapIcon}></img>
+                                <div>
+                                    <h2 className='title'>{location.locationName}</h2>
+                                    <p className='address'>{ location.address }</p>
+                                    <p className='desc'>{location.description}</p>                        
+                                </div>
                             </div>
-                        ))}
-                    </div>
+                        ))
+                    }
+                    </div>  
                 )}
             </section>
                     

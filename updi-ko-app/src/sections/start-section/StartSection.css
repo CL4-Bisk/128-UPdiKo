@@ -34,6 +34,17 @@
     justify-content: space-between;
     margin-top: var(--mar-16);
 
+    /* SUBGROUP: LOGO IMG */
+    .image-container {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #d0d672;
+    }
+
     /* SUBGROUP: LOGO */
     .logo {
         display: flex;
@@ -41,8 +52,8 @@
         justify-content: center;
     }
     .logo img {
-        width: 70px;
-        height: 70px;
+        width: 80px;
+        height: 80px;
         border-radius: 50%;
     }
     .logo .logo-name {
@@ -221,7 +232,6 @@
         letter-spacing: 0.25px;
         opacity: 50%;
     }
-    
 }
 
 /* MAIN GROUP: FOOTER */

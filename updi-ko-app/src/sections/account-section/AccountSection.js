@@ -1,10 +1,9 @@
 import './AccountSection.css';
 
-import mascot from './../../images/logo/barney.jpg'
+import mascot from './../../images/logo/logo.png'
 import homeIcon from './../../images/icon/home-icon.png'
 import mapIcon from './../../images/icon/map-pin-icon.png'
 import accountIcon from './../../images/icon/user-icon.png'
-import bookmarkIcon from './../../images/icon/saved-icon.png'
 import logoutIcon from './../../images/icon/logout-icon.png'
 
 import { logOut, getCurrentUser, getUserDataFromDB } from '../../firebase/firebase.js';
@@ -40,7 +39,7 @@ function AccountSection({ setAppSection}) {
                 </hgroup>
                 <div className='dashboard-options'>
                     <div className='option-btn btn' onClick={() => setAppSection("ACCOUNT-UPDATE")}>
-                        <img src={bookmarkIcon}></img>
+                        <img src={accountIcon}></img>
                         <div>
                             <h2 className='title'>Update Account</h2>
                             <h3 className='subtitle'>Change your account details</h3>

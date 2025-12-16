@@ -1,7 +1,7 @@
 import './RegisterSection.css';
 import { signUp, saveUserDataToDB, updateUserProfile } from "../../firebase/firebase.js"; 
 
-import mascot from './../../images/logo/barney.jpg'
+import mascot from './../../images/logo/logo.png'
 import homeIcon from './../../images/icon/home-icon.png'
 import mapIcon from './../../images/icon/map-pin-icon.png'
 import accountIcon from './../../images/icon/user-icon.png'
