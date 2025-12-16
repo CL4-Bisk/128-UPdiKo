@@ -9,14 +9,14 @@ import backIcon from './../../images/icon/back-icon.png';
 import closeIcon from './../../images/icon/close-icon.png';
 import nextIcon from './../../images/icon/next-icon.png';
 
-import campusServicesData from './../../json/campus-facilities.json';
-import communityServicesData from './../../json/miagao-facilities.json';
+import campusServicesData from '../../json/campus-facilities.json';
+import communityServicesData from '../../json/miagao-facilities.json';
 import { act, useState, useEffect, useRef } from 'react';
 
 import { getCurrentUser, addPinnedLocationToDB } from '../../firebase/firebase.js';
 
 import React from "react";
-import MapView from "./MapView";
+import MapView from "./MapView.jsx";
 
 function MapSection({setAppSection, service, setAppService}) {   
     /* Search Location Logic */
