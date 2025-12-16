@@ -14,6 +14,12 @@ function App() {
      */
     const [section, setSection] = useState("HOME");
     
+    /** 
+     *  This hook is a global state that keeps track of the previous page that user was in.  
+     */
+    const [redirect, setRedirectBody] = useState(null);
+    
+
     /**
      * This hook is a global state that keeps track of the current service the user chose/searched 
      * from HOME or MAP
@@ -32,7 +38,9 @@ function App() {
     case "MAP":
         return <MapSection setAppSection={setSection} service={service} setAppService={setService} />;
     case "ACCOUNT":
-        return <AccountSection setAppSection={setSection} />;
+        return <AccountSection setAppSection={setSection} redirect={redirect} setAppRedirectBody={setRedirectBody}/>;
+    case "ACCOUNT-UPDATE": 
+        return <AccountUpdateSection setAppSection={setSection} redirect={redirect} setAppRedirectBody={setRedirectBody}/>;
     case "LOGIN":
         return <LoginSection setAppSection={setSection} />;
     case "REGISTER":
