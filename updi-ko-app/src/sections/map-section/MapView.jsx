@@ -8,6 +8,8 @@ import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import closeIcon from './../../images/icon/close-icon.png';
 import timeIcon from './../../images/icon/time-icon.png';
+import blueIcon from './../../images/icon/blue-dot.png';
+
 import { onAuthStateChangedListener, getPinnedLocationsFromDB } from "../../firebase/firebase.js";
 import Miagao from "../../json/miagao-facilities.json"
 import Campus from "../../json/campus-facilities.json"
@@ -18,6 +20,14 @@ L.Icon.Default.mergeOptions({
   iconRetinaUrl: markerIcon2x,
   iconUrl: markerIcon,
   shadowUrl: markerShadow,
+});
+
+// Custom icon for the user's location (assuming a simple blue dot or custom image)
+const userIcon = new L.Icon({
+    iconUrl: blueIcon,
+    iconSize: [20, 20],
+    iconAnchor: [10, 10], // Centered
+    className: 'user-location-marker' 
 });
 
 // function LocationMarker({ tempLocation, selectedMarkerInfo, setTempLocation, setSelectedMarkerInfo }) {
@@ -136,6 +146,44 @@ function ChangeView({ center, zoom }) {
   return null;
 }
 
+// NEW COMPONENT: Displays the user's marker and handles the view tracking
+function UserLocationMarker({ coords, trackingEnabled }) {
+    const map = useMap();
+    const markerRef = useRef(null);
+
+    // useEffect to handle the continuous view update when tracking is ON
+    useEffect(() => {
+        if (trackingEnabled && coords) {
+            // This is handled by the parent's state and ChangeView component now,
+            // but we can ensure the view is centered whenever coords update *if* tracking is on
+            map.setView([coords.lat, coords.lng], map.getZoom(), {
+                animate: true,
+                duration: 0.5
+            });
+        }
+    }, [coords, trackingEnabled, map]);
+
+    if (!coords) {
+        return null;
+    }
+
+    // Coordinates are {lat, lng} objects
+    const position = [coords.lat, coords.lng];
+
+    return (
+        <Marker 
+            position={position}
+            icon={userIcon}
+            ref={markerRef}
+        >
+            <Popup>
+                You are here.
+                {trackingEnabled && <span className="tracking-badge"> (Tracking ON)</span>}
+            </Popup>
+        </Marker>
+    );
+}
+
 // // main map element
 function MapView({ userLocation, currentCoords, trackingEnabled, selectedService, onMapClickForPin, onClosePinForm, onMarkerClick }) {
   const defaultCenter = [10.641944, 122.235556];
@@ -233,6 +281,8 @@ function MapView({ userLocation, currentCoords, trackingEnabled, selectedService
             attribution='&copy; <a href="https://stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
             url='https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png'
         />
+        {/* Render the user's current location marker and tracking logic */}
+        <UserLocationMarker coords={currentCoords} trackingEnabled={trackingEnabled} />
         <LocationMarker 
             tempLocation={tempLocation}
             setTempLocation={setTempLocation} 

@@ -60,44 +60,59 @@ function MapSection({setAppSection, service, setAppService}) {
     // Ref to hold the watchPosition ID so we can clear it later
     const watchIdRef = useRef(null);
 
-    // // NEW useEffect: Start continuous tracking on mount
-    // useEffect(() => {
-    //     if ("geolocation" in navigator) {
-    //         // Function to handle location update
-    //         const successHandler = (position) => {
-    //             const location = {
-    //                 lat: position.coords.latitude,
-    //                 lng: position.coords.longitude,
-    //             };
-    //             setUserCurrentLocation(location);
+    // NEW useEffect: Start continuous tracking on mount
+    useEffect(() => {
+        if ("geolocation" in navigator) {
+            // Function to handle location update
+            const successHandler = (position) => {
+                const location = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                };
+                setUserCurrentLocation(location);
                 
-    //             // If tracking is enabled, update the mapCenter state immediately
-    //             if (trackingEnabled) {
-    //                 setMapCenter(location);
-    //             }
-    //         };
+                // If tracking is enabled, update the mapCenter state immediately
+                if (trackingEnabled) {
+                    setMapCenter(location);
+                }
+            };
             
-    //         const errorHandler = (error) => {
-    //             console.error("Error getting user location:", error);
-    //         };
+            const errorHandler = (error) => {
+                console.error("Error getting user location:", error);
+            };
 
-    //         // Start continuous watching and store the ID in the ref
-    //         watchIdRef.current = navigator.geolocation.watchPosition(
-    //             successHandler,
-    //             errorHandler,
-    //             { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
-    //         );
-    //     } else {
-    //         console.log("Geolocation is not supported by this browser.");
-    //     }
+            // Start continuous watching and store the ID in the ref
+            watchIdRef.current = navigator.geolocation.watchPosition(
+                successHandler,
+                errorHandler,
+                { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+            );
+        } else {
+            console.log("Geolocation is not supported by this browser.");
+        }
 
-    //     // Cleanup function: Stops watching when the component unmounts
-    //     return () => {
-    //         if (watchIdRef.current) {
-    //             navigator.geolocation.clearWatch(watchIdRef.current);
-    //         }
-    //     };
-    // }, [trackingEnabled]);
+        // Cleanup function: Stops watching when the component unmounts
+        return () => {
+            if (watchIdRef.current) {
+                navigator.geolocation.clearWatch(watchIdRef.current);
+            }
+        };
+    }, [trackingEnabled]);
+
+    // REVISED: Function to toggle tracking (Recenter Button)
+    const handleRecenter = () => {
+        // Toggle tracking state
+        const newTrackingState = !trackingEnabled;
+        setTrackingEnabled(newTrackingState);
+
+        if (newTrackingState && userCurrentLocation) {
+            // If turning tracking ON, immediately center the map on the user's last known location
+            setMapCenter(userCurrentLocation);
+        } else if (!userCurrentLocation) {
+             alert("User location is not available.");
+             setTrackingEnabled(false);
+        }
+    };
 
     // NEW FUNCTION: Centralized way to close the form and clear temporary state
     const handleCloseCreatePin = () => {
@@ -327,7 +342,10 @@ function MapSection({setAppSection, service, setAppService}) {
         
 
             <section className="controls">
-                <button className="current-location-btn">
+                <button 
+                    className={"current-location-btn " + (trackingEnabled ? "active-tracking" : "")} 
+                    onClick={handleRecenter}
+                >
                     <img className="current-location-img" src={compassIcon}></img>
                 </button>    
                 <br></br>
