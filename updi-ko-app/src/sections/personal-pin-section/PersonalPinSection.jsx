@@ -58,7 +58,12 @@ function PersonalPinSection({setAppSection, setAppService}) {
 
             <section className='personal-pins'>
                 {pinnedLocations.length === 0 ? (
-                    <p>You have no personal pins yet.</p>
+                     <div className='service-btn btn' key={location.id}>
+                        <img src={mapIcon}></img>
+                        <div>
+                            <h2 className='title'>{location.locationName}</h2>
+                        </div>
+                    </div>
                 ) : (
                    <div className='service-list' >
                     {
