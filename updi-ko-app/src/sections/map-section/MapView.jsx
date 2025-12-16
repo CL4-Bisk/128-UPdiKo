@@ -8,7 +8,10 @@ import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import closeIcon from './../../images/icon/close-icon.png';
 import timeIcon from './../../images/icon/time-icon.png';
-import blueIcon from './../../images/icon/blue-dot.png';
+import userPinIcon from './../../images/icon/5.png';
+import communityPinIcon from './../../images/icon/3.png';
+import universityPinIcon from './../../images/icon/4.png';
+import customPinIcon from './../../images/icon/6.png';
 
 import { onAuthStateChangedListener, getPinnedLocationsFromDB } from "../../firebase/firebase.js";
 import Miagao from "../../json/miagao-facilities.json"
@@ -24,8 +27,29 @@ L.Icon.Default.mergeOptions({
 
 // Custom icon for the user's location (assuming a simple blue dot or custom image)
 const userIcon = new L.Icon({
-    iconUrl: blueIcon,
-    iconSize: [20, 20],
+    iconUrl: userPinIcon,
+    iconSize: [40, 40],
+    iconAnchor: [10, 10], // Centered
+    className: 'user-location-marker' 
+});
+
+const communityIcon = new L.Icon({
+    iconUrl: communityPinIcon,
+    iconSize: [50, 50],
+    iconAnchor: [10, 10], // Centered
+    className: 'user-location-marker' 
+});
+
+const universityIcon = new L.Icon({
+    iconUrl: universityPinIcon,
+    iconSize: [50, 50],
+    iconAnchor: [10, 10], // Centered
+    className: 'user-location-marker' 
+});
+
+const customIcon = new L.Icon({
+    iconUrl: customPinIcon,
+    iconSize: [50, 50],
     iconAnchor: [10, 10], // Centered
     className: 'user-location-marker' 
 });
@@ -294,6 +318,7 @@ function MapView({ userLocation, currentCoords, trackingEnabled, selectedService
         />
         {tempLocation && (
           <Marker 
+            icon={userIcon} 
             position={[tempLocation.latitude, tempLocation.longitude]} 
             eventHandlers={{ click: () => {handleMarkerClick(tempLocation, tempLocation.latitude, tempLocation.longitude)} }}
           >
@@ -309,17 +334,17 @@ function MapView({ userLocation, currentCoords, trackingEnabled, selectedService
           <Popup>You are here</Popup>
         </Marker> */}
          {pinnedLocations.map((pin) => (
-          <Marker key={pin.id} position={[pin.latitude, pin.longitude]} eventHandlers={{ click: () => {handleMarkerClick(pin, pin.latitude, pin.longitude)} }}>
+          <Marker key={pin.id} position={[pin.latitude, pin.longitude]} icon={customIcon} eventHandlers={{ click: () => {handleMarkerClick(pin, pin.latitude, pin.longitude)} }}>
             {/* <Popup>{pin.name}</Popup> */}
           </Marker>
         ))}
         {Miagao.filter(shouldShowMarker).map((facility) => (
-          <Marker key={facility.id} position={facility.reformat_coords} eventHandlers={{ click: () => {handleMarkerClick({...facility, type: "Miagao"}, facility.reformat_coords[0], facility.reformat_coords[1])} }}>
+          <Marker key={facility.id} position={facility.reformat_coords} icon={communityIcon} eventHandlers={{ click: () => {handleMarkerClick({...facility, type: "Miagao"}, facility.reformat_coords[0], facility.reformat_coords[1])} }}>
             {/* <Popup>{facility.name}</Popup> */}
           </Marker>
         ))}
         {Campus.filter(shouldShowMarker).map((facility) => (
-          <Marker key={facility.id} position={facility.reformat_coords} eventHandlers={{ click: () => {handleMarkerClick({...facility, type: "Campus"}, facility.reformat_coords[0], facility.reformat_coords[1])} }}>
+          <Marker key={facility.id} position={facility.reformat_coords} icon={universityIcon} eventHandlers={{ click: () => {handleMarkerClick({...facility, type: "Campus"}, facility.reformat_coords[0], facility.reformat_coords[1])} }}>
             {/* <Popup>{facility.name}</Popup> */}
           </Marker>
         ))} 
